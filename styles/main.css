@@ -4,3 +4,12 @@
     background-color: rgb(236, 236, 236);
     overflow: auto;
 }
+
+/* Make buttons float right in box sections */
+.box-section .box-buttons {
+    float: right;
+}
+
+.box-section .box-title {
+    float: left;
+}
