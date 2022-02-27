@@ -14,10 +14,22 @@
     float: left;
 }
 
-table, th, td {
+table {
     border: 1px solid !important;
     background-color: white;
-    margin-left:0px;
-    margin-right:0px;
     margin: auto;
+}
+
+/* Only horizontal bars on tables */
+tr {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-collapse: collapse;
+    height: 60px;
+}
+
+/* Add left padding to tables */
+td:first-child, th:first-child {
+  padding-left:20px;
+  padding-right:0;
 }
