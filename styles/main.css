@@ -18,6 +18,7 @@ table {
     border: 1px solid !important;
     background-color: white;
     margin: auto;
+    margin-top: 20px;
 }
 
 /* Only horizontal bars on tables */
