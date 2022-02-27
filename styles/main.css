@@ -13,3 +13,11 @@
 .box-section .box-title {
     float: left;
 }
+
+table, th, td {
+    border: 1px solid !important;
+    background-color: white;
+    margin-left:0px;
+    margin-right:0px;
+    margin: auto;
+}
