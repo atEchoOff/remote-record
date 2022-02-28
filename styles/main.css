@@ -34,3 +34,61 @@ td:first-child, th:first-child {
   padding-left:20px;
   padding-right:0;
 }
+
+/* CSS for circular buttons, as used in recording boxes for play/record */
+.circular-button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #595959;
+    background-color: white;
+}
+.recording-box {
+    border: 2px solid black;
+    border-radius:10px;
+    margin:2px;
+    width: fit-content;
+    height:65px;
+    float:left;
+    white-space:nowrap;
+}
+.recording-box-panel{
+    border-right: 2px solid black;
+    padding: 5px;
+    padding-right:20px;
+    width: 60px;
+    float:left;
+}
+.recording-box-label{
+    background-color: rgba(255,255,255,0.2);
+    width: fit-content;
+    height: 25px;
+    float:left;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.recording-waveform-end{
+    width:fit-content;
+    height: 100%;
+    float:left;
+    position:relative;
+}
+.recording-waveform{
+    width:fit-content;
+    height: 100%;
+    float:left;
+}
+.new-recording-waveform{
+    width:fit-content;
+    height: 100%;
+    float:left;
+    width:500px;
+}
+.recording-waveform img{
+    max-height: 54px;
+    margin-top:3px;
+    margin-bottom:3px;
+    float:left;
+    object-fit: cover;
+}
