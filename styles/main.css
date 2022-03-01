@@ -34,3 +34,95 @@ td:first-child, th:first-child {
   padding-left:20px;
   padding-right:0;
 }
+
+.recording-section {
+    overflow:auto;
+}
+
+/* CSS for circular buttons, as used in recording boxes for play/record */
+.circular-button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #595959;
+    background-color: white;
+}
+/* Used for the div which makes a recording box */
+.recording-box {
+    border: 2px solid black;
+    border-radius:10px;
+    margin:2px;
+    display: inline-block;
+    height:65px;
+    white-space:nowrap;
+    overflow:auto;
+    position:relative;
+    background-color:white;
+}
+/* Used for the left side of the recording with the play button in it */
+.recording-box-panel{
+    border-right: 2px solid black;
+    padding: 5px;
+    padding-right:20px;
+    width: 60px;
+    float:left;
+    position:absolute;
+    top:0px;
+    left:0;
+}
+/* Used for the label of the recording on the right side */
+.recording-box-label{
+    background-color: rgba(255,255,255,0.2);
+    width: fit-content;
+    height: 25px;
+    float:left;
+    position:absolute;
+    top:0;
+    left:60px;
+}
+/* used for the right side of the recording with the label/waveform in it */
+.recording-waveform-end{
+    width: 100%;
+    height: 100%;
+    float:left;
+    position:relative;
+    display:inline;
+    padding-left:60px;
+}
+/* used for the actual waveform */
+.recording-waveform{
+    width:100%;
+    height: 100%;
+    float:left;
+    display:inline;
+}
+/* used for the actual waveform for the new recording box */
+.new-recording-waveform{
+    width:fit-content;
+    height: 100%;
+    float:left;
+    width:500px;
+}
+/* Used for the waveform image itself*/
+.recording-waveform img{
+    max-height: 54px;
+    margin-top:3px;
+    margin-bottom:3px;
+    float:left;
+    display:inline;
+    width:100%;
+    height:54px;
+}
+
+.delete-button{
+    display:inline;
+    float: right;
+    white-space: nowrap;
+    position:absolute;
+    bottom:0;
+    right:0px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #595959;
+}
