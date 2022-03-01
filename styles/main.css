@@ -127,15 +127,29 @@ td:first-child, th:first-child {
     border: 2px solid #595959;
 }
 
+.download-button{
+    display:inline;
+    float: right;
+    white-space: nowrap;
+    position:absolute;
+    bottom:0;
+    /* 5 px to the left of the delete button */
+    right:30px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #595959;
+}
+
 .composition-edit-box {
     border: 1px solid black;
     margin-top: 10px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .box-header {
     background-color: white;
     border: 1px solid black;
-    width: auto;
+    width: 100%;
     padding: 5px;
 }

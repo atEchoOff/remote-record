@@ -67,7 +67,7 @@
 
         <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-            <button type="button" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-success" style="top:5px;">Save</button>
           </div>
         </div>
         <div style="clear:both"></div>
@@ -82,7 +82,7 @@
         </div>
         <div class="recording-waveform-end">
           <div class="recording-box-label">
-            <p>Recording name</p>
+            <p>Brian Christner</p>
           </div>
           <div class="recording-waveform">
             <img src="WaveForm.webp"></img>
@@ -103,7 +103,7 @@
         </div>
         <div class="recording-waveform-end">
           <div class="recording-box-label">
-            <p>Recording name</p>
+            <p>Jimmy Connors</p>
           </div>
           <div class="recording-waveform">
             <img src="WaveForm.webp"></img>
@@ -123,7 +123,7 @@
         </div>
         <div class="recording-waveform-end">
           <div class="recording-box-label">
-            <p>Recording name</p>
+            <p>Felix Mendelssohn</p>
           </div>
           <div class="recording-waveform">
             <img src="WaveForm.webp"></img>
@@ -135,6 +135,60 @@
       </div>
       <div style="clear:both"></div>
     </div>
+
+    <h2 class="box-title">Saved Recordings</h2>
+    <div style="clear:both"></div>
+    <!-- Recording template with download button -->
+    <div class="recording-box" style="width:800px;">
+      <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
+      <div class="recording-box-panel">
+        <a href="">
+          <img src="PlaySymbol.png" class="circular-button" alt="Play"></img>
+        </a>
+      </div>
+      <div class="recording-waveform-end">
+        <div class="recording-box-label">
+          <p>With Basses</p>
+        </div>
+        <div class="recording-waveform">
+          <img src="WaveForm.webp"></img>
+        </div>
+      </div>
+      <a href="">
+        <img src="download.png" class="download-button" alt="Download"></img>
+      </a>
+      <a href="">
+        <img src="delete.png" class="delete-button" alt="Delete"></img>
+      </a>
+    </div>
+    <div style="clear:both"></div>
+    <!-- End of Template -->
+    <!-- Recording template with download button -->
+    <div class="recording-box" style="width:800px;">
+      <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
+      <div class="recording-box-panel">
+        <a href="">
+          <img src="PlaySymbol.png" class="circular-button" alt="Play"></img>
+        </a>
+      </div>
+      <div class="recording-waveform-end">
+        <div class="recording-box-label">
+          <p>Without Basses</p>
+        </div>
+        <div class="recording-waveform">
+          <img src="WaveForm.webp"></img>
+        </div>
+      </div>
+      <a href="">
+        <img src="download.png" class="download-button" alt="Download"></img>
+      </a>
+      <a href="">
+        <img src="delete.png" class="delete-button" alt="Delete"></img>
+      </a>
+    </div>
+    <div style="clear:both"></div>
+    <!-- End of Template -->
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
