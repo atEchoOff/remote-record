@@ -29,6 +29,10 @@ tr {
     height: 60px;
 }
 
+tr:hover {
+    background-color: rgb(241, 241, 241);
+}
+
 /* Add left padding to tables */
 td:first-child, th:first-child {
   padding-left:20px;
@@ -46,6 +50,10 @@ td:first-child, th:first-child {
     height: 50px;
     border: 2px solid #595959;
     background-color: white;
+}
+
+.circular-button:hover {
+    opacity: 70%;
 }
 /* Used for the div which makes a recording box */
 .recording-box {
@@ -69,6 +77,7 @@ td:first-child, th:first-child {
     position:absolute;
     top:0px;
     left:0;
+    z-index: 9999;
 }
 /* Used for the label of the recording on the right side */
 .recording-box-label{
@@ -127,6 +136,10 @@ td:first-child, th:first-child {
     border: 2px solid #595959;
 }
 
+.delete-button:hover {
+    opacity: 80%;
+}
+
 .download-button{
     display:inline;
     float: right;
@@ -139,6 +152,10 @@ td:first-child, th:first-child {
     width: 25px;
     height: 25px;
     border: 2px solid #595959;
+}
+
+.download-button:hover {
+    opacity: 80% !important;
 }
 
 .composition-edit-box {
