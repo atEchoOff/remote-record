@@ -170,3 +170,8 @@ td:first-child, th:first-child {
     width: 100%;
     padding: 5px;
 }
+
+.ml-auto {
+    margin: 0;
+    float: left !important;
+}
