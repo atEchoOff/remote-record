@@ -171,7 +171,6 @@ td:first-child, th:first-child {
     padding: 5px;
 }
 
-.ml-auto {
-    margin: 0;
-    float: left !important;
+td a:hover {
+    color: rgb(70, 70, 70);
 }
