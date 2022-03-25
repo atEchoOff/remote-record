@@ -43,7 +43,7 @@
         <!-- Note: width will be set by javascript case-by-case once we have actual recordings-->
         <div class="recording-box-panel">
           <a href="">
-            <img src="PlaySymbol.png" class="circular-button" alt="Play">
+            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
           </a>
         </div>
         <div class="recording-waveform-end">
@@ -55,7 +55,7 @@
           </div>
         </div>
         <a href="">
-          <img src="delete.png" class="delete-button" alt="Delete">
+          <img src="images/delete.png" class="delete-button" alt="Delete">
         </a>
       </div>
       <div style="clear:both"></div>
@@ -64,7 +64,7 @@
         <!--Again, width will be set by javascript-->
         <div class="recording-box-panel">
           <a href="">
-            <img src="PlaySymbol.png" class="circular-button" alt="Play">
+            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
           </a>
         </div>
         <div class="recording-waveform-end">
@@ -75,7 +75,7 @@
             <img src="WaveForm.webp" alt="Waveform">
           </div>
           <a href="">
-            <img src="delete.png" class="delete-button" alt="Delete">
+            <img src="images/delete.png" class="delete-button" alt="Delete">
           </a>
         </div>
       </div>
@@ -91,7 +91,7 @@
         <!--Again, width will be set by javascript-->
         <div class="recording-box-panel">
           <a href="">
-            <img src="PlaySymbol.png" class="circular-button" alt="Play">
+            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
           </a>
         </div>
         <div class="recording-waveform-end">
@@ -108,7 +108,7 @@
       <div class="recording-box">
         <div class="recording-box-panel">
           <a href="">
-            <img src="recording.png" class="circular-button" alt="Record">
+            <img src="images/recording.png" class="circular-button" alt="Record">
           </a>
         </div>
         <div class="recording-waveform-end">

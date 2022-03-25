@@ -43,17 +43,17 @@
         <div class="btn-toolbar box-title" role="toolbar">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <a href="#">
-              <img src="PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
             <a href="#">
-              <img src="hand.png" class="circular-button" alt="Drag">
+              <img src="images/hand.png" class="circular-button" alt="Drag">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
             <a href="#">
-              <img src="cut.png" class="circular-button" alt="Cut">
+              <img src="images/cut.png" class="circular-button" alt="Cut">
             </a>
           </div>
         </div>
@@ -71,7 +71,7 @@
           <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
           <div class="recording-box-panel">
             <a href="#">
-              <img src="PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="recording-waveform-end">
@@ -83,7 +83,7 @@
             </div>
           </div>
           <a href="#">
-            <img src="delete.png" class="delete-button" alt="Delete">
+            <img src="images/delete.png" class="delete-button" alt="Delete">
           </a>
         </div>
         <div style="clear:both"></div>
@@ -92,7 +92,7 @@
           <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
           <div class="recording-box-panel">
             <a href="#">
-              <img src="PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="recording-waveform-end">
@@ -104,7 +104,7 @@
             </div>
           </div>
           <a href="#">
-            <img src="delete.png" class="delete-button" alt="Delete">
+            <img src="images/delete.png" class="delete-button" alt="Delete">
           </a>
         </div>
         <div style="clear:both"></div>
@@ -112,7 +112,7 @@
           <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
           <div class="recording-box-panel">
             <a href="#">
-              <img src="PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="recording-waveform-end">
@@ -124,7 +124,7 @@
             </div>
           </div>
           <a href="#">
-            <img src="delete.png" class="delete-button" alt="Delete">
+            <img src="images/delete.png" class="delete-button" alt="Delete">
           </a>
         </div>
         <div style="clear:both"></div>
@@ -139,7 +139,7 @@
         <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
         <div class="recording-box-panel">
           <a href="#">
-            <img src="PlaySymbol.png" class="circular-button" alt="Play">
+            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
           </a>
         </div>
         <div class="recording-waveform-end">
@@ -151,10 +151,10 @@
           </div>
         </div>
         <a href="#">
-          <img src="download.png" class="download-button" alt="Download">
+          <img src="images/download.png" class="download-button" alt="Download">
         </a>
         <a href="#">
-          <img src="delete.png" class="delete-button" alt="Delete">
+          <img src="images/delete.png" class="delete-button" alt="Delete">
         </a>
       </div>
       <div style="clear:both"></div>
@@ -164,7 +164,7 @@
         <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
         <div class="recording-box-panel">
           <a href="#">
-            <img src="PlaySymbol.png" class="circular-button" alt="Play">
+            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
           </a>
         </div>
         <div class="recording-waveform-end">
@@ -176,10 +176,10 @@
           </div>
         </div>
         <a href="#">
-          <img src="download.png" class="download-button" alt="Download">
+          <img src="images/download.png" class="download-button" alt="Download">
         </a>
         <a href="#">
-          <img src="delete.png" class="delete-button" alt="Delete">
+          <img src="images/delete.png" class="delete-button" alt="Delete">
         </a>
       </div>
       <div style="clear:both"></div>
