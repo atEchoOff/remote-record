@@ -19,23 +19,24 @@ $db->query("create table User (
 $db->query("drop table if exists Composition;");
 $db->query("create table Composition (
     id int not null auto_increment,
-    user_id int not null,
     name text not null,
+    user_email text not null,
     primary key (id)
 );");
 
 $db->query("drop table if exists UserComposition;");
 $db->query("create table UserComposition (
     id int not null auto_increment,
-    user_id int not null,
-    composition_id int not null,
+    email text not null,
+    name text not null,
     primary key (id)
 );");
 
 $db->query("drop table if exists Recording;");
 $db->query("create table Recording (
     id int not null auto_increment,
-    author_id int not null,
-    composition_id int not null,
+    location text not null,
+    author text not null,
+    composition text not null,
     primary key (id)
 );");
