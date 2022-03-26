@@ -18,6 +18,9 @@ class Controller
             case "login":
                 $this->login();
                 break;
+            case "logout":
+                $this->logout();
+                break;
             case "home":
                 $this->home();
                 break;
@@ -54,7 +57,6 @@ class Controller
                 // username and password correct
                 if (sizeof($val) === 1 and $user_exists) {
                     $_SESSION["email"] = $user["email"];
-                    $_SESSION["id"] = $user["id"];
 
                     header("Location: ?command=home");
                 }
@@ -63,6 +65,8 @@ class Controller
                     // create account
                     $_SESSION["email"] = $_POST["email"];
                     $this->db->query("insert into user (email, password) values (?, ?);", "ss", $_POST["email"], password_hash($_POST["password"], PASSWORD_DEFAULT));
+
+                    header("Location: ?command=home");
                 } else {
                     // username does not exist, make account
                     echo "Could not log in, incorrect username!";
@@ -72,6 +76,13 @@ class Controller
             }
         }
         include "templates/login.php";
+    }
+
+    private function logout()
+    {
+        unset($_SESSION["email"]);
+
+        header("Location: ?command=login");
     }
 
     private function home()

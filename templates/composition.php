@@ -21,7 +21,7 @@
           <a class="nav-link" href="?command=home">Home</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Log Out</a>
+          <a class="nav-link" href="?command=logout">Log Out</a>
         </li>
       </ul>
     </div>
