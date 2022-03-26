@@ -11,7 +11,7 @@ $db = new mysqli(Config::$db["host"], Config::$db["user"], Config::$db["pass"], 
 $db->query("drop table if exists User;");
 $db->query("create table User (
     id int not null auto_increment,
-    email text not null,
+    email text not null unique,
     password text not null,
     primary key (id)
 );");

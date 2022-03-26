@@ -4,12 +4,12 @@ class Controller
 {
     private $command;
 
-    private $db;
+    private $utils;
 
     public function __construct($command)
     {
         $this->command = $command;
-        $this->db = new Database();
+        $this->utils = new Utils();
     }
 
     public function run()
@@ -41,38 +41,24 @@ class Controller
     private function login()
     {
         if (isset($_POST) and isset($_POST["email"])) {
-            // check if user exists
-            if (($val = $this->db->query("select * from user where email = ?", "s", $_POST["email"])) !== false) {
-                // user exists
-                $user_exists = false;
+            // get user, dies if an error occurs
+            $user = $this->utils->getUser($_POST["email"]);
 
-                // check password
-                foreach ($val as $user) {
-                    if (password_verify($_POST["password"], $user["password"])) {
-                        $user_exists = true;
-                        break;
-                    }
-                }
-
-                // username and password correct
-                if (sizeof($val) === 1 and $user_exists) {
-                    $_SESSION["email"] = $user["email"];
-
-                    header("Location: ?command=home");
-                }
-                // username does not exist
-                else if (sizeof($val) === 0) {
-                    // create account
+            // no user exists, create user
+            if ($user === false) {
+                $this->utils->createUser($_POST["email"], $_POST["password"]);
+                $_SESSION["email"] = $_POST["email"];
+                header("Location: ?command=home");
+            } else {
+                // user exists, check if password is correct
+                if (password_verify($_POST["password"], $user["password"])) {
+                    // password correct, log in!
                     $_SESSION["email"] = $_POST["email"];
-                    $this->db->query("insert into user (email, password) values (?, ?);", "ss", $_POST["email"], password_hash($_POST["password"], PASSWORD_DEFAULT));
-
                     header("Location: ?command=home");
                 } else {
-                    // username does not exist, make account
-                    echo "Could not log in, incorrect username!";
+                    // password incorrect, fail
+                    echo "Login failed!";
                 }
-            } else {
-                echo "Error taking statement, please report this to the developer";
             }
         }
         include "templates/login.php";
