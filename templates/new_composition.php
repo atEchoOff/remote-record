@@ -30,9 +30,9 @@
     <div class="box-section">
         <h2 class="box-title">Create Composition</h2>
         <div style="clear:both;"></div>
-        <form action="?command=home">
+        <form action="?command=new_composition" method="post">
             <div class="form-group">
-                <input style="max-width:400px; margin-bottom:10px;" class="form-control" id="composition-name" placeholder="Composition Name">
+                <input style="max-width:400px; margin-bottom:10px;" class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name">
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>

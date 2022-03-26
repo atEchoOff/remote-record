@@ -46,29 +46,19 @@
         <!-- Table heading -->
         <th style="width:20%;">Composition Name</th>
         <th style="width:10%;">Your Roles</th>
-        <th style="width:10%;">Last Edited</th>
+        <th style="width:10%;">Composer</th>
       </tr>
-      <tr>
-        <!-- Compositions information (will be generated per user once we have a backend) -->
-        <td><a href="?command=record">Verdi Requiem</a></td>
-        <td>Composer</td>
-        <td>30 minutes ago</td>
-      </tr>
-      <tr>
-        <td><a href="?command=record">Let my Love be Heard</a></td>
-        <td>Musician</td>
-        <td>2 days ago</td>
-      </tr>
-      <tr>
-        <td><a href="?command=record">Earth Song</a></td>
-        <td>Composer, Musician</td>
-        <td>17 days ago</td>
-      </tr>
-      <tr>
-        <td><a href="?command=record">Overture to Candide</a></td>
-        <td>Musician</td>
-        <td>2 months ago</td>
-      </tr>
+      <?php
+      foreach ($compositions as $composition) {
+        echo "
+              <tr>
+                <td><a href='?command=record'>{$composition['name']}</a></td>
+                <td>Composer</td>
+                <td>{$composition['user_email']}</td>
+              </tr>
+      ";
+      }
+      ?>
     </table>
   </div>
 

@@ -19,7 +19,7 @@ $db->query("create table User (
 $db->query("drop table if exists Composition;");
 $db->query("create table Composition (
     id int not null auto_increment,
-    name text not null,
+    name text not null unique,
     user_email text not null,
     primary key (id)
 );");

@@ -73,6 +73,7 @@ class Controller
 
     private function home()
     {
+        $compositions = $this->utils->listCompositions();
         include "templates/home.php";
     }
 
@@ -83,6 +84,12 @@ class Controller
 
     private function new_composition()
     {
+        // if they submitted a composition name
+        if (isset($_POST) and isset($_POST["composition-name"])) {
+            // create composition and redirect home
+            $this->utils->createComposition($_POST["composition-name"]);
+            header("Location: ?command=home");
+        }
         include "templates/new_composition.php";
     }
 
