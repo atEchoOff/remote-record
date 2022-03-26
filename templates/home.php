@@ -28,6 +28,7 @@
   </nav>
 
   <!-- Your projects -->
+  <h1>Welcome, <?php echo $_SESSION["email"]; ?>!</h1>
   <div class="box-section">
     <div class="row">
       <h2 class="box-title">Your Projects</h2>
@@ -50,13 +51,23 @@
       </tr>
       <?php
       foreach ($compositions as $composition) {
-        echo "
+        if ($_SESSION["email"] === $composition["user_email"]) {
+          echo "
               <tr>
                 <td><a href='?command=record'>{$composition['name']}</a></td>
-                <td>Composer</td>
+                <td>Composer, Musician</td>
                 <td>{$composition['user_email']}</td>
               </tr>
-      ";
+              ";
+        } else {
+          echo "
+              <tr>
+                <td><a href='?command=record'>{$composition['name']}</a></td>
+                <td>Composer, Musician</td>
+                <td>{$composition['user_email']}</td>
+              </tr>
+              ";
+        }
       }
       ?>
     </table>
