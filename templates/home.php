@@ -28,7 +28,7 @@
   </nav>
 
   <!-- Your projects -->
-  <h1>Welcome, <?php echo $_SESSION["email"]; ?>!</h1>
+  <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
   <div class="box-section">
     <div class="row">
       <h2 class="box-title">Your Projects</h2>
@@ -51,12 +51,12 @@
       </tr>
       <?php
       foreach ($compositions as $composition) {
-        if ($_SESSION["email"] === $composition["user_email"]) {
+        if ($_SESSION["email"] === $composition["composer_email"]) {
           echo "
               <tr>
                 <td><a href='?command=record'>{$composition['name']}</a></td>
                 <td>Composer, Musician</td>
-                <td>{$composition['user_email']}</td>
+                <td>{$composition['composer_name']}</td>
               </tr>
               ";
         } else {
@@ -64,7 +64,7 @@
               <tr>
                 <td><a href='?command=record'>{$composition['name']}</a></td>
                 <td>Composer, Musician</td>
-                <td>{$composition['user_email']}</td>
+                <td>{$composition['composer_name']}</td>
               </tr>
               ";
         }

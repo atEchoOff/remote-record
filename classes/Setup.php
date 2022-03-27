@@ -11,6 +11,7 @@ $db = new mysqli(Config::$db["host"], Config::$db["user"], Config::$db["pass"], 
 $db->query("drop table if exists User;");
 $db->query("create table User (
     id int not null auto_increment,
+    name text not null,
     email text not null unique,
     password text not null,
     primary key (id)
@@ -20,7 +21,7 @@ $db->query("drop table if exists Composition;");
 $db->query("create table Composition (
     id int not null auto_increment,
     name text not null unique,
-    user_email text not null,
+    composer_email text not null,
     primary key (id)
 );");
 

@@ -66,9 +66,9 @@ class Utils
      * @return true if success
      * @return false otherwise
      */
-    public function createUser($email, $password)
+    public function createUser($name, $email, $password)
     {
-        return $this->db->query("insert into user (email, password) values (?, ?);", "ss", $email, password_hash($password, PASSWORD_DEFAULT));
+        return $this->db->query("insert into user (name, email, password) values (?, ?, ?);", "sss", $name, $email, password_hash($password, PASSWORD_DEFAULT));
     }
 
     /**
@@ -78,7 +78,7 @@ class Utils
      */
     public function createComposition($name)
     {
-        $result = $this->db->query("insert into composition (name, user_email) values (?, ?);", "ss", $name, $_SESSION["email"]);
+        $result = $this->db->query("insert into composition (name, composer_email) values (?, ?);", "ss", $name, $_SESSION["email"]);
 
         // check for errors
         if ($result === false) {
@@ -106,6 +106,9 @@ class Utils
             if ($real_composition === false) {
                 die("Fatal error, grabbing a composition from merge table did not exist");
             }
+
+            // trace back to the composer and add their name
+            $real_composition["composer_name"] = $this->getUser($real_composition["composer_email"])["name"];
 
             array_push($return, $real_composition);
         }

@@ -46,14 +46,16 @@ class Controller
 
             // no user exists, create user
             if ($user === false) {
-                $this->utils->createUser($_POST["email"], $_POST["password"]);
+                $this->utils->createUser($_POST["name"], $_POST["email"], $_POST["password"]);
                 $_SESSION["email"] = $_POST["email"];
+                $_SESSION["name"] = $_POST["name"];
                 header("Location: ?command=home");
             } else {
                 // user exists, check if password is correct
                 if (password_verify($_POST["password"], $user["password"])) {
                     // password correct, log in!
-                    $_SESSION["email"] = $_POST["email"];
+                    $_SESSION["email"] = $user["email"];
+                    $_SESSION["name"] = $user["name"];
                     header("Location: ?command=home");
                 } else {
                     // password incorrect, fail
