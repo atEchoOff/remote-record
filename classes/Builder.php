@@ -73,7 +73,7 @@ class Builder
         echo '
         <div class="recording-box">
             <div class="recording-box-panel">
-                <a href="">
+                <a onclick="toggleRecording()">
                     <img src="images/recording.png" class="circular-button" alt="Record">
                 </a>
             </div>
@@ -87,7 +87,7 @@ class Builder
             </div>
         </div>
         <div class="recording-box-upload">
-            <a href="">
+            <a id="download" download>
                 <img src="images/upload.png" class="circular-button" alt="Record">
             </a>
         </div>

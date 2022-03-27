@@ -50,6 +50,54 @@
     <div style="clear:both"></div>
   </div>
 
+  <!-- Set up microphone access -->
+  <script>
+    var recording = false;
+
+    var recordedChunks = [];
+
+    var options = {
+      mimeType: 'audio/webm'
+    };
+    var mediaRecorder;
+
+    const handleSuccess = function(stream) {
+      mediaRecorder = new MediaRecorder(stream, options);
+      mediaRecorder.ondataavailable = handleDataAvailable;
+    }
+
+    navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false
+      })
+      .then(handleSuccess);
+
+    function handleDataAvailable(event) {
+      console.log("Data");
+      if (event.data.size > 0) {
+        console.log("Data here");
+        recordedChunks.push(event.data);
+      } else {
+        // ...
+      }
+    }
+  </script>
+
+  <script>
+    function toggleRecording() {
+      if (!recording) {
+        console.log("Recording...");
+        mediaRecorder.start();
+        recording = true;
+      } else {
+        console.log("Stopped recording...");
+        mediaRecorder.stop();
+        document.getElementById("download").href = URL.createObjectURL(new Blob(recordedChunks));
+      }
+    }
+  </script>
+
+  <!-- Script to play audio, plays playableWaveform with given file location -->
   <script>
     function togglePlay(name) {
       var x = document.getElementById(name);
