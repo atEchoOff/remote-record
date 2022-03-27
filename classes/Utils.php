@@ -72,13 +72,13 @@ class Utils
     }
 
     /**
-     * Creates a composition for current user (uses $_SESSION) given name
+     * Creates a composition for current user (uses $_SESSION) given name and backtrack file location
      * @return true if success
      * @return false if failed
      */
-    public function createComposition($name)
+    public function createComposition($name, $location)
     {
-        $result = $this->db->query("insert into composition (name, composer_email) values (?, ?);", "ss", $name, $_SESSION["email"]);
+        $result = $this->db->query("insert into composition (name, composer_email, location) values (?, ?, ?);", "sss", $name, $_SESSION["email"], $location);
 
         // check for errors
         if ($result === false) {

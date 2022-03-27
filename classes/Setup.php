@@ -22,6 +22,7 @@ $db->query("create table Composition (
     id int not null auto_increment,
     name text not null unique,
     composer_email text not null,
+    location text not null,
     primary key (id)
 );");
 

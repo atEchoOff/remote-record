@@ -28,14 +28,22 @@
     </nav>
 
     <div class="box-section">
-        <h2 class="box-title">Create Composition</h2>
-        <div style="clear:both;"></div>
-        <form action="?command=new_composition" method="post">
-            <div class="form-group">
-                <input style="max-width:400px; margin-bottom:10px;" class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name">
-            </div>
-            <button type="submit" class="btn btn-primary">Create</button>
-        </form>
+        <div class="row">
+            <h2 class="box-title">Create Composition</h2>
+        </div>
+        <div class="row col-6">
+            <form action="?command=new_composition" method="post" enctype='multipart/form-data'>
+                <div class="mb-3">
+                    <label for="composition-name" class="form-label">Composition Name</label>
+                    <input class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="backtrack" class="form-label">Backtrack</label>
+                    <input class="form-control" name="backtrack" id="backtrack" type="file" placeholder="Backtrack" required accept="audio/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
 
     </div>
 

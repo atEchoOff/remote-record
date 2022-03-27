@@ -109,8 +109,15 @@ class Controller
     {
         // if they submitted a composition name
         if (isset($_POST) and isset($_POST["composition-name"])) {
+            $info = pathinfo($_FILES['backtrack']['name']);
+            $ext = $info['extension'];
+            $newname = $_POST["composition-name"] . "." . $ext;
+
+            $target = 'audio/' . $newname;
+            move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
+
             // create composition and redirect home
-            $this->utils->createComposition($_POST["composition-name"]);
+            $this->utils->createComposition($_POST["composition-name"], $target);
             header("Location: ?command=home");
         }
         include "templates/new_composition.php";
