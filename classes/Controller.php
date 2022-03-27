@@ -18,6 +18,9 @@ class Controller
             case "login":
                 $this->login();
                 break;
+            case "signup":
+                $this->signup();
+                break;
             case "logout":
                 $this->logout();
                 break;
@@ -46,10 +49,7 @@ class Controller
 
             // no user exists, create user
             if ($user === false) {
-                $this->utils->createUser($_POST["name"], $_POST["email"], $_POST["password"]);
-                $_SESSION["email"] = $_POST["email"];
-                $_SESSION["name"] = $_POST["name"];
-                header("Location: ?command=home");
+                echo "FIXME: user does not exist";
             } else {
                 // user exists, check if password is correct
                 if (password_verify($_POST["password"], $user["password"])) {
@@ -59,11 +59,31 @@ class Controller
                     header("Location: ?command=home");
                 } else {
                     // password incorrect, fail
-                    echo "Login failed!";
+                    echo "FIXME: Login failed!";
                 }
             }
         }
         include "templates/login.php";
+    }
+
+    private function signup()
+    {
+        if (isset($_POST) and isset($_POST["email"])) {
+            // get user, dies if an error occurs
+            $user = $this->utils->getUser($_POST["email"]);
+
+            // no user exists, create user
+            if ($user === false) {
+                $this->utils->createUser($_POST["name"], $_POST["email"], $_POST["password"]);
+                $_SESSION["email"] = $_POST["email"];
+                $_SESSION["name"] = $_POST["name"];
+                header("Location: ?command=home");
+            } else {
+                // user exists, check if password is correct
+                echo "FIXME: User already exists";
+            }
+        }
+        include "templates/signup.php";
     }
 
     private function logout()

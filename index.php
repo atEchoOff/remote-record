@@ -14,7 +14,7 @@ if (isset($_GET["command"])) {
 // Sign into session
 session_start();
 
-if (!isset($_SESSION["email"])) {
+if (!($command === "signup") && !isset($_SESSION["email"])) {
     $command = "login";
 }
 

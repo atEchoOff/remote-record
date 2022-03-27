@@ -14,8 +14,13 @@
     <!-- Login form -->
     <div class="row justify-content-center">
         <div class="col-4">
-            <h1 class="text-center">Sign In:</h1>
-            <form action="?command=login" method="post">
+            <h1 class="text-center">Sign Up:</h1>
+            <form action="?command=signup" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" requred />
@@ -26,8 +31,7 @@
                     <input type="password" class="form-control" id="password" name="password" required />
                 </div>
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-                    <a class="btn btn-info" href="?command=signup">Sign Up</a>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
                 </div>
             </form>
         </div>
