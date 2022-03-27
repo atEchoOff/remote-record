@@ -115,4 +115,12 @@ class Utils
 
         return $return;
     }
+
+    /**
+     * Returns all recordings for current user and given composition (Uses $_SESSION)
+     */
+    public function getUserCompositionRecordings($composition)
+    {
+        return $this->db->query("select * from Recording where composition = ? and author = ?", "ss", $composition["name"], $_SESSION["email"]);
+    }
 }

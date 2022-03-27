@@ -26,10 +26,15 @@
       </div>
     </div>
     <div class="recording-section">
-      <!-- Recording Box Template -->
-      <?php Builder::playableWaveform("fake loc", "Recording 2", $delete = true) ?>
-      <!-- End of template -->
-      <?php Builder::playableWaveform("fake loc", "Recording 3", $delete = true) ?>
+      <!-- Display all recordings -->
+      <?php
+      if (sizeof($recordings) === 0) {
+        echo "<h5>No recordings</h5>";
+      }
+      foreach ($recordings as $recording) {
+        Builder::playableWaveform($recording["location"], $recording["name"], $delete = true);
+      }
+      ?>
     </div>
 
     <div style="clear:both"></div>

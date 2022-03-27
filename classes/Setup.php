@@ -37,6 +37,7 @@ $db->query("create table UserComposition (
 $db->query("drop table if exists Recording;");
 $db->query("create table Recording (
     id int not null auto_increment,
+    name text not null,
     location text not null,
     author text not null,
     composition text not null,
