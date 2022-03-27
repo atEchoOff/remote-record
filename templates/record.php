@@ -45,21 +45,7 @@
       <!-- Backing Track -->
       <?php Builder::playableWaveform($composition["location"], "Backing Track", $delete = false) ?>
       <!-- New Recording Box -->
-      <div class="recording-box">
-        <div class="recording-box-panel">
-          <a href="">
-            <img src="images/recording.png" class="circular-button" alt="Record">
-          </a>
-        </div>
-        <div class="recording-waveform-end">
-          <div class="recording-box-label">
-            <p>New Recording</p>
-          </div>
-          <div class="new-recording-waveform">
-
-          </div>
-        </div>
-      </div>
+      <?php Builder::recordableWaveform(); ?>
     </div>
     <div style="clear:both"></div>
   </div>

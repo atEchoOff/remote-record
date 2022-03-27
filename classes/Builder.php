@@ -63,4 +63,34 @@ class Builder
       <div style='clear:both'></div>
     ";
     }
+
+    /**
+     * 
+     * Creates a recording waveform display
+     */
+    public static function recordableWaveform()
+    {
+        echo '
+        <div class="recording-box">
+            <div class="recording-box-panel">
+                <a href="">
+                    <img src="images/recording.png" class="circular-button" alt="Record">
+                </a>
+            </div>
+            <div class="recording-waveform-end">
+                <div class="recording-box-label">
+                    <p>New Recording</p>
+                </div>
+                <div class="new-recording-waveform">
+
+                </div>
+            </div>
+        </div>
+        <div class="recording-box-upload">
+            <a href="">
+                <img src="images/upload.png" class="circular-button" alt="Record">
+            </a>
+        </div>
+        ';
+    }
 }
