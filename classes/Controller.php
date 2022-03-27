@@ -89,6 +89,7 @@ class Controller
     private function logout()
     {
         unset($_SESSION["email"]);
+        unset($_SESSION["name"]);
 
         header("Location: ?command=login");
     }
