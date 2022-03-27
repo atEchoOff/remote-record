@@ -13,19 +13,7 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Remote Record</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="?command=home">Home</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="?command=logout">Log Out</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <?php Builder::navbar(); ?>
 
   <!-- Your recordings -->
   <div class="box-section">
@@ -39,46 +27,9 @@
     </div>
     <div class="recording-section">
       <!-- Recording Box Template -->
-      <div class="recording-box" style="width:700px">
-        <!-- Note: width will be set by javascript case-by-case once we have actual recordings-->
-        <div class="recording-box-panel">
-          <a href="">
-            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-          </a>
-        </div>
-        <div class="recording-waveform-end">
-          <div class="recording-box-label">
-            <p>Recording name</p>
-          </div>
-          <div class="recording-waveform">
-            <img src="WaveForm.webp" alt="Waveform">
-          </div>
-        </div>
-        <a href="">
-          <img src="images/delete.png" class="delete-button" alt="Delete">
-        </a>
-      </div>
-      <div style="clear:both"></div>
+      <?php Builder::playableWaveform("fake loc", "Recording 2", $delete = true) ?>
       <!-- End of template -->
-      <div class="recording-box" style="width:400px">
-        <!--Again, width will be set by javascript-->
-        <div class="recording-box-panel">
-          <a href="">
-            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-          </a>
-        </div>
-        <div class="recording-waveform-end">
-          <div class="recording-box-label">
-            <p>Recording name</p>
-          </div>
-          <div class="recording-waveform">
-            <img src="WaveForm.webp" alt="Waveform">
-          </div>
-          <a href="">
-            <img src="images/delete.png" class="delete-button" alt="Delete">
-          </a>
-        </div>
-      </div>
+      <?php Builder::playableWaveform("fake loc", "Recording 3", $delete = true) ?>
     </div>
 
     <div style="clear:both"></div>
@@ -87,23 +38,7 @@
     <div style="clear:both"></div>
     <div class="recording-section">
       <!-- Backing Track -->
-      <div class="recording-box" style="width: 600px">
-        <!--Again, width will be set by javascript-->
-        <div class="recording-box-panel">
-          <a href="">
-            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-          </a>
-        </div>
-        <div class="recording-waveform-end">
-          <div class="recording-box-label">
-            <p>Backing Track</p>
-          </div>
-          <div class="recording-waveform">
-            <img src="WaveForm.webp" alt="Waveform">
-          </div>
-        </div>
-      </div>
-      <div style="clear:both"></div>
+      <?php Builder::playableWaveform($composition["location"], "Backing Track", $delete = false) ?>
       <!-- New Recording Box -->
       <div class="recording-box">
         <div class="recording-box-panel">
@@ -123,6 +58,20 @@
     </div>
     <div style="clear:both"></div>
   </div>
+
+  <script>
+    function togglePlay(name) {
+      var x = document.getElementById(name);
+
+      if (x.paused) {
+        console.log("Play");
+        x.play();
+      } else {
+        console.log("Pause");
+        x.pause();
+      }
+    }
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

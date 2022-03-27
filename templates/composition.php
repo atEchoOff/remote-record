@@ -13,19 +13,7 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Remote Record</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="?command=home">Home</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="?command=logout">Log Out</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <?php Builder::navbar(); ?>
 
   <!-- Composition Box -->
   <div class="box-section">

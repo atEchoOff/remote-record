@@ -13,19 +13,7 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Remote Record</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="?command=home">Home</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="?command=logout">Log Out</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <?php Builder::navbar(); ?>
 
   <!-- Your projects -->
   <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
@@ -54,7 +42,7 @@
         if ($_SESSION["email"] === $composition["composer_email"]) {
           echo "
               <tr>
-                <td><a href='?command=record'>{$composition['name']}</a></td>
+                <td><a href='?command=record&composition={$composition['name']}'>{$composition['name']}</a></td>
                 <td>Composer, Musician</td>
                 <td>{$composition['composer_name']}</td>
               </tr>
@@ -62,7 +50,7 @@
         } else {
           echo "
               <tr>
-                <td><a href='?command=record'>{$composition['name']}</a></td>
+                <td><a href='?command=record&composition={$composition['name']}'>{$composition['name']}</a></td>
                 <td>Composer, Musician</td>
                 <td>{$composition['composer_name']}</td>
               </tr>

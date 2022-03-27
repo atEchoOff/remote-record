@@ -125,6 +125,7 @@ class Controller
 
     private function record()
     {
+        $composition = $this->utils->getComposition($_GET["composition"]);
         include "templates/record.php";
     }
 }
