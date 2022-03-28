@@ -96,8 +96,8 @@ td:first-child, th:first-child {
     display:inline;
     float:right;
     width: fit-content;
-    margin-top:10px;
-    margin-left:5px;
+    margin-top:8px;
+    margin-left:-5px;
 }
 
 /* used for the right side of the recording with the label/waveform in it */

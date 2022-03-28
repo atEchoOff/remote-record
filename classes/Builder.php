@@ -28,16 +28,20 @@ class Builder
         ';
     }
     /**
-     * Creates a playable waveform display
+     * Creates a playable waveform display, if delete is true, add delete icon
      */
     public static function playableWaveform($location, $audioName, $delete = true)
     {
         echo "
+        <!-- Audio tag to store the associated audio location -->
         <audio id='$location'>
             <source src='$location' type='audio/wav'>
         </audio>
+
+
         <div class='recording-box' style='width: 600px'>
         <div class='recording-box-panel'>
+          <!-- Play the audio when clicking on the play button -->
           <a onclick='togglePlay(\"$location\")'>
             <img src='images/PlaySymbol.png' class='circular-button' alt='Play'>
           </a>
@@ -51,6 +55,7 @@ class Builder
           </div>
         </div>
         ";
+        // Add delete icon if delete is set to true
         if ($delete === true) {
             echo "
         <a href=''>
@@ -59,8 +64,9 @@ class Builder
         ";
         }
         echo "
+          </div>
+        <div style='clear:both'>
       </div>
-      <div style='clear:both'></div>
     ";
     }
 
@@ -73,6 +79,7 @@ class Builder
         echo '
         <div class="recording-box">
             <div class="recording-box-panel">
+                <!-- Button to toggle whether or not user is being recorded -->
                 <a onclick="toggleRecording()">
                     <img src="images/recording.png" class="circular-button" alt="Record">
                 </a>
@@ -86,10 +93,17 @@ class Builder
                 </div>
             </div>
         </div>
+        <!-- Upload icon for recorded box -->
         <div class="recording-box-upload">
-            <a id="download" download>
-                <img src="images/upload.png" class="circular-button" alt="Record">
-            </a>
+            <!-- This form is used to store the audio data and submit on upload click -->
+            <form method="post" name="uploadform">
+                <!-- Stores audio data -->
+                <input type="hidden" name="record" id="record" />
+                <!-- Submits form -->
+                <button style="border:none;background:none;" type="submit">
+                    <img src="images/upload.png" class="circular-button" alt="Record">
+                </button>
+            </form>
         </div>
         ';
     }

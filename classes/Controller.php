@@ -126,7 +126,26 @@ class Controller
     private function record()
     {
         $composition = $this->utils->getComposition($_GET["composition"]);
+
+        if (isset($_POST) and isset($_POST["record"])) {
+            // Convert string audio data into a binary array
+            $data = explode(",", $_POST["record"]);
+            $bin_data = pack('C*', ...$data);
+
+            // Determine name for audio file
+            $newname = $composition["name"] . "-" . rand(1, 1000000000) . rand(1, 1000000000) . rand(1, 1000000000) . rand(1, 1000000000) . ".wav";
+
+            // Determine path and put byte data into that path
+            $target = 'audio/' . $newname;
+            file_put_contents($target, $bin_data);
+
+            // create composition and redirect home
+            $this->utils->createUserCompositionRecording($composition["name"], $target);
+        }
+
         $recordings = $this->utils->getUserCompositionRecordings($composition);
+
+
         include "templates/record.php";
     }
 }

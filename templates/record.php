@@ -52,10 +52,13 @@
 
   <!-- Set up microphone access -->
   <script>
+    // Whether or not we are currently recording
     var recording = false;
 
+    // Stores audio data
     var recordedChunks = [];
 
+    // Set up audio recorder (first time, wait for permissions to be given)
     var options = {
       mimeType: 'audio/webm'
     };
@@ -72,17 +75,18 @@
       })
       .then(handleSuccess);
 
+    // When data is available, save and upload the data
     function handleDataAvailable(event) {
-      console.log("Data");
       if (event.data.size > 0) {
-        console.log("Data here");
         recordedChunks.push(event.data);
+        upload();
       } else {
         // ...
       }
     }
   </script>
 
+  <!-- Script to toggle whether or not user is being recorded -->
   <script>
     function toggleRecording() {
       if (!recording) {
@@ -92,7 +96,31 @@
       } else {
         console.log("Stopped recording...");
         mediaRecorder.stop();
-        document.getElementById("download").href = URL.createObjectURL(new Blob(recordedChunks));
+      }
+    }
+
+    // Sets form hidden value to contain audio data for post
+    function upload() {
+      // Save audio as wav file (temporary, just to read the bytes)
+      let file = new File([new Blob(recordedChunks)], "temp_hidden.wav", {
+        type: 'audio/wav'
+      });
+
+      // Read bytes from file
+      var reader = new FileReader();
+      var fileByteArray = [];
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = function(evt) {
+        if (evt.target.readyState == FileReader.DONE) {
+          var arrayBuffer = evt.target.result,
+            array = new Uint8Array(arrayBuffer);
+          for (var i = 0; i < array.length; i++) {
+            fileByteArray.push(array[i]);
+          }
+        }
+
+        // Save file bytes into record input for form
+        document.getElementById("record").value = fileByteArray.toString();
       }
     }
   </script>
