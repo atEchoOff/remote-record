@@ -129,6 +129,7 @@ class Controller
 
         if (isset($_POST) and isset($_POST["record"])) {
             // Convert string audio data into a binary array
+            // https://stackoverflow.com/questions/9620805/save-byte-array-to-a-file-php
             $data = explode(",", $_POST["record"]);
             $bin_data = pack('C*', ...$data);
 

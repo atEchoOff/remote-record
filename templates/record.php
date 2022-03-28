@@ -107,6 +107,7 @@
       });
 
       // Read bytes from file
+      // https://stackoverflow.com/questions/37134433/convert-input-file-to-byte-array
       var reader = new FileReader();
       var fileByteArray = [];
       reader.readAsArrayBuffer(file);
