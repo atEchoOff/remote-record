@@ -29,8 +29,9 @@ class Builder
     }
     /**
      * Creates a playable waveform display, if delete is true, add delete icon
+     * If drag is true, make the element draggable
      */
-    public static function playableWaveform($location, $audioName, $id, $delete = true)
+    public static function playableWaveform($location, $audioName, $id, $delete = true, $drag = false)
     {
         $clean_location = strtok(str_replace("/", "slash", str_replace("-", "dash", $location)), ".");
 
@@ -40,7 +41,7 @@ class Builder
             <source src='$location' type='audio/wav'>
         </audio>
 
-
+        <div id='recbox$clean_location' style='margin-left:0px;'>
         <div class='recording-box' style='width: 600px;'>
         <div class='recording-box-panel'>
           <!-- Toggle the audio when clicking on the play button -->
@@ -83,7 +84,16 @@ class Builder
           </div>
         <div style='clear:both'>
       </div>
+      </div>
     ";
+
+        if ($drag === true) {
+            echo "
+            <script>
+                dragElement(document.getElementById('recbox$clean_location'));            
+            </script>
+                ";
+        }
     }
 
     /**

@@ -17,6 +17,48 @@
   <!-- Navbar -->
   <?php Builder::navbar(); ?>
 
+  <!-- Script to make elements draggable -->
+  <script>
+    function dragElement(elmnt) {
+      var pos1 = 0,
+        pos3 = 0
+      if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+      } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos3 = e.clientX;
+        // set the element's new position:
+        elmnt.style.marginLeft = (parseInt(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1 + "px");
+        console.log(elmnt.style.marginLeft);
+      }
+
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  </script>
+
   <!-- Composition Box -->
   <div class="box-section">
     <h2 class="box-title">Composition</h2>
@@ -61,7 +103,7 @@
           echo "<h5>No recordings</h5>";
         }
         foreach ($recordings as $recording) {
-          Builder::playableWaveform($recording["location"], $recording["author_name"] . " - " . $recording["name"], $recording["id"], $delete = true);
+          Builder::playableWaveform($recording["location"], $recording["author_name"] . " - " . $recording["name"], $recording["id"], $delete = true, $drag = true);
         }
         ?>
       </div>
