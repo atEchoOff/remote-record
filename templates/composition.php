@@ -9,6 +9,8 @@
   <title>Composition Page</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="styles/main.css">
+  <!-- This needs to be placed at the top to function correctly -->
+  <script src="https://unpkg.com/wavesurfer.js"></script>
 </head>
 
 <body>
@@ -54,68 +56,14 @@
         <div style="clear:both"></div>
       </div>
       <div class="recording-section">
-        <!-- Recording template -->
-        <div class="recording-box" style="width:700px; left:40px;">
-          <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
-          <div class="recording-box-panel">
-            <a href="#">
-              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-            </a>
-          </div>
-          <div class="recording-waveform-end">
-            <div class="recording-box-label">
-              <p>Brian Christner</p>
-            </div>
-            <div class="recording-waveform">
-              <img src="WaveForm.webp" alt="Waveform">
-            </div>
-          </div>
-          <a href="#">
-            <img src="images/delete.png" class="delete-button" alt="Delete">
-          </a>
-        </div>
-        <div style="clear:both"></div>
-        <!-- End of Template -->
-        <div class="recording-box" style="width:400px; left:80px;">
-          <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
-          <div class="recording-box-panel">
-            <a href="#">
-              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-            </a>
-          </div>
-          <div class="recording-waveform-end">
-            <div class="recording-box-label">
-              <p>Jimmy Connors</p>
-            </div>
-            <div class="recording-waveform">
-              <img src="WaveForm.webp" alt="Waveform">
-            </div>
-          </div>
-          <a href="#">
-            <img src="images/delete.png" class="delete-button" alt="Delete">
-          </a>
-        </div>
-        <div style="clear:both"></div>
-        <div class="recording-box" style="width:800px; left:10px;">
-          <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
-          <div class="recording-box-panel">
-            <a href="#">
-              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-            </a>
-          </div>
-          <div class="recording-waveform-end">
-            <div class="recording-box-label">
-              <p>Felix Mendelssohn</p>
-            </div>
-            <div class="recording-waveform">
-              <img src="WaveForm.webp" alt="Waveform">
-            </div>
-          </div>
-          <a href="#">
-            <img src="images/delete.png" class="delete-button" alt="Delete">
-          </a>
-        </div>
-        <div style="clear:both"></div>
+        <?php
+        if (sizeof($recordings) === 0) {
+          echo "<h5>No recordings</h5>";
+        }
+        foreach ($recordings as $recording) {
+          Builder::playableWaveform($recording["location"], $recording["author_name"] . " - " . $recording["name"], $recording["id"], $delete = true);
+        }
+        ?>
       </div>
     </div>
 
@@ -176,6 +124,18 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <!-- Script to play audio, plays playableWaveform with given waveform object and image ID -->
+  <script>
+    function togglePlay(waveplayer, imgID) {
+      if (waveplayer.isPlaying()) {
+        document.getElementById(imgID).src = "images/PlaySymbol.png";
+      } else {
+        document.getElementById(imgID).src = "images/PauseSymbol.webp";
+      }
+      waveplayer.playPause();
+    }
+  </script>
 </body>
 
 </html>

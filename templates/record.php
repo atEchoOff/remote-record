@@ -22,9 +22,16 @@
     <div style="overflow:auto;">
       <h2 class="box-title">Recordings</h2>
       <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-          <a class="btn btn-dark" href="?command=composition">Switch to Composer Mode</a>
-        </div>
+        <!-- Only add composer button if the user is the composer of this page -->
+        <?php
+        if ($_SESSION["email"] === $composition["composer_email"]) {
+          echo '
+          <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class="btn btn-dark" href="?command=composition&composition=' . $composition["name"] . '">Switch to Composer Mode</a>
+          </div>
+          ';
+        }
+        ?>
       </div>
     </div>
     <div class="recording-section">

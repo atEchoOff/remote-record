@@ -125,6 +125,22 @@ class Utils
     }
 
     /**
+     * Returns all recordings for a given composition and ties the owner name to each one
+     */
+    public function getCompositionRecordings($composition)
+    {
+        $list = $this->db->query("select * from Recording where composition = ?", "s", $composition["name"]);
+
+        $ret_list = [];
+        foreach ($list as $recording) {
+            $recording["author_name"] = $this->getUser($recording["author"])["name"];
+            array_push($ret_list, $recording);
+        }
+
+        return $ret_list;
+    }
+
+    /**
      * Creates a recording for current user and given composition name and location (uses $_SESSION)
      */
     public function createUserCompositionRecording($name, $composition, $location)

@@ -105,6 +105,9 @@ class Controller
 
     private function composition()
     {
+        // Get composition and all of its recordings
+        $composition = $this->utils->getComposition($_GET["composition"]);
+        $recordings = $this->utils->getCompositionRecordings($composition);
         include "templates/composition.php";
     }
 
