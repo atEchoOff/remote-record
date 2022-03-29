@@ -5,6 +5,11 @@
     overflow: auto;
 }
 
+.error {
+    color: red;
+    font-weight:bold;
+}
+
 /* Make buttons float right in box sections */
 .box-section .box-buttons {
     float: right;

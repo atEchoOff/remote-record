@@ -107,7 +107,7 @@
         recording = true;
 
         // Get backtrack waveform
-        let backtrack = audioslash<?php echo $composition["name"]; ?>;
+        let backtrack = audioslash<?php echo str_replace(" ", "space", $composition["name"]); ?>;
         // Stop and go to beginning
         backtrack.stop();
 

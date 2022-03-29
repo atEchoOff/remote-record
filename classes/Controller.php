@@ -69,13 +69,18 @@ class Controller
      */
     private function login()
     {
+        // Initialize errors as nothing
+        // Assume nothing was incorrect
+        $nameError = "";
+        $emailError = "";
+        $passwordError = "";
         if (isset($_POST) and isset($_POST["email"])) {
             // get user, dies if an error occurs
             $user = $this->utils->getUser($_POST["email"]);
 
             // no user exists, create user
             if ($user === false) {
-                echo "FIXME: user does not exist";
+                $emailError = " * A user with this email does not exist";
             } else {
                 // user exists, check if password is correct
                 if (password_verify($_POST["password"], $user["password"])) {
@@ -85,7 +90,7 @@ class Controller
                     header("Location: ?command=home");
                 } else {
                     // password incorrect, fail
-                    echo "FIXME: Login failed!";
+                    $passwordError = " * Incorrect password";
                 }
             }
         }
@@ -99,6 +104,11 @@ class Controller
      */
     private function signup()
     {
+        // Initialize errors as nothing
+        // Assume nothing was incorrect
+        $nameError = "";
+        $emailError = "";
+        $passwordError = "";
         if (isset($_POST) and isset($_POST["email"])) {
             // get user, dies if an error occurs
             $user = $this->utils->getUser($_POST["email"]);
@@ -111,7 +121,7 @@ class Controller
                 header("Location: ?command=home");
             } else {
                 // user exists, check if password is correct
-                echo "FIXME: User already exists";
+                $emailError = " * A user with this email already exists";
             }
         }
         include "templates/signup.php";

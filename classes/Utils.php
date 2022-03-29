@@ -180,6 +180,6 @@ class Utils
      */
     public static function cleanLocation($location)
     {
-        return strtok(str_replace("/", "slash", str_replace("-", "dash", $location)), ".");
+        return strtok(str_replace(" ", "space", str_replace("/", "slash", str_replace("-", "dash", $location))), ".");
     }
 }

@@ -29,6 +29,11 @@ if (!($command === "signup") && !isset($_SESSION["email"])) {
     $command = "login";
 }
 
+// Get rid of any illegal characters in post to avoid XSS
+foreach ($_POST as $key => $val) {
+    $_POST[$key] = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+}
+
 // Run controller to display page
 $controller = new Controller($command);
 $controller->run();
