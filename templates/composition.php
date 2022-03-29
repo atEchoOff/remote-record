@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- This needs to be placed at the top to function correctly -->
   <script src="https://unpkg.com/wavesurfer.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -112,7 +113,7 @@
 
     <h2 class="box-title">Saved Recordings</h2>
     <div style="clear:both"></div>
-    <div class="recording-section">
+    <div class="recording-section" id="recordingsection">
       <!-- Recording template with download button -->
       <div class="recording-box" style="width:800px;">
         <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
@@ -216,6 +217,13 @@
         ";
       }
       ?>
+    }
+  </script>
+
+
+  <script>
+    function reloadPart() {
+      $('#recordingsection').load('?command=login #loginform');
     }
   </script>
 </body>

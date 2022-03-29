@@ -116,7 +116,7 @@ class Builder
                 <!-- Hidden until recording finished -->
                 <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
                     <!-- Stores audio data -->
-                    <input type="hidden" name="record" id="record" />
+                    <input type="text" style="display:none;" name="record" id="record" class="form-control" required />
                     <!-- Submits form -->
                     <button style="border:none;background:none;margin:0px; padding:0px; display:inline;" type="submit">
                         <img src="images/upload.png" class="circular-button" alt="Record">

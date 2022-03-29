@@ -12,7 +12,7 @@
 
 <body>
     <!-- Login form -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="loginform">
         <div class="col-4">
             <h1 class="text-center">Sign In:</h1>
             <form action="?command=login" method="post">
