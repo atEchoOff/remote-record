@@ -46,7 +46,7 @@ class Builder
         <div class='recording-box' style='width:100%;'>
         <div class='recording-box-panel'>
           <!-- Toggle the audio when clicking on the play button -->
-          <a onclick='togglePlay($clean_location,\"img$clean_location\")'>
+          <button class='hidden-button' onclick='togglePlay($clean_location,\"img$clean_location\")'>
 
             <!-- Image swapped to pause on togglePlay -->
             <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
@@ -108,7 +108,7 @@ class Builder
         <div class="recording-box" style="width:1024px;">
             <div class="recording-box-panel">
                 <!-- Button to start recording user -->
-                <a onclick="record()">
+                <button onclick="record()" class="hidden-button">
                     <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon">
                 </a>
             </div>
@@ -122,7 +122,7 @@ class Builder
                     <input type="text" style="display:none;" name="record" id="record" class="form-control" required />
 
                     <!-- Submits form, button appears after recording finished -->
-                    <button style="border:none;background:none;margin:0px; padding:0px; display:inline;" type="submit">
+                    <button class="hidden-button" type="submit">
                         <img src="images/upload.png" class="circular-button" alt="Record">
                     </button>
                 </div>

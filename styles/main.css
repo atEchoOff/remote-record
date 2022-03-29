@@ -5,9 +5,19 @@
     overflow: auto;
 }
 
+/* Error message */
 .error {
     color: red;
     font-weight:bold;
+}
+
+/* Hidden button, hides graphics to put image on top */
+.hidden-button {
+    border:none;
+    background:none;
+    margin:0px;
+    padding:0px;
+    display:inline;
 }
 
 /* Make buttons float right in box sections */

@@ -276,6 +276,16 @@
 
     }
   </script>
+
+
+  <!-- Forces all canvas elements to have aria-label to make page accessible -->
+  <script>
+    let canvasElements = document.getElementsByTagName('canvas');
+    console.log(canvasElements.length);
+    for (var i = 0; i < canvasElements.length; i++) {
+      canvasElements[i].ariaLabel = "Waveform graphic";
+    }
+  </script>
 </body>
 
 </html>
