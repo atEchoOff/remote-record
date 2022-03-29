@@ -36,65 +36,64 @@ class Builder
         $clean_location = Utils::cleanLocation($location);
 
         echo "
-        <!-- Audio tag to store the associated audio location -->
-        <audio id='$location'>
-            <source src='$location' type='audio/wav'>
-        </audio>
+<!-- Audio tag to store the associated audio location -->
+<audio id='$location'>
+    <source src='$location' type='audio/wav'>
+</audio>
 
-        <!-- Draggable element with adjustable left margin and width for zooming -->
-        <div id='recbox$clean_location' style='margin-left:0px;width: 1024px;'>
-        <div class='recording-box' style='width:100%;'>
+<!-- Draggable element with adjustable left margin and width for zooming -->
+<div id='recbox$clean_location' style='margin-left:0px;width: 1024px;'>
+    <div class='recording-box' style='width:100%;'>
         <div class='recording-box-panel'>
-          <!-- Toggle the audio when clicking on the play button -->
-          <button class='hidden-button' onclick='togglePlay($clean_location,\"img$clean_location\")'>
+            <!-- Toggle the audio when clicking on the play button -->
+            <button class='hidden-button' onclick='togglePlay($clean_location,\"img$clean_location\")'>
 
-            <!-- Image swapped to pause on togglePlay -->
-            <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
-          </a>
+                <!-- Image swapped to pause on togglePlay -->
+                <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
+            </button>
         </div>
         <div class='recording-waveform-end'>
-          <div class='recording-box-label'>
-            <p>$audioName</p>
-          </div>
-          <div class='recording-waveform'>
-            <!-- Location for waveform -->
-            <div style='margin-top:-32px;' id='$clean_location'></div>
-            
-            <!-- script to place waveform in previous div (needs to be placed immediately after)-->
-            <script>
-                var $clean_location = WaveSurfer.create({
-                    container: '#$clean_location',
-                    waveColor: 'black',
-                    progressColor: 'purple'
-                });
+            <div class='recording-box-label'>
+                <p>$audioName</p>
+            </div>
+            <div class='recording-waveform'>
+                <!-- Location for waveform -->
+                <div style='margin-top:-32px;' id='$clean_location'></div>
 
-                // Load the correct audio
-                $clean_location.load('$location');
-            </script>
-          </div>
+                <!-- script to place waveform in previous div (needs to be placed immediately after)-->
+                <script>
+                    var $clean_location = WaveSurfer.create({
+                        container: '#$clean_location',
+                        waveColor: 'black',
+                        progressColor: 'purple'
+                    });
+
+                    // Load the correct audio
+                    $clean_location.load('$location');
+                </script>
+            </div>
         </div>
         ";
         // Add delete icon if delete is set to true
         if ($delete === true) {
             echo "
         <a href='?command=delete&id=$id'>
-          <img src='images/delete.png' class='delete-button' alt='Delete'>
+            <img src='images/delete.png' class='delete-button' alt='Delete'>
         </a>
         ";
         }
         echo "
-          </div>
-        <div style='clear:both'>
-      </div>
-      </div>
+    </div>
+    <div style='clear:both'></div>
+</div>
     ";
 
         // Make an element draggable if it is requested
         if ($drag === true) {
             echo "
-            <script>
-                dragElement(document.getElementById('recbox$clean_location'));            
-            </script>
+<script>
+    dragElement(document.getElementById('recbox$clean_location'));            
+</script>
                 ";
         }
     }
@@ -105,36 +104,36 @@ class Builder
     public static function recordableWaveform()
     {
         echo '
-        <div class="recording-box" style="width:1024px;">
-            <div class="recording-box-panel">
-                <!-- Button to start recording user -->
-                <button onclick="record()" class="hidden-button">
-                    <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon">
-                </a>
-            </div>
+<div class="recording-box" style="width:1024px;">
+    <div class="recording-box-panel">
+        <!-- Button to start recording user -->
+        <button onclick="record()" class="hidden-button">
+            <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon">
+        </button>
+    </div>
 
-            <!-- This form is used to store the audio data and submit on upload click -->
-            <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
-                <!-- Hidden until recording finished -->
-                <div id="uploadhider" style="display:none;" class="recording-box-panel">
+    <!-- This form is used to store the audio data and submit on upload click -->
+    <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
+        <!-- Hidden until recording finished -->
+        <div id="uploadhider" style="display:none;" class="recording-box-panel">
 
-                    <!-- Stores audio data -->
-                    <input type="text" style="display:none;" name="record" id="record" class="form-control" required />
+            <!-- Stores audio data -->
+            <input type="text" style="display:none;" name="record" id="record" class="form-control" required />
 
-                    <!-- Submits form, button appears after recording finished -->
-                    <button class="hidden-button" type="submit">
-                        <img src="images/upload.png" class="circular-button" alt="Record">
-                    </button>
-                </div>
-
-                <!-- Location of the name textbox for the recording -->
-                <div class="recording-waveform-end">
-                    <div class="new-recording-waveform">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Recording Name" required />
-                    </div>
-                </div>
-            </form>
+            <!-- Submits form, button appears after recording finished -->
+            <button class="hidden-button" type="submit">
+                <img src="images/upload.png" class="circular-button" alt="Record">
+            </button>
         </div>
+
+        <!-- Location of the name textbox for the recording -->
+        <div class="recording-waveform-end">
+            <div class="new-recording-waveform">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Recording Name" required />
+            </div>
+        </div>
+    </form>
+</div>
         ';
     }
 }

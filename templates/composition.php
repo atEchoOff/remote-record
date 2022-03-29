@@ -256,7 +256,7 @@
         array_push($ids, $recording["id"]);
         echo "
         if (width == -1) {
-          width = parseInt(document.getElementById('recbox$clean_location').style.width.replaceAll('px', ''));
+            width = parseInt(document.getElementById('recbox$clean_location').style.width.replaceAll('px', ''));
         }
         margins += (parseInt(document.getElementById('recbox$clean_location').style.marginLeft.replaceAll('px', '')) * 100) / width + ',';
         ";

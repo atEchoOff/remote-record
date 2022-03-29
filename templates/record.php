@@ -53,7 +53,7 @@
     <div style="clear:both"></div>
     <div class="recording-section">
       <!-- Backing Track -->
-      <?php Builder::playableWaveform($composition["location"], "Backing Track", $delete = false) ?>
+      <?php Builder::playableWaveform($composition["location"], "Backing Track", null, $delete = false) ?>
       <!-- New Recording Box -->
       <?php Builder::recordableWaveform(); ?>
     </div>
