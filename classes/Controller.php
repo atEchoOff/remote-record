@@ -39,6 +39,9 @@ class Controller
             case "delete":
                 $this->delete();
                 break;
+            case "stitch_audio":
+                $this->stitch_audio();
+                break;
             default:
                 $this->home();
         }
@@ -158,19 +161,30 @@ class Controller
 
     /**
      * Delete a composition recording
-     * If the current owner does not own the media file, do nothing
+     * Allow delete only if:
+     *      User is the owner of the file
+     *      User is the composer of the composition owning this file
      * This only deletes the file if it is owned by the logged-in user
      */
     private function delete()
     {
-        $recordings = $this->utils->getRecording($_GET["id"]);
+        $recording = $this->utils->getRecording($_GET["id"]);
 
         // If there is a recording and the recording belongs to the current user, then we can delete
-        if (sizeof($recordings) !== 0 and $recordings[0]['author'] === $_SESSION["email"]) {
+        // We also allow a delete if the current user is the composer owning this audio
+        if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
             $this->utils->deleteRecording($_GET["id"]);
         }
 
         // redirect to previous location
         header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
+    /**
+     * Stitch audio together from ids list and given delays
+     */
+    private function stitch_audio()
+    {
+        echo $_GET["ids"] . "\n" . $_GET["margins"];
     }
 }

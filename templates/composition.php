@@ -50,7 +50,6 @@
         pos3 = e.clientX;
         // set the element's new position:
         elmnt.style.marginLeft = (parseInt(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1 + "px");
-        console.log(elmnt.style.marginLeft);
       }
 
       function closeDragElement() {
@@ -76,7 +75,7 @@
       <div class="box-header">
         <div class="btn-toolbar box-title" role="toolbar">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-            <a onclick="">
+            <a onclick="stitchAudio()">
               <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
@@ -98,6 +97,9 @@
           </div>
         </div>
         <div style="clear:both"></div>
+      </div>
+      <!-- Will contain audio on play -->
+      <div class="box-header" style="display:none;" id="exampletrack">
       </div>
       <div class="recording-section">
         <?php
@@ -191,8 +193,8 @@
         echo "
         let box$clean_location = document.getElementById('recbox$clean_location');
 
-        box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) * 1.5 + 'px';
-        box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) * 1.5 + 'px';
+        box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) * 2 + 'px';
+        box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) * 2 + 'px';
 
         // Reload the waveform
         $clean_location.load('" . $recording['location'] . "');
@@ -209,8 +211,8 @@
         echo "
         let box$clean_location = document.getElementById('recbox$clean_location');
 
-        box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) / 1.5 + 'px';
-        box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) / 1.5 + 'px';
+        box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) / 2 + 'px';
+        box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) / 2 + 'px';
 
         // Reload the waveform
         $clean_location.load('" . $recording['location'] . "');
@@ -220,10 +222,36 @@
     }
   </script>
 
-
+  <!-- Script to combine audio in edit panel and place on top -->
   <script>
-    function reloadPart() {
-      $('#recordingsection').load('?command=login #loginform');
+    function stitchAudio() {
+      // Use PHP to get all ids and loop through to get each margin
+      let margins = "";
+      let width = -1;
+      <?php
+      $ids = [];
+      $margins = [];
+      foreach ($recordings as $recording) {
+        array_push($ids, $recording["id"]);
+        echo "
+        if (width == -1) {
+          width = parseInt(document.getElementById('recbox$clean_location').style.width.replaceAll('px', ''));
+        }
+        margins += (parseInt(document.getElementById('recbox$clean_location').style.marginLeft.replaceAll('px', '')) * 100) / width + ',';
+        ";
+      }
+      echo "let ids = '" . implode(",", $ids) . "';";
+      ?>
+
+      // Remove the last comma from margins
+      margins = margins.slice(0, -1);
+
+      // reload example track area to show merged track after loading
+      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1);
+
+      // set area to visible
+      document.getElementById("exampletrack").style.display = "block";
+
     }
   </script>
 </body>

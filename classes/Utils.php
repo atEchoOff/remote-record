@@ -150,10 +150,17 @@ class Utils
 
     /**
      * Gets the recording with the specified ID
+     * @return false if no recording was found
      */
     public function getRecording($id)
     {
-        return $this->db->query("select * from Recording where id=?", "s", $id);
+        $response = $this->db->query("select * from Recording where id=?", "s", $id);
+
+        if (sizeof($response) === 0) {
+            return false;
+        }
+
+        return $response[0];
     }
 
     /**
