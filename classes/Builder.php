@@ -30,7 +30,7 @@ class Builder
     /**
      * Creates a playable waveform display, if delete is true, add delete icon
      */
-    public static function playableWaveform($location, $audioName, $delete = true)
+    public static function playableWaveform($location, $audioName, $id, $delete = true)
     {
         $clean_location = strtok(str_replace("/", "slash", str_replace("-", "dash", $location)), ".");
 
@@ -74,7 +74,7 @@ class Builder
         // Add delete icon if delete is set to true
         if ($delete === true) {
             echo "
-        <a href=''>
+        <a href='?command=delete&id=$id'>
           <img src='images/delete.png' class='delete-button' alt='Delete'>
         </a>
         ";

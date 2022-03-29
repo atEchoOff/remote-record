@@ -131,4 +131,20 @@ class Utils
     {
         return $this->db->query("insert into Recording (name, location, author, composition) values (?, ?, ?, ?)", "ssss", $name, $location, $_SESSION["email"], $composition);
     }
+
+    /**
+     * Gets the recording with the specified ID
+     */
+    public function getRecording($id)
+    {
+        return $this->db->query("select * from Recording where id=?", "s", $id);
+    }
+
+    /**
+     * Delete the recording with the specified ID
+     */
+    public function deleteRecording($id)
+    {
+        return $this->db->query("delete from Recording where id=?", "s", $id);
+    }
 }

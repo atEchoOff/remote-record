@@ -36,6 +36,9 @@ class Controller
             case "record":
                 $this->record();
                 break;
+            case "delete":
+                $this->delete();
+                break;
             default:
                 $this->home();
         }
@@ -148,5 +151,23 @@ class Controller
 
 
         include "templates/record.php";
+    }
+
+    /**
+     * Delete a composition recording
+     * If the current owner does not own the media file, do nothing
+     * This only deletes the file if it is owned by the logged-in user
+     */
+    private function delete()
+    {
+        $recordings = $this->utils->getRecording($_GET["id"]);
+
+        // If there is a recording and the recording belongs to the current user, then we can delete
+        if (sizeof($recordings) !== 0 and $recordings[0]['author'] === $_SESSION["email"]) {
+            $this->utils->deleteRecording($_GET["id"]);
+        }
+
+        // redirect to previous location
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

@@ -34,7 +34,7 @@
         echo "<h5>No recordings</h5>";
       }
       foreach ($recordings as $recording) {
-        Builder::playableWaveform($recording["location"], $recording["name"], $delete = true);
+        Builder::playableWaveform($recording["location"], $recording["name"], $recording["id"], $delete = true);
       }
       ?>
     </div>
