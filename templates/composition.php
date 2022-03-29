@@ -64,7 +64,7 @@
     <h2 class="box-title">Composition</h2>
     <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2" role="group" aria-label="First group">
-        <a class="btn btn-dark" href="?command=record">Switch to Recording Mode</a>
+        <a class="btn btn-dark" href="?command=record&composition=<?php echo $composition["name"]; ?>">Switch to Recording Mode</a>
       </div>
     </div>
     <div style="clear:both"></div>
@@ -74,18 +74,18 @@
       <div class="box-header">
         <div class="btn-toolbar box-title" role="toolbar">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-            <a href="#">
+            <a onclick="">
               <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
-            <a href="#">
-              <img src="images/hand.png" class="circular-button" alt="Drag">
+            <a onclick="zoomIn()">
+              <img src="images/zoomin.png" class="circular-button" alt="Drag">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
-            <a href="#">
-              <img src="images/cut.png" class="circular-button" alt="Cut">
+            <a onclick="zoomOut()">
+              <img src="images/zoomout.png" class="circular-button" alt="Cut">
             </a>
           </div>
         </div>
@@ -176,6 +176,45 @@
         document.getElementById(imgID).src = "images/PauseSymbol.webp";
       }
       waveplayer.playPause();
+    }
+  </script>
+
+  <!-- Script to zoom in or out on edit panel -->
+  <script>
+    function zoomIn() {
+      <?php
+      // For each recording, parse the name of the recording box and zoom in dimensions
+      foreach ($recordings as $recording) {
+        $clean_location = Utils::cleanLocation($recording["location"]);
+        echo "
+        let box$clean_location = document.getElementById('recbox$clean_location');
+
+        box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) * 1.5 + 'px';
+        box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) * 1.5 + 'px';
+
+        // Reload the waveform
+        $clean_location.load('" . $recording['location'] . "');
+        ";
+      }
+      ?>
+    }
+
+    function zoomOut() {
+      <?php
+      // For each recording, parse the name of the recording box and zoom out dimensions
+      foreach ($recordings as $recording) {
+        $clean_location = Utils::cleanLocation($recording["location"]);
+        echo "
+        let box$clean_location = document.getElementById('recbox$clean_location');
+
+        box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) / 1.5 + 'px';
+        box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) / 1.5 + 'px';
+
+        // Reload the waveform
+        $clean_location.load('" . $recording['location'] . "');
+        ";
+      }
+      ?>
     }
   </script>
 </body>

@@ -33,7 +33,7 @@ class Builder
      */
     public static function playableWaveform($location, $audioName, $id, $delete = true, $drag = false)
     {
-        $clean_location = strtok(str_replace("/", "slash", str_replace("-", "dash", $location)), ".");
+        $clean_location = Utils::cleanLocation($location);
 
         echo "
         <!-- Audio tag to store the associated audio location -->
@@ -41,8 +41,8 @@ class Builder
             <source src='$location' type='audio/wav'>
         </audio>
 
-        <div id='recbox$clean_location' style='margin-left:0px;'>
-        <div class='recording-box' style='width: 600px;'>
+        <div id='recbox$clean_location' style='margin-left:0px;width: 1024px;'>
+        <div class='recording-box' style='width:100%;'>
         <div class='recording-box-panel'>
           <!-- Toggle the audio when clicking on the play button -->
           <a onclick='togglePlay($clean_location,\"img$clean_location\")'>
@@ -103,7 +103,7 @@ class Builder
     public static function recordableWaveform()
     {
         echo '
-        <div class="recording-box" style="width:600px;">
+        <div class="recording-box" style="width:1024px;">
             <div class="recording-box-panel">
                 <!-- Button to toggle whether or not user is being recorded -->
                 <a onclick="record()">

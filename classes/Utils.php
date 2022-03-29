@@ -163,4 +163,13 @@ class Utils
     {
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
+
+    /**
+     * Static function to convert the location into a clean string
+     * Used to get the name of waveforms in composition and record page
+     */
+    public static function cleanLocation($location)
+    {
+        return strtok(str_replace("/", "slash", str_replace("-", "dash", $location)), ".");
+    }
 }
