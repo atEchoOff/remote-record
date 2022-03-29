@@ -253,6 +253,7 @@
       // also, add the percent of the recording length distance from the start
       // to the margins comma seperated list
       foreach ($recordings as $recording) {
+        $clean_location = Utils::cleanLocation($recording["location"]);
         array_push($ids, $recording["id"]);
         echo "
         if (width == -1) {
@@ -281,7 +282,6 @@
   <!-- Forces all canvas elements to have aria-label to make page accessible -->
   <script>
     let canvasElements = document.getElementsByTagName('canvas');
-    console.log(canvasElements.length);
     for (var i = 0; i < canvasElements.length; i++) {
       canvasElements[i].ariaLabel = "Waveform graphic";
     }
