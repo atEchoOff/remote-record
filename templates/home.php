@@ -38,6 +38,7 @@
         <th style="width:10%;">Composer</th>
       </tr>
       <?php
+      // For each composition, print whether or not user is the composer, the name, and the composer
       foreach ($compositions as $composition) {
         if ($_SESSION["email"] === $composition["composer_email"]) {
           echo "

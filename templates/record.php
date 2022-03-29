@@ -40,6 +40,7 @@
       if (sizeof($recordings) === 0) {
         echo "<h5>No recordings</h5>";
       }
+      // For each recording, show a waveform
       foreach ($recordings as $recording) {
         Builder::playableWaveform($recording["location"], $recording["name"], $recording["id"], $delete = true);
       }
@@ -73,18 +74,22 @@
     };
     var mediaRecorder;
 
+    // When permissions are given, initialize the media recorder for the given mic
     const handleSuccess = function(stream) {
       mediaRecorder = new MediaRecorder(stream, options);
       mediaRecorder.ondataavailable = handleDataAvailable;
     }
 
+    // Query only audio devices (no video)
     navigator.mediaDevices.getUserMedia({
         audio: true,
         video: false
       })
       .then(handleSuccess);
 
-    // When data is available, save and upload the data
+    // When recording data is available, save and upload data
+    // Recording is stored with no parameter, so only one blob is used to store mic data
+    // So, this should only be called once, containing all audio data
     function handleDataAvailable(event) {
       if (event.data.size > 0) {
         recordedChunks.push(event.data);
@@ -117,8 +122,10 @@
         setTimeout(function() {
           recording = false;
           // stop recording
+          // stopping the recording calls the handleDataAvailable function
+          // this will store the audio data into a hidden input in a form
           mediaRecorder.stop();
-          // show upload icon
+          // show upload button for this form
           document.getElementById("uploadhider").style = "display:inline;";
         }, document.getElementById("<?php echo $composition["location"]; ?>").duration * 1000);
       }
@@ -152,17 +159,19 @@
   </script>
 
   <!-- Script to play audio, plays playableWaveform with given waveform object and image ID -->
+  <!-- Temporarily, do not toggle images to fix a glitch on audio finishing but not pausing -->
   <script>
     function togglePlay(waveplayer, imgID) {
       // if audio is already being recorded, exit
       if (recording) {
         return;
       }
-      if (waveplayer.isPlaying()) {
-        document.getElementById(imgID).src = "images/PlaySymbol.png";
-      } else {
-        document.getElementById(imgID).src = "images/PauseSymbol.webp";
-      }
+      // if (waveplayer.isPlaying()) {
+      //   document.getElementById(imgID).src = "images/PlaySymbol.png";
+      // } else {
+      //   document.getElementById(imgID).src = "images/PauseSymbol.webp";
+      // }
+      // Toggle the player
       waveplayer.playPause();
     }
   </script>

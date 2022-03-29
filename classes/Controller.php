@@ -1,17 +1,33 @@
 <?php
 
+/**
+ * Handles requests for pages
+ */
 class Controller
 {
+    /**
+     * The given command of the current request
+     */
     private $command;
 
+    /**
+     * Handles menial tasks for the controller (such as database queries)
+     */
     private $utils;
 
+    /**
+     * Constructs a controller given the specified command
+     * initializes the utility manager
+     */
     public function __construct($command)
     {
         $this->command = $command;
         $this->utils = new Utils();
     }
 
+    /**
+     * Runs the given request
+     */
     public function run()
     {
         switch ($this->command) {
@@ -47,6 +63,10 @@ class Controller
         }
     }
 
+    /**
+     * Login page (also has a link to sign up)
+     * Takes email and password and verifies user
+     */
     private function login()
     {
         if (isset($_POST) and isset($_POST["email"])) {
@@ -72,6 +92,11 @@ class Controller
         include "templates/login.php";
     }
 
+    /**
+     * Signup page (also has a link to login)
+     * Takes name, email, and password
+     * Creates user, and sets name
+     */
     private function signup()
     {
         if (isset($_POST) and isset($_POST["email"])) {
@@ -92,6 +117,9 @@ class Controller
         include "templates/signup.php";
     }
 
+    /**
+     * Clears the session of the user and redirects to the login page
+     */
     private function logout()
     {
         unset($_SESSION["email"]);
@@ -100,12 +128,21 @@ class Controller
         header("Location: ?command=login");
     }
 
+    /**
+     * List of all compositions which the user is a member of
+     */
     private function home()
     {
         $compositions = $this->utils->listCompositions();
         include "templates/home.php";
     }
 
+    /**
+     * Composition page
+     * Contains an edit page where composers can edit the placing of all tracks for the composition
+     * Can be saved by composer
+     * Shows all saved stitched recordings
+     */
     private function composition()
     {
         // Get composition and all of its recordings
@@ -114,14 +151,21 @@ class Controller
         include "templates/composition.php";
     }
 
+    /**
+     * Page to create a new composition
+     * Initalizes a new composition for the user
+     * Saves the backtrack for the composition
+     */
     private function new_composition()
     {
         // if they submitted a composition name
         if (isset($_POST) and isset($_POST["composition-name"])) {
+            // Save the given backtrack
             $info = pathinfo($_FILES['backtrack']['name']);
             $ext = $info['extension'];
             $newname = $_POST["composition-name"] . "." . $ext;
 
+            // Save the backtrack into the audio directory
             $target = 'audio/' . $newname;
             move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
 
@@ -132,6 +176,11 @@ class Controller
         include "templates/new_composition.php";
     }
 
+    /**
+     * Record page for a specific composition
+     * User can record self along with backtrack
+     * User can save and listen to multiple recordings of themself for the composition
+     */
     private function record()
     {
         $composition = $this->utils->getComposition($_GET["composition"]);

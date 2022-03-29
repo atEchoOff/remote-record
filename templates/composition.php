@@ -65,6 +65,8 @@
     <h2 class="box-title">Composition</h2>
     <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2" role="group" aria-label="First group">
+
+        <!-- Go to recording page for this specific composition -->
         <a class="btn btn-dark" href="?command=record&composition=<?php echo $composition["name"]; ?>">Switch to Recording Mode</a>
       </div>
     </div>
@@ -75,22 +77,26 @@
       <div class="box-header">
         <div class="btn-toolbar box-title" role="toolbar">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
+            <!-- Query server to stitch together audio given parameters in edit panel -->
             <a onclick="stitchAudio()">
               <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
+            <!-- Zoom in edit panel -->
             <a onclick="zoomIn()">
               <img src="images/zoomin.png" class="circular-button" alt="Drag">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <!-- Zoom out edit panel -->
             <a onclick="zoomOut()">
               <img src="images/zoomout.png" class="circular-button" alt="Cut">
             </a>
           </div>
         </div>
 
+        <!-- Save button -->
         <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <button type="button" class="btn btn-success" style="top:5px;">Save</button>
@@ -98,7 +104,9 @@
         </div>
         <div style="clear:both"></div>
       </div>
-      <!-- Will contain audio on play -->
+
+
+      <!-- Will contain audio after queried to stitch together edit panel -->
       <div class="box-header" style="display:none;" id="exampletrack">
       </div>
       <div class="recording-section">
@@ -113,6 +121,8 @@
       </div>
     </div>
 
+    <!-- Area for saved audio -->
+    <!-- Note, this is currently still just a (broken) template -->
     <h2 class="box-title">Saved Recordings</h2>
     <div style="clear:both"></div>
     <div class="recording-section" id="recordingsection">
@@ -171,14 +181,17 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-  <!-- Script to play audio, plays playableWaveform with given waveform object and image ID -->
+  <!-- Script to play audio, swaps between play and pause icon -->
   <script>
     function togglePlay(waveplayer, imgID) {
-      if (waveplayer.isPlaying()) {
-        document.getElementById(imgID).src = "images/PlaySymbol.png";
-      } else {
-        document.getElementById(imgID).src = "images/PauseSymbol.webp";
-      }
+      // This is taken out temporarily to stop a broken icon when the audio finishes playing
+      // but is not paused
+      // if (waveplayer.isPlaying()) {
+      //   document.getElementById(imgID).src = "images/PlaySymbol.png";
+      // } else {
+      //   document.getElementById(imgID).src = "images/PauseSymbol.webp";
+      // }
+      // Toggle waveplayer
       waveplayer.playPause();
     }
   </script>
@@ -191,8 +204,10 @@
       foreach ($recordings as $recording) {
         $clean_location = Utils::cleanLocation($recording["location"]);
         echo "
+        // get the box to stretch
         let box$clean_location = document.getElementById('recbox$clean_location');
 
+        // scale the left margin and width
         box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) * 2 + 'px';
         box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) * 2 + 'px';
 
@@ -209,8 +224,10 @@
       foreach ($recordings as $recording) {
         $clean_location = Utils::cleanLocation($recording["location"]);
         echo "
+        // get the box to stretch
         let box$clean_location = document.getElementById('recbox$clean_location');
 
+        // scale the left margin and width
         box$clean_location.style.marginLeft = (box$clean_location.style.marginLeft.replaceAll('px', '')) / 2 + 'px';
         box$clean_location.style.width = (box$clean_location.style.width.replaceAll('px', '')) / 2 + 'px';
 
@@ -222,15 +239,19 @@
     }
   </script>
 
-  <!-- Script to combine audio in edit panel and place on top -->
+  <!-- Script to take the edit panel details and send to the server to stitch together -->
   <script>
     function stitchAudio() {
-      // Use PHP to get all ids and loop through to get each margin
+      // initialize margins string (holds the distance from the start as a comma delimited list)
       let margins = "";
+      // initalize width as -1 to get the width of the first element
       let width = -1;
       <?php
+      // Stores the ids for eaach element so it can be imploded into a string for javascript
       $ids = [];
-      $margins = [];
+      // for each recording, add the id to the php list
+      // also, add the percent of the recording length distance from the start
+      // to the margins comma seperated list
       foreach ($recordings as $recording) {
         array_push($ids, $recording["id"]);
         echo "
@@ -240,6 +261,7 @@
         margins += (parseInt(document.getElementById('recbox$clean_location').style.marginLeft.replaceAll('px', '')) * 100) / width + ',';
         ";
       }
+      // Put the ids list into javascript as a string
       echo "let ids = '" . implode(",", $ids) . "';";
       ?>
 

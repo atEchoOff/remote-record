@@ -24,6 +24,7 @@ if (isset($_GET["command"])) {
 // Sign into session
 session_start();
 
+// If the user is not signing up and they are not logged in, go to login page
 if (!($command === "signup") && !isset($_SESSION["email"])) {
     $command = "login";
 }

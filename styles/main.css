@@ -92,16 +92,6 @@ td:first-child, th:first-child {
     left:60px;
 }
 
-/* Used to place upload button to the right of a recorded panel */
-.recording-box-upload {
-    position:absolute;
-    display:inline;
-    float:right;
-    width: fit-content;
-    margin-top:8px;
-    margin-left:-5px;
-}
-
 /* used for the right side of the recording with the label/waveform in it */
 .recording-waveform-end{
     width: 100%;

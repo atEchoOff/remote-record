@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * Database class
+ * allows for a better interface for SQL queries
+ */
 class Database
 {
+    /**
+     * Database instance
+     */
     private $mysqli;
 
+    /**
+     * Constructor for the database layer
+     * Logs in with config variables set in Config.php (this directory)
+     * See Brian Christner (@bdc5zgk) for the config php file
+     */
     public function __construct()
     {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -15,6 +27,9 @@ class Database
         );
     }
 
+    /**
+     * Make a query that is safe from SQL injection
+     */
     public function query($query, $bparam = null, ...$params)
     {
         $stmt = $this->mysqli->prepare($query);

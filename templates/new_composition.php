@@ -15,6 +15,7 @@
     <!-- Navbar -->
     <?php Builder::navbar(); ?>
 
+    <!-- Box to hold composition form -->
     <div class="box-section">
         <div class="row">
             <h2 class="box-title">Create Composition</h2>
@@ -26,6 +27,8 @@
                     <input class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
                 </div>
                 <div class="mb-3">
+                    <!-- Required backtrack for composition -->
+                    <!-- May soon become optional along with a required duration for no backtrack -->
                     <label for="backtrack" class="form-label">Backtrack</label>
                     <input class="form-control" name="backtrack" id="backtrack" type="file" placeholder="Backtrack" required accept="audio/*">
                 </div>

@@ -62,7 +62,7 @@ class Utils
     }
 
     /**
-     * Create a user given a username and password
+     * Create a user given a name and username and password
      * @return true if success
      * @return false otherwise
      */
@@ -101,6 +101,7 @@ class Utils
 
         $return = [];
 
+        // For each composition, add the composer name element
         foreach ($result as $composition) {
             $real_composition = $this->getComposition($composition["name"]);
             if ($real_composition === false) {
@@ -131,6 +132,7 @@ class Utils
     {
         $list = $this->db->query("select * from Recording where composition = ?", "s", $composition["name"]);
 
+        // For each composition, add the composer name
         $ret_list = [];
         foreach ($list as $recording) {
             $recording["author_name"] = $this->getUser($recording["author"])["name"];
@@ -174,6 +176,7 @@ class Utils
     /**
      * Static function to convert the location into a clean string
      * Used to get the name of waveforms in composition and record page
+     * Used to get clean IDs throughout composition and record page
      */
     public static function cleanLocation($location)
     {

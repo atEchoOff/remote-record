@@ -41,11 +41,13 @@ class Builder
             <source src='$location' type='audio/wav'>
         </audio>
 
+        <!-- Draggable element with adjustable left margin and width for zooming -->
         <div id='recbox$clean_location' style='margin-left:0px;width: 1024px;'>
         <div class='recording-box' style='width:100%;'>
         <div class='recording-box-panel'>
           <!-- Toggle the audio when clicking on the play button -->
           <a onclick='togglePlay($clean_location,\"img$clean_location\")'>
+
             <!-- Image swapped to pause on togglePlay -->
             <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
           </a>
@@ -87,6 +89,7 @@ class Builder
       </div>
     ";
 
+        // Make an element draggable if it is requested
         if ($drag === true) {
             echo "
             <script>
@@ -97,7 +100,6 @@ class Builder
     }
 
     /**
-     * 
      * Creates a recording waveform display
      */
     public static function recordableWaveform()
@@ -105,7 +107,7 @@ class Builder
         echo '
         <div class="recording-box" style="width:1024px;">
             <div class="recording-box-panel">
-                <!-- Button to toggle whether or not user is being recorded -->
+                <!-- Button to start recording user -->
                 <a onclick="record()">
                     <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon" name="recordicon">
                 </a>
@@ -115,14 +117,17 @@ class Builder
             <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
                 <!-- Hidden until recording finished -->
                 <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
+
                     <!-- Stores audio data -->
                     <input type="text" style="display:none;" name="record" id="record" class="form-control" required />
-                    <!-- Submits form -->
+
+                    <!-- Submits form, button appears after recording finished -->
                     <button style="border:none;background:none;margin:0px; padding:0px; display:inline;" type="submit">
                         <img src="images/upload.png" class="circular-button" alt="Record">
                     </button>
                 </div>
 
+                <!-- Location of the name textbox for the recording -->
                 <div class="recording-waveform-end">
                     <div class="new-recording-waveform">
                         <input type="text" name="name" class="form-control" id="name" placeholder="Recording Name" required />
