@@ -32,7 +32,7 @@ class Builder
      */
     public static function playableWaveform($location, $audioName, $delete = true)
     {
-        $clean_location = str_replace("/", "slash", str_replace(".", "dot", $location));
+        $clean_location = str_replace("/", "slash", str_replace(".", "dot", str_replace("-", "dash", $location)));
 
         echo "
         <!-- Audio tag to store the associated audio location -->
@@ -43,9 +43,10 @@ class Builder
 
         <div class='recording-box' style='width: 600px;'>
         <div class='recording-box-panel'>
-          <!-- Play the audio when clicking on the play button -->
-          <a onclick='togglePlay(\"$location\")'>
-            <img src='images/PlaySymbol.png' class='circular-button' alt='Play'>
+          <!-- Toggle the audio when clicking on the play button -->
+          <a onclick='togglePlay($clean_location,\"img$clean_location\")'>
+            <!-- Image swapped to pause on togglePlay -->
+            <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
           </a>
         </div>
         <div class='recording-waveform-end'>
@@ -58,14 +59,14 @@ class Builder
             
             <!-- script to place waveform in previous div (needs to be placed immediately after)-->
             <script>
-                var wavesurfer = WaveSurfer.create({
+                var $clean_location = WaveSurfer.create({
                     container: '#$clean_location',
                     waveColor: 'black',
                     progressColor: 'purple'
                 });
 
                 // Load the correct audio
-                wavesurfer.load('$location');
+                $clean_location.load('$location');
             </script>
           </div>
         </div>

@@ -141,18 +141,15 @@
     }
   </script>
 
-  <!-- Script to play audio, plays playableWaveform with given file location -->
+  <!-- Script to play audio, plays playableWaveform with given waveform object and image ID -->
   <script>
-    function togglePlay(name) {
-      var x = document.getElementById(name);
-
-      if (x.paused) {
-        console.log("Play");
-        x.play();
+    function togglePlay(waveplayer, imgID) {
+      if (waveplayer.isPlaying()) {
+        document.getElementById(imgID).src = "images/PlaySymbol.png";
       } else {
-        console.log("Pause");
-        x.pause();
+        document.getElementById(imgID).src = "images/PauseSymbol.webp";
       }
+      waveplayer.playPause();
     }
   </script>
 
