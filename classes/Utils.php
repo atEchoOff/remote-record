@@ -127,8 +127,8 @@ class Utils
     /**
      * Creates a recording for current user and given composition name and location (uses $_SESSION)
      */
-    public function createUserCompositionRecording($composition, $location)
+    public function createUserCompositionRecording($name, $composition, $location)
     {
-        return $this->db->query("insert into Recording (name, location, author, composition) values (?, ?, ?, ?)", "ssss", "temp", $location, $_SESSION["email"], $composition);
+        return $this->db->query("insert into Recording (name, location, author, composition) values (?, ?, ?, ?)", "ssss", $name, $location, $_SESSION["email"], $composition);
     }
 }

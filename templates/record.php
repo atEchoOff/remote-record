@@ -94,23 +94,26 @@
       if (!recording) {
         recording = true;
 
-        // Get audio
-        let x = document.getElementById("<?php echo $composition["location"]; ?>");
+        // Get backtrack waveform
+        let backtrack = audioslash<?php echo $composition["name"]; ?>;
+        // Stop and go to beginning
+        backtrack.stop();
 
         // Record and play backtrack simultaneously
         mediaRecorder.start();
-        x.play();
+        backtrack.play();
 
         // Replace record icon with 3 dots
         document.getElementById("recordicon").src = "images/dotdotdot.png";
 
         // When audio is complete...
         setTimeout(function() {
+          recording = false;
           // stop recording
           mediaRecorder.stop();
           // show upload icon
           document.getElementById("uploadhider").style = "display:inline;";
-        }, x.duration * 1000);
+        }, document.getElementById("<?php echo $composition["location"]; ?>").duration * 1000);
       }
     }
 
@@ -144,6 +147,10 @@
   <!-- Script to play audio, plays playableWaveform with given waveform object and image ID -->
   <script>
     function togglePlay(waveplayer, imgID) {
+      // if audio is already being recorded, exit
+      if (recording) {
+        return;
+      }
       if (waveplayer.isPlaying()) {
         document.getElementById(imgID).src = "images/PlaySymbol.png";
       } else {

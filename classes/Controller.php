@@ -141,7 +141,7 @@ class Controller
             file_put_contents($target, $bin_data);
 
             // create composition and redirect home
-            $this->utils->createUserCompositionRecording($composition["name"], $target);
+            $this->utils->createUserCompositionRecording($_POST["name"], $composition["name"], $target);
         }
 
         $recordings = $this->utils->getUserCompositionRecordings($composition);

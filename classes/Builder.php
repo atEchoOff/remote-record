@@ -32,7 +32,7 @@ class Builder
      */
     public static function playableWaveform($location, $audioName, $delete = true)
     {
-        $clean_location = str_replace("/", "slash", str_replace(".", "dot", str_replace("-", "dash", $location)));
+        $clean_location = strtok(str_replace("/", "slash", str_replace("-", "dash", $location)), ".");
 
         echo "
         <!-- Audio tag to store the associated audio location -->
@@ -101,27 +101,24 @@ class Builder
                 </a>
             </div>
 
-            <!-- Hidden until recording finished -->
-            <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
-                <!-- This form is used to store the audio data and submit on upload click -->
-                <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
+            <!-- This form is used to store the audio data and submit on upload click -->
+            <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
+                <!-- Hidden until recording finished -->
+                <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
                     <!-- Stores audio data -->
                     <input type="hidden" name="record" id="record" />
                     <!-- Submits form -->
                     <button style="border:none;background:none;margin:0px; padding:0px; display:inline;" type="submit">
                         <img src="images/upload.png" class="circular-button" alt="Record">
                     </button>
-                </form>
-            </div>
-
-            <div class="recording-waveform-end">
-                <div class="recording-box-label">
-                    <p>New Recording</p>
                 </div>
-                <div class="new-recording-waveform">
 
+                <div class="recording-waveform-end">
+                    <div class="new-recording-waveform">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Recording Name" required />
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         ';
     }
