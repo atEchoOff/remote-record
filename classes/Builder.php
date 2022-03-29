@@ -109,14 +109,14 @@ class Builder
             <div class="recording-box-panel">
                 <!-- Button to start recording user -->
                 <a onclick="record()">
-                    <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon" name="recordicon">
+                    <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon">
                 </a>
             </div>
 
             <!-- This form is used to store the audio data and submit on upload click -->
             <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
                 <!-- Hidden until recording finished -->
-                <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
+                <div id="uploadhider" style="display:none;" class="recording-box-panel">
 
                     <!-- Stores audio data -->
                     <input type="text" style="display:none;" name="record" id="record" class="form-control" required />

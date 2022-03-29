@@ -6,7 +6,9 @@
  *      - https://stackoverflow.com/questions/37134433/convert-input-file-to-byte-array
  *      - http://wavesurfer-js.org/docs/
  *      - https://www.w3schools.com/howto/howto_js_draggable.asp
- * 
+ *      - https://stackoverflow.com/questions/1996122/how-to-prevent-xss-with-html-php
+ *      - https://stackoverflow.com/questions/18618865/load-part-page-with-jquery-ajax
+ *      - https://www.geekstrick.com/form-validation-using-php-and-regex/
  * 
  * 
  */

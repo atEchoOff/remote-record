@@ -30,7 +30,7 @@
                     <!-- Required backtrack for composition -->
                     <!-- May soon become optional along with a required duration for no backtrack -->
                     <label for="backtrack" class="form-label">Backtrack</label>
-                    <input class="form-control" name="backtrack" id="backtrack" type="file" placeholder="Backtrack" required accept="audio/*">
+                    <input class="form-control" name="backtrack" id="backtrack" type="file" required accept="audio/*">
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
