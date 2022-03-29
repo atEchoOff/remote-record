@@ -18,6 +18,7 @@
   <?php Builder::navbar(); ?>
 
   <!-- Script to make elements draggable -->
+  <!-- https://www.w3schools.com/howto/howto_js_draggable.asp -->
   <script>
     function dragElement(elmnt) {
       var pos1 = 0,
