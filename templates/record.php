@@ -86,16 +86,24 @@
     }
   </script>
 
-  <!-- Script to toggle whether or not user is being recorded -->
+  <!-- Script to record (usable only once) -->
   <script>
-    function toggleRecording() {
+    function record() {
       if (!recording) {
-        console.log("Recording...");
-        mediaRecorder.start();
         recording = true;
-      } else {
-        console.log("Stopped recording...");
-        mediaRecorder.stop();
+
+        let x = document.getElementById("<?php echo $composition["location"]; ?>");
+        console.log("Recording started");
+        mediaRecorder.start();
+        x.play();
+        document.getElementById("recordicon").src = "images/dotdotdot.png";
+
+        setTimeout(function() {
+          console.log("Recording done");
+          mediaRecorder.stop();
+          document.getElementById("uploadhider").style = "display:inline; margin-left:none;";
+          recording = false;
+        }, x.duration * 1000);
       }
     }
 

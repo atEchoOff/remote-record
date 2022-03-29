@@ -77,13 +77,26 @@ class Builder
     public static function recordableWaveform()
     {
         echo '
-        <div class="recording-box">
+        <div class="recording-box" style="width:600px;">
             <div class="recording-box-panel">
                 <!-- Button to toggle whether or not user is being recorded -->
-                <a onclick="toggleRecording()">
-                    <img src="images/recording.png" class="circular-button" alt="Record">
+                <a onclick="record()">
+                    <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon" name="recordicon">
                 </a>
             </div>
+
+            <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
+                <!-- This form is used to store the audio data and submit on upload click -->
+                <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">
+                    <!-- Stores audio data -->
+                    <input type="hidden" name="record" id="record" />
+                    <!-- Submits form -->
+                    <button style="border:none;background:none;margin:0px; padding:0px; display:inline;" type="submit">
+                        <img src="images/upload.png" class="circular-button" alt="Record">
+                    </button>
+                </form>
+            </div>
+
             <div class="recording-waveform-end">
                 <div class="recording-box-label">
                     <p>New Recording</p>
@@ -92,18 +105,6 @@ class Builder
 
                 </div>
             </div>
-        </div>
-        <!-- Upload icon for recorded box -->
-        <div class="recording-box-upload">
-            <!-- This form is used to store the audio data and submit on upload click -->
-            <form method="post" name="uploadform">
-                <!-- Stores audio data -->
-                <input type="hidden" name="record" id="record" />
-                <!-- Submits form -->
-                <button style="border:none;background:none;" type="submit">
-                    <img src="images/upload.png" class="circular-button" alt="Record">
-                </button>
-            </form>
         </div>
         ';
     }
