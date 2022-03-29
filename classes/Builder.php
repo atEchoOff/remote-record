@@ -85,6 +85,7 @@ class Builder
                 </a>
             </div>
 
+            <!-- Hidden until recording finished -->
             <div name="uploadhider" id="uploadhider" style="display:none;" class="recording-box-panel">
                 <!-- This form is used to store the audio data and submit on upload click -->
                 <form method="post" name="uploadform" style="margin:0px; padding:0px; display:inline;">

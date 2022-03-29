@@ -92,17 +92,22 @@
       if (!recording) {
         recording = true;
 
+        // Get audio
         let x = document.getElementById("<?php echo $composition["location"]; ?>");
-        console.log("Recording started");
+
+        // Record and play backtrack simultaneously
         mediaRecorder.start();
         x.play();
+
+        // Replace record icon with 3 dots
         document.getElementById("recordicon").src = "images/dotdotdot.png";
 
+        // When audio is complete...
         setTimeout(function() {
-          console.log("Recording done");
+          // stop recording
           mediaRecorder.stop();
-          document.getElementById("uploadhider").style = "display:inline; margin-left:none;";
-          recording = false;
+          // show upload icon
+          document.getElementById("uploadhider").style = "display:inline;";
         }, x.duration * 1000);
       }
     }
