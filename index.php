@@ -2,6 +2,7 @@
 
 /**
  * Sources used:
+ *      - https://web.dev/media-recording-audio/
  *      - https://stackoverflow.com/questions/9620805/save-byte-array-to-a-file-php
  *      - https://stackoverflow.com/questions/37134433/convert-input-file-to-byte-array
  *      - http://wavesurfer-js.org/docs/
