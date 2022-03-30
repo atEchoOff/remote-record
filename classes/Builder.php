@@ -92,7 +92,7 @@ class Builder
         if ($drag === true) {
             echo "
 <script>
-    dragElement(document.getElementById('recbox$clean_location'));            
+    dragElement(document.getElementById('recbox$clean_location'));
 </script>
                 ";
         }
@@ -118,7 +118,7 @@ class Builder
         <div id="uploadhider" style="display:none;" class="recording-box-panel">
 
             <!-- Stores audio data -->
-            <input type="text" style="display:none;" name="record" id="record" class="form-control" required />
+            <input type="hidden" name="record" id="record" value="" />
 
             <!-- Submits form, button appears after recording finished -->
             <button class="hidden-button" type="submit">

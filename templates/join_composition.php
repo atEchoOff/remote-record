@@ -1,0 +1,68 @@
+<!-- Home Page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jimmy Connors and Brian Christner">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <?php Builder::navbar(); ?>
+
+    <!-- Your projects -->
+    <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
+    <div class="box-section">
+        <div class="row">
+            <h2 class="box-title">Join A Project</h2>
+        </div>
+        <table>
+            <tr>
+                <!-- Table heading -->
+                <th style="width:20%;">Composition Name</th>
+                <th style="width:10%;">Your Roles</th>
+                <th style="width:10%;">Composer</th>
+            </tr>
+            <?php
+            // For each composition, print whether or not user is the composer, the name, and the composer
+            if (sizeof($compositions) === 0) {
+                echo "
+                <tr>
+                    <td>No other compositions exist</td>
+                    <td></td>
+                    <td></td>
+                </tr>";
+            }
+
+            foreach ($compositions as $composition) {
+                if ($_SESSION["email"] === $composition["composer_email"]) {
+                    echo "
+              <tr>
+                <td><a href='?command=join_composition&composition={$composition['name']}'>{$composition['name']}</a></td>
+                <td>Composer, Musician</td>
+                <td>{$composition['composer_name']}</td>
+              </tr>
+              ";
+                } else {
+                    echo "
+              <tr>
+                <td><a href='?command=join_composition&composition={$composition['name']}'>{$composition['name']}</a></td>
+                <td>Musician</td>
+                <td>{$composition['composer_name']}</td>
+              </tr>
+              ";
+                }
+            }
+            ?>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>

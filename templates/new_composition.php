@@ -24,6 +24,7 @@
             <form action="?command=new_composition" method="post" enctype='multipart/form-data'>
                 <div class="mb-3">
                     <label for="composition-name" class="form-label">Composition Name</label>
+                    <span class="error"> <?php echo $compositionError; ?></span>
                     <input class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
                 </div>
                 <div class="mb-3">

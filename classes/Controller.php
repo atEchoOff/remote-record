@@ -46,6 +46,9 @@ class Controller
             case "composition":
                 $this->composition();
                 break;
+            case "join_composition":
+                $this->join_composition();
+                break;
             case "new_composition":
                 $this->new_composition();
                 break;
@@ -157,8 +160,34 @@ class Controller
     {
         // Get composition and all of its recordings
         $composition = $this->utils->getComposition($_GET["composition"]);
+
+        // if the current user is not the owner of the composition page
+        // then redirect to the record page
+        if ($_SESSION["email"] !== $composition["composer_email"]) {
+            header("Location: ?command=record&composition={$composition['name']}");
+        }
+
         $recordings = $this->utils->getCompositionRecordings($composition);
         include "templates/composition.php";
+    }
+
+    /**
+     * Page to join a composition
+     * Looks like home page, but each composition link links to add a composition
+     */
+    private function join_composition()
+    {
+        // if a composition to join is included, join it
+        if (isset($_GET["composition"])) {
+            if ($this->utils->memberOfComposition($_GET["composition"]) === false) {
+                $this->utils->createUserComposition($_GET["composition"]);
+            }
+
+            // Redirect back to join page
+            header("Location: ?command=join_composition");
+        }
+        $compositions = $this->utils->allForeignCompositions();
+        include "templates/join_composition.php";
     }
 
     /**
@@ -169,19 +198,24 @@ class Controller
     private function new_composition()
     {
         // if they submitted a composition name
+        $compositionError = "";
         if (isset($_POST) and isset($_POST["composition-name"])) {
-            // Save the given backtrack
-            $info = pathinfo($_FILES['backtrack']['name']);
-            $ext = $info['extension'];
-            $newname = $_POST["composition-name"] . "." . $ext;
+            if ($this->utils->getComposition($_POST["composition-name"]) === false) {
+                // Save the given backtrack
+                $info = pathinfo($_FILES['backtrack']['name']);
+                $ext = $info['extension'];
+                $newname = $_POST["composition-name"] . "." . $ext;
 
-            // Save the backtrack into the audio directory
-            $target = 'audio/' . $newname;
-            move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
+                // Save the backtrack into the audio directory
+                $target = 'audio/' . $newname;
+                move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
 
-            // create composition and redirect home
-            $this->utils->createComposition($_POST["composition-name"], $target);
-            header("Location: ?command=home");
+                // create composition and redirect home
+                $this->utils->createComposition($_POST["composition-name"], $target);
+                header("Location: ?command=home");
+            } else {
+                $compositionError = " * There is already a composition with this name";
+            }
         }
         include "templates/new_composition.php";
     }
@@ -194,6 +228,11 @@ class Controller
     private function record()
     {
         $composition = $this->utils->getComposition($_GET["composition"]);
+
+        // if the current user is not a member of this composition, redirect home
+        if ($this->utils->memberOfComposition($composition["name"]) === false) {
+            header("Location: ?command=home");
+        }
 
         if (isset($_POST) and isset($_POST["record"])) {
             // Convert string audio data into a binary array

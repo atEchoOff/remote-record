@@ -9,6 +9,7 @@
  *      - https://stackoverflow.com/questions/1996122/how-to-prevent-xss-with-html-php
  *      - https://stackoverflow.com/questions/18618865/load-part-page-with-jquery-ajax
  *      - https://www.geekstrick.com/form-validation-using-php-and-regex/
+ *      - https://stackoverflow.com/questions/895171/prevent-users-from-submitting-a-form-by-hitting-enter
  * 
  * 
  */

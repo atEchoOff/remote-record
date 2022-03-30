@@ -23,7 +23,7 @@
       <!-- Buttons to add an existing composition or make a new one -->
       <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-          <button type="button" class="btn btn-dark">Join</button>
+          <a class="btn btn-dark" href="?command=join_composition">Join</a>
         </div>
         <div class="btn-group mr-2" role="group" aria-label="Second group">
           <a class="btn btn-primary" href="?command=new_composition">New</a>
@@ -52,7 +52,7 @@
           echo "
               <tr>
                 <td><a href='?command=record&composition={$composition['name']}'>{$composition['name']}</a></td>
-                <td>Composer, Musician</td>
+                <td>Musician</td>
                 <td>{$composition['composer_name']}</td>
               </tr>
               ";

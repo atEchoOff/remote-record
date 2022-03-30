@@ -62,6 +62,20 @@ class Utils
     }
 
     /**
+     * Returns whether or not the current user is a member of the given composition name
+     */
+    public function memberOfComposition($composition)
+    {
+        $result = $this->db->query("select * from UserComposition where email = ? and name = ?", "ss", $_SESSION["email"], $composition);
+
+        if ($result === false) {
+            die("An SQL Error Occured");
+        }
+
+        return sizeof($result) !== 0;
+    }
+
+    /**
      * Create a user given a name and username and password
      * @return true if success
      * @return false otherwise
@@ -86,6 +100,41 @@ class Utils
         }
 
         return $this->db->query("insert into UserComposition (email, name) values (?, ?);", "ss", $_SESSION["email"], $name);
+    }
+
+    /**
+     * Creates a user composition
+     * Effectively, adds a composition to the current user
+     */
+    public function createUserComposition($composition)
+    {
+        return $this->db->query("insert into UserComposition (email, name) values (?, ?)", "ss", $_SESSION["email"], $composition);
+    }
+
+    /**
+     * Returns a list of all compositions you are not a member of
+     */
+    public function allForeignCompositions()
+    {
+        $result = $this->db->query("select * from Composition");
+
+        if ($result === false) {
+            die("An error occured while querying SQL");
+        }
+
+        $return = [];
+
+        // For each composition, add the composer name element
+        foreach ($result as $composition) {
+            if ($this->memberOfComposition($composition["name"]) === false) {
+                // trace back to the composer and add their name
+                $composition["composer_name"] = $this->getUser($composition["composer_email"])["name"];
+
+                array_push($return, $composition);
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -118,7 +167,7 @@ class Utils
     }
 
     /**
-     * Returns all recordings for current user and given composition (Uses $_SESSION)
+     * Returns all recordings for current user and given composition name (Uses $_SESSION)
      */
     public function getUserCompositionRecordings($composition)
     {
@@ -167,6 +216,7 @@ class Utils
 
     /**
      * Delete the recording with the specified ID
+     * Note: dont use this without validation
      */
     public function deleteRecording($id)
     {

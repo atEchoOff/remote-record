@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- This needs to be placed at the top to function correctly -->
   <script src="https://unpkg.com/wavesurfer.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -183,6 +184,19 @@
     for (var i = 0; i < canvasElements.length; i++) {
       canvasElements[i].ariaLabel = "Waveform graphic";
     }
+  </script>
+
+  <!-- Disable enter to submit form -->
+  <!-- https://stackoverflow.com/questions/895171/prevent-users-from-submitting-a-form-by-hitting-enter -->
+  <script>
+    $(document).ready(function() {
+      $(window).keydown(function(event) {
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
+    });
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
