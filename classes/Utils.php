@@ -25,7 +25,7 @@ class Utils
      */
     public function getUser($email)
     {
-        $ret = $this->db->query("select * from user where email = ?;", "s", $email);
+        $ret = $this->db->query("select * from User where email = ?;", "s", $email);
 
         if ($ret === false) {
             die("User retrieval failed");
@@ -46,7 +46,7 @@ class Utils
      */
     public function getComposition($name)
     {
-        $ret = $this->db->query("select * from composition where name = ?;", "s", $name);
+        $ret = $this->db->query("select * from Composition where name = ?;", "s", $name);
 
         if ($ret === false) {
             die("Composition retrieval failed");
@@ -82,7 +82,7 @@ class Utils
      */
     public function createUser($name, $email, $password)
     {
-        return $this->db->query("insert into user (name, email, password) values (?, ?, ?);", "sss", $name, $email, password_hash($password, PASSWORD_DEFAULT));
+        return $this->db->query("insert into User (name, email, password) values (?, ?, ?);", "sss", $name, $email, password_hash($password, PASSWORD_DEFAULT));
     }
 
     /**
@@ -92,7 +92,7 @@ class Utils
      */
     public function createComposition($name, $location)
     {
-        $result = $this->db->query("insert into composition (name, composer_email, location) values (?, ?, ?);", "sss", $name, $_SESSION["email"], $location);
+        $result = $this->db->query("insert into Composition (name, composer_email, location) values (?, ?, ?);", "sss", $name, $_SESSION["email"], $location);
 
         // check for errors
         if ($result === false) {

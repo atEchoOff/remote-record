@@ -16,7 +16,7 @@ $db->query("drop table if exists User;");
 $db->query("create table User (
     id int not null auto_increment,
     name text not null,
-    email text not null unique,
+    email varchar(200) not null unique,
     password text not null,
     primary key (id)
 );");
@@ -27,7 +27,7 @@ echo "Setting up composition table\n";
 $db->query("drop table if exists Composition;");
 $db->query("create table Composition (
     id int not null auto_increment,
-    name text not null unique,
+    name varchar(200) not null unique,
     composer_email text not null,
     location text not null,
     primary key (id)
