@@ -200,21 +200,25 @@ class Controller
         // if they submitted a composition name
         $compositionError = "";
         if (isset($_POST) and isset($_POST["composition-name"])) {
-            if ($this->utils->getComposition($_POST["composition-name"]) === false) {
-                // Save the given backtrack
-                $info = pathinfo($_FILES['backtrack']['name']);
-                $ext = $info['extension'];
-                $newname = $_POST["composition-name"] . "." . $ext;
+            if (strpos($_POST["composition-name"], "/") === false) {
+                if ($this->utils->getComposition($_POST["composition-name"]) === false) {
+                    // Save the given backtrack
+                    $info = pathinfo($_FILES['backtrack']['name']);
+                    $ext = $info['extension'];
+                    $newname = $_POST["composition-name"] . "." . $ext;
 
-                // Save the backtrack into the audio directory
-                $target = 'audio/' . $newname;
-                move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
+                    // Save the backtrack into the audio directory
+                    $target = 'audio/' . $newname;
+                    move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
 
-                // create composition and redirect home
-                $this->utils->createComposition($_POST["composition-name"], $target);
-                header("Location: ?command=home");
+                    // create composition and redirect home
+                    $this->utils->createComposition($_POST["composition-name"], $target);
+                    header("Location: ?command=home");
+                } else {
+                    $compositionError = " * There is already a composition with this name";
+                }
             } else {
-                $compositionError = " * There is already a composition with this name";
+                $compositionError = " * Illegal character: /";
             }
         }
         include "templates/new_composition.php";
