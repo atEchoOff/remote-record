@@ -240,15 +240,18 @@ class Controller
             $data = explode(",", $_POST["record"]);
             $bin_data = pack('C*', ...$data);
 
+            // Get an ID for the new recording
+            $id = ($this->utils->getNextRecordingID());
+
             // Determine name for audio file
-            $newname = $composition["name"] . "-" . ($this->utils->getNumberOfRecordings() + 1) . ".wav";
+            $newname = $composition["name"] . "-" . $id . ".wav";
 
             // Determine path and put byte data into that path
             $target = 'audio/' . $newname;
             file_put_contents($target, $bin_data);
 
             // create composition and redirect home
-            $this->utils->createUserCompositionRecording($_POST["name"], $composition["name"], $target);
+            $this->utils->createUserCompositionRecording($id, $_POST["name"], $composition["name"], $target);
         }
 
         $recordings = $this->utils->getUserCompositionRecordings($composition);

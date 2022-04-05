@@ -194,19 +194,19 @@ class Utils
     /**
      * Creates a recording for current user and given composition name and location (uses $_SESSION)
      */
-    public function createUserCompositionRecording($name, $composition, $location)
+    public function createUserCompositionRecording($id, $name, $composition, $location)
     {
-        return $this->db->query("insert into Recording (name, location, author, composition) values (?, ?, ?, ?)", "ssss", $name, $location, $_SESSION["email"], $composition);
+        return $this->db->query("insert into Recording (id, name, location, author, composition) values (?, ?, ?, ?, ?)", "issss", $id, $name, $location, $_SESSION["email"], $composition);
     }
 
     /**
-     * Returns the number of recordings in the recording table
+     * Returns the next id a recording can take (1+highest recording ID)
      */
-    public function getNumberOfRecordings()
+    public function getNextRecordingID()
     {
-        // https://www.mariadbtutorial.com/mariadb-aggregate-functions/mariadb-count/#:~:text=The%20MariaDB%20count()%20is,of%20rows%20in%20a%20table.&text=The%20count()%20function%20accepts,non%2Dnull%20values%20including%20duplicates.
-        $result = $this->db->query("select count(*) row_count from Recording")[0];
-        return $result["row_count"];
+        // https://mariadb.com/kb/en/max/
+        $result = $this->db->query("select max(id) max from Recording")[0];
+        return $result["max"] + 1;
     }
 
     /**
