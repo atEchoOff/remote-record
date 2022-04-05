@@ -200,6 +200,16 @@ class Utils
     }
 
     /**
+     * Returns the number of recordings in the recording table
+     */
+    public function getNumberOfRecordings()
+    {
+        // https://www.mariadbtutorial.com/mariadb-aggregate-functions/mariadb-count/#:~:text=The%20MariaDB%20count()%20is,of%20rows%20in%20a%20table.&text=The%20count()%20function%20accepts,non%2Dnull%20values%20including%20duplicates.
+        $result = $this->db->query("select count(*) row_count from Recording")[0];
+        return $result["row_count"];
+    }
+
+    /**
      * Gets the recording with the specified ID
      * @return false if no recording was found
      */

@@ -241,7 +241,7 @@ class Controller
             $bin_data = pack('C*', ...$data);
 
             // Determine name for audio file
-            $newname = $composition["name"] . "-" . rand(1, 1000000000) . rand(1, 1000000000) . rand(1, 1000000000) . rand(1, 1000000000) . ".wav";
+            $newname = $composition["name"] . "-" . ($this->utils->getNumberOfRecordings() + 1) . ".wav";
 
             // Determine path and put byte data into that path
             $target = 'audio/' . $newname;

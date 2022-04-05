@@ -11,7 +11,7 @@
  *      - https://stackoverflow.com/questions/18618865/load-part-page-with-jquery-ajax
  *      - https://www.geekstrick.com/form-validation-using-php-and-regex/
  *      - https://stackoverflow.com/questions/895171/prevent-users-from-submitting-a-form-by-hitting-enter
- * 
+ *      - https://www.mariadbtutorial.com/mariadb-aggregate-functions/mariadb-count/#:~:text=The%20MariaDB%20count()%20is,of%20rows%20in%20a%20table.&text=The%20count()%20function%20accepts,non%2Dnull%20values%20including%20duplicates.
  * 
  */
 // Import all classes
