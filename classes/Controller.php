@@ -244,7 +244,7 @@ class Controller
             $id = ($this->utils->getNextRecordingID());
 
             // Determine name for audio file
-            $newname = $composition["name"] . "-" . $id . ".wav";
+            $newname = $id . ".wav";
 
             // Determine path and put byte data into that path
             $target = 'audio/' . $newname;
@@ -274,7 +274,7 @@ class Controller
         // If there is a recording and the recording belongs to the current user, then we can delete
         // We also allow a delete if the current user is the composer owning this audio
         if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
-            $this->utils->deleteRecording($recording['composition'], $_GET["id"]);
+            $this->utils->deleteRecording($_GET["id"]);
         }
 
         // redirect to previous location
