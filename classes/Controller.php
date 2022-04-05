@@ -240,15 +240,18 @@ class Controller
             $data = explode(",", $_POST["record"]);
             $bin_data = pack('C*', ...$data);
 
+            // Get an ID for the new recording
+            $id = ($this->utils->getNextRecordingID());
+
             // Determine name for audio file
-            $newname = $composition["name"] . "-" . rand(1, 1000000000) . rand(1, 1000000000) . rand(1, 1000000000) . rand(1, 1000000000) . ".wav";
+            $newname = $composition["name"] . "-" . $id . ".wav";
 
             // Determine path and put byte data into that path
             $target = 'audio/' . $newname;
             file_put_contents($target, $bin_data);
 
             // create composition and redirect home
-            $this->utils->createUserCompositionRecording($_POST["name"], $composition["name"], $target);
+            $this->utils->createUserCompositionRecording($id, $_POST["name"], $composition["name"], $target);
         }
 
         $recordings = $this->utils->getUserCompositionRecordings($composition);
@@ -271,7 +274,7 @@ class Controller
         // If there is a recording and the recording belongs to the current user, then we can delete
         // We also allow a delete if the current user is the composer owning this audio
         if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
-            $this->utils->deleteRecording($_GET["id"]);
+            $this->utils->deleteRecording($recording['composition'], $_GET["id"]);
         }
 
         // redirect to previous location

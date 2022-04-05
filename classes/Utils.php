@@ -194,9 +194,19 @@ class Utils
     /**
      * Creates a recording for current user and given composition name and location (uses $_SESSION)
      */
-    public function createUserCompositionRecording($name, $composition, $location)
+    public function createUserCompositionRecording($id, $name, $composition, $location)
     {
-        return $this->db->query("insert into Recording (name, location, author, composition) values (?, ?, ?, ?)", "ssss", $name, $location, $_SESSION["email"], $composition);
+        return $this->db->query("insert into Recording (id, name, location, author, composition) values (?, ?, ?, ?, ?)", "issss", $id, $name, $location, $_SESSION["email"], $composition);
+    }
+
+    /**
+     * Returns the next id a recording can take (1+highest recording ID)
+     */
+    public function getNextRecordingID()
+    {
+        // https://mariadb.com/kb/en/max/
+        $result = $this->db->query("select max(id) max from Recording")[0];
+        return $result["max"] + 1;
     }
 
     /**
@@ -215,11 +225,12 @@ class Utils
     }
 
     /**
-     * Delete the recording with the specified ID
+     * Delete the recording with the specified ID and composition name
      * Note: dont use this without validation
      */
-    public function deleteRecording($id)
+    public function deleteRecording($name, $id)
     {
+        unlink("audio/$name-$id.wav");
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
 
