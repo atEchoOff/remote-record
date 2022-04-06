@@ -11,7 +11,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $db = new mysqli(Config::$db["host"], Config::$db["user"], Config::$db["pass"], Config::$db["database"]);
 
 // Setup for user table
-echo "Setting up user table\n";
+echo "<p>Setting up user table\n</p>";
 $db->query("drop table if exists User;");
 $db->query("create table User (
     id int not null auto_increment,
@@ -23,7 +23,7 @@ $db->query("create table User (
 echo "User table set up!\n";
 
 // Setup for composition table
-echo "Setting up composition table\n";
+echo "<p>Setting up composition table\n</p>";
 $db->query("drop table if exists Composition;");
 $db->query("create table Composition (
     id int not null auto_increment,
@@ -35,7 +35,7 @@ $db->query("create table Composition (
 echo "Composition table set up!\n";
 
 // Setup for user-composition table
-echo "Setting up UserComposition table\n";
+echo "<p>Setting up UserComposition table\n</p>";
 $db->query("drop table if exists UserComposition;");
 $db->query("create table UserComposition (
     id int not null auto_increment,
@@ -43,7 +43,7 @@ $db->query("create table UserComposition (
     name text not null,
     primary key (id)
 );");
-echo "UserComposition table set up!\n";
+echo "<p>UserComposition table set up!\n</p>";
 
 // Setup for recording table
 echo "Setting up recording table\n";
@@ -56,4 +56,4 @@ $db->query("create table Recording (
     composition text not null,
     primary key (id)
 );");
-echo "Recording table set up!\n";
+echo "<p>Recording table set up!\n</p>";
