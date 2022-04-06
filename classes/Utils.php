@@ -228,9 +228,9 @@ class Utils
      * Delete the recording with the specified ID and composition name
      * Note: dont use this without validation
      */
-    public function deleteRecording($name, $id)
+    public function deleteRecording($id)
     {
-        unlink("audio/$name-$id.wav");
+        unlink("audio/$id.wav");
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
 
