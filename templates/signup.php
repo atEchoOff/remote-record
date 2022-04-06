@@ -37,6 +37,7 @@
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </div>
+                <a class="btn btn-sm" href="?command=login">return to Sign In page</a>
             </form>
         </div>
     </div>
