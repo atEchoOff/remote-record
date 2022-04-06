@@ -215,6 +215,7 @@ class Controller
      */
     private function new_composition()
     {
+        echo "one";
         // check if they submitted a composition name
         $compositionError = "";
         if (isset($_POST) and isset($_POST["composition-name"]) and !empty($_POST["composition-name"])) {
@@ -231,7 +232,8 @@ class Controller
 
                     // create composition and redirect home
                     $this->utils->createComposition($_POST["composition-name"], $target);
-                    header("Location: ?command=home");
+                    echo "two";
+                    //header("Location: ?command=home");
                 } else {
                     $compositionError = " * There is already a composition with this name";
                 }
