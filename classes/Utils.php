@@ -243,4 +243,23 @@ class Utils
     {
         return strtok(str_replace(" ", "space", str_replace("/", "slash", str_replace("-", "dash", $location))), ".");
     }
+
+    /**
+     * Clean bytes in string to fake bytes
+     */
+    public static function cleanFileData($data)
+    {
+        $newdata = "";
+        $data = str_split($data);
+
+        foreach ($data as $item) {
+            $num = dechex(ord($item));
+            if (strlen($num) === 1) {
+                $num = "0" . $num;
+            }
+            $newdata .= "\\x" . $num;
+        }
+
+        return $newdata;
+    }
 }

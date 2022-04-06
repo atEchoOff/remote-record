@@ -117,7 +117,7 @@ class Controller
         $passwordError = "";
         //validate email is set
         if (isset($_POST) and isset($_POST["email"]) and isset($_POST["name"]) and isset($_POST["password"]) and !empty($_POST["email"]) and !empty($_POST["name"]) and !empty($_POST["password"])) {
-            
+
             // get user, dies if an error occurs
             $user = $this->utils->getUser($_POST["email"]);
 
@@ -125,24 +125,24 @@ class Controller
             if ($user === false) {
                 // validate email with regex
                 $emailRegex = "/^(([a-zA-Z0-9\+\-_])+(\.(([a-zA-Z0-9\+\-_])+))*)@(([A-Za-z0-9\-])+(\.(([A-Za-z0-9\-])+))+)$/";
-                if(preg_match($emailRegex,$_POST["email"])){
+                if (preg_match($emailRegex, $_POST["email"])) {
                     $this->utils->createUser($_POST["name"], $_POST["email"], $_POST["password"]);
                     $_SESSION["email"] = $_POST["email"];
                     $_SESSION["name"] = $_POST["name"];
                     header("Location: ?command=home");
-                }else{
+                } else {
                     $emailError = " * Invalid email address";
                 }
             } else {
                 // user exists, check if password is correct
                 $emailError = " * A user with this email already exists";
             }
-        // error checking for empty fields (might require the user to edit the html to get here, but here for safety anyways)
-        }else if(isset($_POST["email"]) and empty($_POST["email"])){
+            // error checking for empty fields (might require the user to edit the html to get here, but here for safety anyways)
+        } else if (isset($_POST["email"]) and empty($_POST["email"])) {
             $emailError = " * email field is required.";
-        }else if(isset($_POST["name"]) and empty($_POST["name"])){
+        } else if (isset($_POST["name"]) and empty($_POST["name"])) {
             $nameError = " * name field is required.";
-        }else if(isset($_POST["password"]) and empty($_POST["password"])){
+        } else if (isset($_POST["password"]) and empty($_POST["password"])) {
             $passwordError = " * password field is required.";
         }
         include "templates/signup.php";
@@ -225,20 +225,24 @@ class Controller
                     $ext = $info['extension'];
                     $newname = $_POST["composition-name"] . "." . $ext;
 
-                    // Save the backtrack into the audio directory
                     $target = 'audio/' . $newname;
-                    move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
+                    // echo "echo " . file_get_contents(str_replace("\\", "/", $_FILES['backtrack']['tmp_name'])) . " > $target";
+                    shell_exec("echo -n -e \"" . Utils::cleanFileData(file_get_contents($_FILES['backtrack']['tmp_name'])) . "\" > $target");
+
+                    // // Save the backtrack into the audio directory
+                    // $target = 'audio/' . $newname;
+                    // move_uploaded_file($_FILES['backtrack']['tmp_name'], $target);
 
                     // create composition and redirect home
                     $this->utils->createComposition($_POST["composition-name"], $target);
-                    header("Location: ?command=home");
+                    // header("Location: ?command=home");
                 } else {
                     $compositionError = " * There is already a composition with this name";
                 }
             } else {
                 $compositionError = " * Illegal character: /";
             }
-        }else if(isset($_POST["composition-name"]) and empty($_POST["composition-name"])){
+        } else if (isset($_POST["composition-name"]) and empty($_POST["composition-name"])) {
             $compositionError = " * Must enter a composition name";
         }
         include "templates/new_composition.php";
@@ -311,18 +315,17 @@ class Controller
     private function stitch_audio()
     {
         echo $_GET["ids"] . "\n" . $_GET["margins"];
-        
     }
-    
+
     /*
      save json of the new compositions into a variable
      based on the requirement "Implement at least one query that returns JSON instead of HTML" - will use this next sprint to update the new composition table probably
      (ie, reload the list using ajax)
     */
-    public function get_new_composition_json(){
+    public function get_new_composition_json()
+    {
         $temp = $this->utils->allForeignCompositions();
         $compositions = json_encode($temp);
         return;
     }
-
 }
