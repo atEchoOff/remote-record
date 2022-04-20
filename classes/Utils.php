@@ -231,6 +231,7 @@ class Utils
     public function deleteRecording($id)
     {
         unlink("audio/$id.wav");
+        unlink("audio/$id.txt");
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
 
@@ -242,5 +243,38 @@ class Utils
     public static function cleanLocation($location)
     {
         return strtok(str_replace(" ", "space", str_replace("/", "slash", str_replace("-", "dash", $location))), ".");
+    }
+
+    /**
+     * Returns the float data for an audio file given audio byte data
+     */
+    public static function getFloatData($bytes)
+    {
+        // Curl code from https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
+        // Connect to remote server and provide audio data
+        $url = '76.104.28.67/pyaudioserver/index.php';
+        $data = array(
+            'audio' => gzcompress($bytes),
+            'password' => 'dontusethisapipleaseunlessyouareme'
+        );
+
+
+        $postvars = http_build_query($data) . "\n";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+
+        curl_close($ch);
+
+        echo curl_error($ch);
+
+        // Return float data
+        return gzuncompress($server_output);
     }
 }
