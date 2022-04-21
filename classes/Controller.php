@@ -268,7 +268,7 @@ class Controller
             $id = ($this->utils->getNextRecordingID());
 
             // Determine name for audio file
-            $newname = $id . ".wav";
+            $newname = $id . ".webm";
 
             // Determine path and put byte data into that path
             $target = 'audio/' . $newname;
@@ -322,23 +322,39 @@ class Controller
         foreach ($ids as $id) {
             // Get the float data for the current id
             $waveform = Utils::getWaveform($id);
-            foreach ($waveform as $frame => $data) {
-                // Add frame to waveform if it does not yet exist
-                if (array_key_exists($frame, $stitched_floats) === false) {
-                    $stitched_floats[$frame] = 0;
+
+            $frame = 0;
+            while (empty($waveform) === false) {
+                $split_data = explode(",", $waveform, 20000);
+
+                if (sizeof($split_data) !== 20000) {
+                    $waveform = "";
+                } else {
+                    $waveform = array_pop($split_data);
                 }
 
-                // Add data to the corresponding frame
-                $stitched_floats[$frame] += $data;
+                foreach ($split_data as $datum) {
+
+                    // Add frame to waveform if it does not yet exist
+                    if (array_key_exists($frame, $stitched_floats) === false) {
+                        $stitched_floats[$frame] = 0;
+                    }
+
+                    // Add data to the corresponding frame
+                    $stitched_floats[$frame] += $datum;
+                    $frame++;
+                }
             }
         }
 
+
+
         // Scale the stitched floats by the number of recordings
 
-        $num_recordings = sizeof($ids);
-        for ($i = 0; $i < sizeof($stitched_floats); $i++) {
-            $stitched_floats[$i] /= $num_recordings;
-        }
+        // $num_recordings = sizeof($ids);
+        // for ($i = 0; $i < sizeof($stitched_floats); $i++) {
+        //     $stitched_floats[$i] /= $num_recordings;
+        // }
 
         // Convert float array to comma seperated string
         $float_string = implode(",", $stitched_floats);
@@ -346,9 +362,18 @@ class Controller
         // Convert the merge back to bytes (convert to string)
         $bytes = explode(",", Utils::convertAudio($float_string, "floattobyte"));
 
-        foreach ($bytes as $byte) {
-            echo $byte . ",";
-        }
+        // Get ID of next product
+        $id = $this->utils->getNextProductID();
+
+        // Create location for next product
+        $file_location = "products/" . $id . ".webm";
+
+        $this->utils->createCompositionProduct($id, "Temp name", $_GET["composition"], $file_location);
+
+        $bin_data = pack('C*', ...$bytes);
+        file_put_contents($file_location, $bin_data);
+
+        echo Builder::playableWaveform($file_location, "", $id, false, false);
     }
 
     /*

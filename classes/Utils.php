@@ -200,12 +200,30 @@ class Utils
     }
 
     /**
+     * Creates a product for given composition name and location
+     */
+    public function createCompositionProduct($id, $name, $composition, $location)
+    {
+        return $this->db->query("insert into Product (id, name, composition, location) values (?, ?, ?, ?)", "isss", $id, $name, $composition, $location);
+    }
+
+    /**
      * Returns the next id a recording can take (1+highest recording ID)
      */
     public function getNextRecordingID()
     {
         // https://mariadb.com/kb/en/max/
         $result = $this->db->query("select max(id) max from Recording")[0];
+        return $result["max"] + 1;
+    }
+
+    /**
+     * Returns the next id a product can take (1+highest product ID)
+     */
+    public function getNextProductID()
+    {
+        // https://mariadb.com/kb/en/max/
+        $result = $this->db->query("select max(id) max from Product")[0];
         return $result["max"] + 1;
     }
 
@@ -230,7 +248,7 @@ class Utils
      */
     public function deleteRecording($id)
     {
-        unlink("audio/$id.wav");
+        unlink("audio/$id.webm");
         unlink("audio/$id.txt");
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
@@ -274,8 +292,6 @@ class Utils
 
         curl_close($ch);
 
-        echo curl_error($ch);
-
         // Return float data
         return gzuncompress($server_output);
     }
@@ -288,7 +304,6 @@ class Utils
         // Get the string data from the text file
         $str_data = file_get_contents("audio/" . $id . ".txt");
 
-        // Split by commas to get all floats
-        return explode(",", $str_data);
+        return $str_data;
     }
 }
