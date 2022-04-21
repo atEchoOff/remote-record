@@ -277,4 +277,16 @@ class Utils
         // Return float data
         return gzuncompress($server_output);
     }
+
+    /**
+     * Returns the waveform data for the audio with the given id
+     */
+    public static function getWaveform($id)
+    {
+        // Get the string data from the text file
+        $str_data = file_get_contents("audio/" . $id . ".txt");
+
+        // Split by commas to get all floats
+        return explode(",", $str_data);
+    }
 }

@@ -316,7 +316,34 @@ class Controller
      */
     private function stitch_audio()
     {
-        echo $_GET["ids"] . "\n" . $_GET["margins"];
+        // Convert ids string to list
+        $ids = explode(",", $_GET["ids"]);
+        $stitched_floats = [];
+        foreach ($ids as $id) {
+            // Get the float data for the current id
+            $waveform = Utils::getWaveform($id);
+            foreach ($waveform as $frame => $data) {
+                // Add frame to waveform if it does not yet exist
+                if (array_key_exists($frame, $stitched_floats) === false) {
+                    $stitched_floats[$frame] = 0;
+                }
+
+                // Add data to the corresponding frame
+                $stitched_floats[$frame] += $data;
+            }
+        }
+
+        // Scale the stitched floats by the number of recordings
+
+        $num_recordings = sizeof($ids);
+        for ($i = 0; $i < sizeof($stitched_floats); $i++) {
+            $stitched_floats[$i] /= $num_recordings;
+        }
+
+        // Return the merge
+        foreach ($stitched_floats as $datum) {
+            echo $datum . ",";
+        }
     }
 
     /*
