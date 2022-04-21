@@ -246,13 +246,15 @@ class Utils
     }
 
     /**
-     * Returns the float data for an audio file given audio byte data
+     * Convert audio between bytes and floats
+     * If mode=bytetofloat, convert bytes to float
+     * If mode=floattobyte, convert float to bytes
      */
-    public static function getFloatData($bytes)
+    public static function convertAudio($bytes, $mode)
     {
         // Curl code from https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
         // Connect to remote server and provide audio data
-        $url = '76.104.28.67/pyaudioserver/bytetofloat/index.php';
+        $url = "76.104.28.67/pyaudioserver/$mode/index.php";
         $data = array(
             'audio' => gzcompress($bytes),
             'password' => 'dontusethisapipleaseunlessyouareme'

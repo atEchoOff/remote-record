@@ -275,7 +275,7 @@ class Controller
             file_put_contents($target, $bin_data);
 
             // Get float data from remote server
-            $float_data = Utils::getFloatData($_POST["record"]);
+            $float_data = Utils::convertAudio($_POST["record"], "bytetofloat");
 
             // Write float data to text file
             file_put_contents('audio/' . $id . ".txt", $float_data);
@@ -340,9 +340,14 @@ class Controller
             $stitched_floats[$i] /= $num_recordings;
         }
 
-        // Return the merge
-        foreach ($stitched_floats as $datum) {
-            echo $datum . ",";
+        // Convert float array to comma seperated string
+        $float_string = implode(",", $stitched_floats);
+
+        // Convert the merge back to bytes (convert to string)
+        $bytes = explode(",", Utils::convertAudio($float_string, "floattobyte"));
+
+        foreach ($bytes as $byte) {
+            echo $byte . ",";
         }
     }
 
