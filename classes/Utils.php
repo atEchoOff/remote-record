@@ -252,7 +252,7 @@ class Utils
     {
         // Curl code from https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
         // Connect to remote server and provide audio data
-        $url = '76.104.28.67/pyaudioserver/index.php';
+        $url = '76.104.28.67/pyaudioserver/bytetofloat/index.php';
         $data = array(
             'audio' => gzcompress($bytes),
             'password' => 'dontusethisapipleaseunlessyouareme'
