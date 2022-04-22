@@ -283,7 +283,7 @@ class Utils
         $url = "76.104.28.67/pyaudioserver/index.php";
         $data = array(
             'audio' => gzcompress($input),
-            'password' => 'dontusethisapipleaseunlessyouareme'
+            "password" => "dontusethisapipleaseunlessyouareme"
         );
 
 

@@ -310,27 +310,23 @@ class Controller
      */
     private function stitch_audio()
     {
+
         // Convert ids string to list
         $ids = explode(",", $_GET["ids"]);
 
         // Convert the merge back to bytes (convert to string)
         $bytes = explode(",", Utils::mergeAudio($ids));
 
-        // Get ID of next product
-        $id = $this->utils->getNextProductID();
-
         // Create location for next product
-        $file_location = "products/" . $id . ".webm";
-
-        // Construct a product in the database
-        $this->utils->createCompositionProduct($id, "Temp name", $_GET["composition"], $file_location);
+        // Will be unique for user, deleted immediately after
+        $file_location = "tempfiles/" . $this->utils->getUser($_SESSION["email"])["id"] . ".webm";
 
         // Save the product in the products folder
         $bin_data = pack('C*', ...$bytes);
         file_put_contents($file_location, $bin_data);
 
         // Show the playable waveform (will appear on composition page)
-        echo Builder::playableWaveform($file_location, "", $id, false, false);
+        echo Builder::playableWaveform($file_location, "", null, false, false);
     }
 
     /*
