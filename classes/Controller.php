@@ -310,13 +310,13 @@ class Controller
      */
     private function stitch_audio()
     {
-        echo $_GET["margins"];
-        return;
         // Convert ids string to list
         $ids = explode(",", $_GET["ids"]);
 
-        // Convert the merge back to bytes (convert to string)
-        $bytes = explode(",", Utils::mergeAudio($ids));
+        // Split the audio bytes and the new box width
+        $response = explode("!", Utils::mergeAudio($ids, explode(",", $_GET["margins"])));
+        $bytes = explode(",", $response[0]);
+        $new_width = $response[1];
 
         // Create location for next product
         // Will be unique for user, deleted immediately after
@@ -327,7 +327,7 @@ class Controller
         file_put_contents($file_location, $bin_data);
 
         // Show the playable waveform (will appear on composition page)
-        echo Builder::playableWaveform($file_location, "", null, false, false);
+        echo Builder::playableWaveform($file_location, "", null, false, false, width: $new_width);
     }
 
     /*

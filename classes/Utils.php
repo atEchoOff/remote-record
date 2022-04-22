@@ -264,8 +264,9 @@ class Utils
 
     /**
      * Merge together audio for each id in ids list
+     * Takes in float-left margins to get offset
      */
-    public static function mergeAudio($ids)
+    public static function mergeAudio($ids, $margins)
     {
         // Store all audio data for each id
         $all_audios = [];
@@ -276,7 +277,8 @@ class Utils
         }
 
         // Place semicolons between each list
-        $input = implode(";", $all_audios);
+        // And add margins to the right of !
+        $input = implode(";", $all_audios) . "!" . implode(";", $margins);
 
         // Curl code from https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
         // Connect to remote server and provide audio data

@@ -31,7 +31,7 @@ class Builder
      * Creates a playable waveform display, if delete is true, add delete icon
      * If drag is true, make the element draggable
      */
-    public static function playableWaveform($location, $audioName, $id, $delete = true, $drag = false)
+    public static function playableWaveform($location, $audioName, $id, $delete = true, $drag = false, $width = 1024)
     {
         $clean_location = Utils::cleanLocation($location);
 
@@ -42,7 +42,7 @@ class Builder
 </audio>
 
 <!-- Draggable element with adjustable left margin and width for zooming -->
-<div id='recbox$clean_location' style='margin-left:0px;width: 1024px;'>
+<div id='recbox$clean_location' style='margin-left:0px;width: " . $width . "px;'>
     <div class='recording-box' style='width:100%;'>
         <div class='recording-box-panel'>
             <!-- Toggle the audio when clicking on the play button -->
