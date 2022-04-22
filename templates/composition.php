@@ -49,7 +49,7 @@
         pos1 = pos3 - e.clientX;
         pos3 = e.clientX;
         // set the element's new position:
-        elmnt.style.marginLeft = (parseInt(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1 + "px");
+        elmnt.style.marginLeft = (parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1 + "px");
       }
 
       function closeDragElement() {
@@ -257,9 +257,9 @@
         array_push($ids, $recording["id"]);
         echo "
         if (width == -1) {
-            width = parseInt(document.getElementById('recbox$clean_location').style.width.replaceAll('px', ''));
+            width = parseFloat(document.getElementById('recbox$clean_location').style.width.replaceAll('px', ''));
         }
-        margins += (parseInt(document.getElementById('recbox$clean_location').style.marginLeft.replaceAll('px', '')) * 100) / width + ',';
+        margins += (parseFloat(document.getElementById('recbox$clean_location').style.marginLeft.replaceAll('px', '')) * 100) / width + ',';
         ";
       }
       // Put the ids list into javascript as a string
@@ -269,8 +269,11 @@
       // Remove the last comma from margins
       margins = margins.slice(0, -1);
 
+      // Put loading there until waveform loads
+      $('#exampletrack').html("<p>Loading... Please Wait");
+
       // reload example track area to show merged track after loading
-      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1);
+      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1 + "&composition=<?php echo $composition["name"]; ?>");
 
       // set area to visible
       document.getElementById("exampletrack").style.display = "block";

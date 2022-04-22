@@ -135,8 +135,8 @@
     // Sets form hidden value to contain audio data for post
     function upload() {
       // Save audio as wav file (temporary, just to read the bytes)
-      let file = new File([new Blob(recordedChunks)], "temp_hidden.wav", {
-        type: 'audio/wav'
+      let file = new File([new Blob(recordedChunks)], "temp_hidden.webm", {
+        type: 'audio/webm'
       });
 
       // Read bytes from file

@@ -57,3 +57,15 @@ $db->query("create table Recording (
     primary key (id)
 );");
 echo "<p>Recording table set up!\n</p>";
+
+// Setup for product table
+echo "Setting up Product table\n";
+$db->query("drop table if exists Product;");
+$db->query("create table Product (
+    id int not null auto_increment,
+    name text not null,
+    location text not null,
+    composition text not null,
+    primary key (id)
+);");
+echo "<p>Product table set up!\n</p>";

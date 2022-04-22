@@ -1,2 +1,4 @@
 classes/Config.php
 audio/*
+products/*
+tempfiles/*

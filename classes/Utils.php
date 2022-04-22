@@ -200,12 +200,30 @@ class Utils
     }
 
     /**
+     * Creates a product for given composition name and location
+     */
+    public function createCompositionProduct($id, $name, $composition, $location)
+    {
+        return $this->db->query("insert into Product (id, name, composition, location) values (?, ?, ?, ?)", "isss", $id, $name, $composition, $location);
+    }
+
+    /**
      * Returns the next id a recording can take (1+highest recording ID)
      */
     public function getNextRecordingID()
     {
         // https://mariadb.com/kb/en/max/
         $result = $this->db->query("select max(id) max from Recording")[0];
+        return $result["max"] + 1;
+    }
+
+    /**
+     * Returns the next id a product can take (1+highest product ID)
+     */
+    public function getNextProductID()
+    {
+        // https://mariadb.com/kb/en/max/
+        $result = $this->db->query("select max(id) max from Product")[0];
         return $result["max"] + 1;
     }
 
@@ -230,7 +248,7 @@ class Utils
      */
     public function deleteRecording($id)
     {
-        unlink("audio/$id.wav");
+        unlink("audio/$id.webm");
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
 
@@ -242,5 +260,58 @@ class Utils
     public static function cleanLocation($location)
     {
         return strtok(str_replace(" ", "space", str_replace("/", "slash", str_replace("-", "dash", $location))), ".");
+    }
+
+    /**
+     * Merge together audio for each id in ids list
+     * Takes in float-left margins to get offset
+     */
+    public static function mergeAudio($ids, $margins)
+    {
+        // Store all audio data for each id
+        $all_audios = [];
+
+        // For each id, add the audio data to the list
+        foreach ($ids as $id) {
+            array_push($all_audios, Utils::getAudioByteData($id));
+        }
+
+        // Place semicolons between each list
+        // And add margins to the right of !
+        $input = implode(";", $all_audios) . "!" . implode(";", $margins);
+
+        // Curl code from https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
+        // Connect to remote server and provide audio data
+        $url = "76.104.28.67/pyaudioserver/index.php";
+        $data = array(
+            'audio' => gzcompress($input),
+            "password" => "dontusethisapipleaseunlessyouareme"
+        );
+
+
+        $postvars = http_build_query($data) . "\n";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+
+        curl_close($ch);
+
+        // Return float data
+        return gzuncompress($server_output);
+    }
+
+    /**
+     * Get file audio byte data seperated by commas
+     */
+    public static function getAudioByteData($id)
+    {
+        $contents = file_get_contents("audio/" . $id . ".webm");
+        return implode(",", unpack("C*", $contents));
     }
 }
