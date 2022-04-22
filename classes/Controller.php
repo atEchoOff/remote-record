@@ -274,12 +274,6 @@ class Controller
             $target = 'audio/' . $newname;
             file_put_contents($target, $bin_data);
 
-            // Get float data from remote server
-            $float_data = Utils::convertAudio($_POST["record"], "bytetofloat");
-
-            // Write float data to text file
-            file_put_contents('audio/' . $id . ".txt", $float_data);
-
             // create composition and redirect home
             $this->utils->createUserCompositionRecording($id, $_POST["name"], $composition["name"], $target);
         }
@@ -318,49 +312,9 @@ class Controller
     {
         // Convert ids string to list
         $ids = explode(",", $_GET["ids"]);
-        $stitched_floats = [];
-        foreach ($ids as $id) {
-            // Get the float data for the current id
-            $waveform = Utils::getWaveform($id);
-
-            $frame = 0;
-            while (empty($waveform) === false) {
-                $split_data = explode(",", $waveform, 20000);
-
-                if (sizeof($split_data) !== 20000) {
-                    $waveform = "";
-                } else {
-                    $waveform = array_pop($split_data);
-                }
-
-                foreach ($split_data as $datum) {
-
-                    // Add frame to waveform if it does not yet exist
-                    if (array_key_exists($frame, $stitched_floats) === false) {
-                        $stitched_floats[$frame] = 0;
-                    }
-
-                    // Add data to the corresponding frame
-                    $stitched_floats[$frame] += $datum;
-                    $frame++;
-                }
-            }
-        }
-
-
-
-        // Scale the stitched floats by the number of recordings
-
-        // $num_recordings = sizeof($ids);
-        // for ($i = 0; $i < sizeof($stitched_floats); $i++) {
-        //     $stitched_floats[$i] /= $num_recordings;
-        // }
-
-        // Convert float array to comma seperated string
-        $float_string = implode(",", $stitched_floats);
 
         // Convert the merge back to bytes (convert to string)
-        $bytes = explode(",", Utils::convertAudio($float_string, "floattobyte"));
+        $bytes = explode(",", Utils::mergeAudio($ids));
 
         // Get ID of next product
         $id = $this->utils->getNextProductID();
@@ -368,11 +322,14 @@ class Controller
         // Create location for next product
         $file_location = "products/" . $id . ".webm";
 
+        // Construct a product in the database
         $this->utils->createCompositionProduct($id, "Temp name", $_GET["composition"], $file_location);
 
+        // Save the product in the products folder
         $bin_data = pack('C*', ...$bytes);
         file_put_contents($file_location, $bin_data);
 
+        // Show the playable waveform (will appear on composition page)
         echo Builder::playableWaveform($file_location, "", $id, false, false);
     }
 

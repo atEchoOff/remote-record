@@ -249,7 +249,6 @@ class Utils
     public function deleteRecording($id)
     {
         unlink("audio/$id.webm");
-        unlink("audio/$id.txt");
         return $this->db->query("delete from Recording where id=?", "s", $id);
     }
 
@@ -264,17 +263,26 @@ class Utils
     }
 
     /**
-     * Convert audio between bytes and floats
-     * If mode=bytetofloat, convert bytes to float
-     * If mode=floattobyte, convert float to bytes
+     * Merge together audio for each id in ids list
      */
-    public static function convertAudio($bytes, $mode)
+    public static function mergeAudio($ids)
     {
+        // Store all audio data for each id
+        $all_audios = [];
+
+        // For each id, add the audio data to the list
+        foreach ($ids as $id) {
+            array_push($all_audios, Utils::getAudioByteData($id));
+        }
+
+        // Place semicolons between each list
+        $input = implode(";", $all_audios);
+
         // Curl code from https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
         // Connect to remote server and provide audio data
-        $url = "76.104.28.67/pyaudioserver/$mode/index.php";
+        $url = "76.104.28.67/pyaudioserver/index.php";
         $data = array(
-            'audio' => gzcompress($bytes),
+            'audio' => gzcompress($input),
             'password' => 'dontusethisapipleaseunlessyouareme'
         );
 
@@ -297,13 +305,11 @@ class Utils
     }
 
     /**
-     * Returns the waveform data for the audio with the given id
+     * Get file audio byte data seperated by commas
      */
-    public static function getWaveform($id)
+    public static function getAudioByteData($id)
     {
-        // Get the string data from the text file
-        $str_data = file_get_contents("audio/" . $id . ".txt");
-
-        return $str_data;
+        $contents = file_get_contents("audio/" . $id . ".webm");
+        return implode(",", unpack("C*", $contents));
     }
 }
