@@ -310,7 +310,8 @@ class Controller
      */
     private function stitch_audio()
     {
-
+        echo $_GET["margins"];
+        return;
         // Convert ids string to list
         $ids = explode(",", $_GET["ids"]);
 
