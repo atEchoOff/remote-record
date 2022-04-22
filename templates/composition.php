@@ -269,6 +269,9 @@
       // Remove the last comma from margins
       margins = margins.slice(0, -1);
 
+      // Put loading there until waveform loads
+      $('#exampletrack').html("<p>Loading... Please Wait");
+
       // reload example track area to show merged track after loading
       $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1 + "&composition=<?php echo $composition["name"]; ?>");
 
