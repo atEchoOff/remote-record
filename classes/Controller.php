@@ -339,7 +339,7 @@ class Controller
         $new_width = $results[1];
 
         // Show the playable waveform (will appear on composition page)
-        echo Builder::playableWaveform($file_location, "", null, false, false, width: $new_width);
+        echo Builder::playableWaveform($file_location, "", null, false, false, $new_width);
     }
 
     /**
