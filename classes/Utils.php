@@ -200,14 +200,6 @@ class Utils
     }
 
     /**
-     * Creates a product for given composition name and location
-     */
-    public function createCompositionProduct($id, $name, $composition, $location)
-    {
-        return $this->db->query("insert into Product (id, name, composition, location) values (?, ?, ?, ?)", "isss", $id, $name, $composition, $location);
-    }
-
-    /**
      * Returns the next id a recording can take (1+highest recording ID)
      */
     public function getNextRecordingID()
@@ -266,7 +258,7 @@ class Utils
      * Merge together audio for each id in ids list
      * Takes in float-left margins to get offset
      */
-    public static function mergeAudio($ids, $margins)
+    public static function mergeAudioAPIResponse($ids, $margins)
     {
         // Store all audio data for each id
         $all_audios = [];
@@ -313,5 +305,60 @@ class Utils
     {
         $contents = file_get_contents("audio/" . $id . ".webm");
         return implode(",", unpack("C*", $contents));
+    }
+
+    /**
+     * Saves a product in the products database given
+     * the id
+     * the name
+     * the width (of the box)
+     * the location
+     * the composition
+     */
+    public function createCompositionProduct($id, $name, $width, $location, $composition)
+    {
+        return $this->db->query("insert into Product (id, name, location, composition) values (?, ?, ?, ?);", "isiss", $id, $name, $width, $location, $composition);
+    }
+
+    /**
+     * Merges all audio under each id in given ids list and given each margin
+     * Uses python API
+     * If a composition is specified, persist the audio for the composition
+     * Otherwise, it is saved temporarily
+     * If the composition is specified, a name should also be specified
+     * @return list [$file_location, $width]
+     */
+    public function mergeAudio($ids, $margins, $composition = null, $name = null)
+    {
+        // Split the audio bytes and the new box width
+        $response = explode("!", Utils::mergeAudioAPIResponse($ids, $margins));
+        $bytes = explode(",", $response[0]);
+        $new_width = $response[1];
+
+        // Create location for next product
+        // If there is no composition, save in tempfiles
+        if ($composition === null) {
+            $file_location = "tempfiles/" . $this->utils->getUser($_SESSION["email"])["id"] . ".webm";
+        } else {
+            // A composition is specified, save in products
+
+            // Get the next id
+            $id = $this->getNextProductID();
+
+            // Save under that id
+            $file_location = "products/" . $id . ".webm";
+        }
+
+        // Save the product in the specified location
+        $bin_data = pack('C*', ...$bytes);
+        file_put_contents($file_location, $bin_data);
+
+        // If composition is specified, save the product in the products database
+        if ($composition !== null) {
+            $this->createCompositionProduct($id, $name, $new_width, $file_location, $composition);
+        }
+
+        // Return the file location and the width
+        return [$file_location, $new_width];
     }
 }
