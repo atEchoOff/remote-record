@@ -99,7 +99,8 @@
         <!-- Save button -->
         <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-            <button type="button" class="btn btn-success" style="top:5px;">Save</button>
+            <input type="text" class="form-control" placeholder="Product Name" style="margin-top:5px;width:300px;" id="name" name="name" required />
+            <button onclick="saveMergedAudio()" class="btn btn-success" style="margin-top:5px;">Save</button>
           </div>
         </div>
         <div style="clear:both"></div>
@@ -124,59 +125,14 @@
     <!-- Area for saved audio -->
     <!-- Note, this is currently still just a (broken) template -->
     <h2 class="box-title">Saved Recordings</h2>
-    <div style="clear:both"></div>
-    <div class="recording-section" id="recordingsection">
-      <!-- Recording template with download button -->
-      <div class="recording-box" style="width:800px;">
-        <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
-        <div class="recording-box-panel">
-          <a href="#">
-            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-          </a>
-        </div>
-        <div class="recording-waveform-end">
-          <div class="recording-box-label">
-            <p>With Basses</p>
-          </div>
-          <div class="recording-waveform">
-            <img src="WaveForm.webp" alt="Waveform">
-          </div>
-        </div>
-        <a href="#">
-          <img src="images/download.png" class="download-button" alt="Download">
-        </a>
-        <a href="#">
-          <img src="images/delete.png" class="delete-button" alt="Delete">
-        </a>
-      </div>
-      <div style="clear:both"></div>
-      <!-- End of Template -->
-      <!-- Recording template with download button -->
-      <div class="recording-box" style="width:800px;">
-        <!-- Note: width and left will be set by javascript case-by-case once we have actual recordings-->
-        <div class="recording-box-panel">
-          <a href="#">
-            <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
-          </a>
-        </div>
-        <div class="recording-waveform-end">
-          <div class="recording-box-label">
-            <p>Without Basses</p>
-          </div>
-          <div class="recording-waveform">
-            <img src="WaveForm.webp" alt="Waveform">
-          </div>
-        </div>
-        <a href="#">
-          <img src="images/download.png" class="download-button" alt="Download">
-        </a>
-        <a href="#">
-          <img src="images/delete.png" class="delete-button" alt="Delete">
-        </a>
-      </div>
-      <div style="clear:both"></div>
-      <!-- End of Template -->
-    </div>
+
+    <!-- For each product, show an existing waveform -->\
+    <?php
+
+    foreach ($products as $product) {
+      echo Builder::playableWaveform($product["location"], $product["name"], $product["id"], delete: true, drag: false, width: $product["width"]);
+    }
+    ?>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -241,7 +197,8 @@
 
   <!-- Script to take the edit panel details and send to the server to stitch together -->
   <script>
-    function stitchAudio() {
+    // Function to get the ids and margins inside the edit panel
+    function getIDsAndMargins() {
       // initialize margins string (holds the distance from the start as a comma delimited list)
       let margins = "";
       // initalize width as -1 to get the width of the first element
@@ -269,6 +226,15 @@
       // Remove the last comma from margins
       margins = margins.slice(0, -1);
 
+      return [ids, margins];
+    }
+
+    function stitchAudio() {
+      // Get the ids and margins form thlet ids = result[0];
+      let result = getIDsAndMargins();
+      let ids = result[0];
+      let margins = result[1];
+
       // Put loading there until waveform loads
       $('#exampletrack').html("<p>Loading... Please Wait");
 
@@ -278,6 +244,22 @@
       // set area to visible
       document.getElementById("exampletrack").style.display = "block";
 
+    }
+  </script>
+
+  <!-- Script to save the merged audio permanently -->
+  <script>
+    function saveMergedAudio() {
+      // Get ids and margins
+      let result = getIDsAndMargins();
+      let ids = result[0];
+      let margins = result[1];
+
+      // Get the name from the name field
+      let name = $("#name").val();
+
+      // Load the page to save the data
+      window.location.href = "?command=save_merge&ids=" + ids + "&margins=" + margins + "&composition=<?php echo $composition["name"]; ?>&name=" + name;
     }
   </script>
 

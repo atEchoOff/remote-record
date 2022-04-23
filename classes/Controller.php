@@ -61,6 +61,9 @@ class Controller
             case "stitch_audio":
                 $this->stitch_audio();
                 break;
+            case "save_merge":
+                $this->save_merge();
+                break;
             case "get_new_composition_json":
                 $this->get_new_composition_json();
                 break;
@@ -178,6 +181,9 @@ class Controller
     {
         // Get composition and all of its recordings
         $composition = $this->utils->getComposition($_GET["composition"]);
+
+        // Get all composition products
+        $products = $this->utils->getCompositionProducts($_GET["composition"]);
 
         // if the current user is not the owner of the composition page
         // then redirect to the record page
@@ -319,6 +325,25 @@ class Controller
 
         // Show the playable waveform (will appear on composition page)
         echo Builder::playableWaveform($file_location, "", null, false, false, width: $new_width);
+    }
+
+    /**
+     * Temporary page that permanently saves a merged composition if the current user is a composer for the specified composition
+     * Given: ids
+     * Given: margins
+     * Given: composition name ("composition")
+     * Given: name of merge ("name")
+     */
+    private function save_merge()
+    {
+        // Make sure current user is the admin of the requested composition
+        if ($_SESSION["email"] === $this->utils->getComposition($_GET["composition"])["composer_email"]) {
+            // Merge audio, save results
+            $this->utils->mergeAudio(explode(",", $_GET["ids"]), explode(",", $_GET["margins"]), composition: $_GET["composition"], name: $_GET["name"]);
+        }
+
+        // Redirect to previous page
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     /*

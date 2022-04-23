@@ -317,7 +317,15 @@ class Utils
      */
     public function createCompositionProduct($id, $name, $width, $location, $composition)
     {
-        return $this->db->query("insert into Product (id, name, location, composition) values (?, ?, ?, ?);", "isiss", $id, $name, $width, $location, $composition);
+        return $this->db->query("insert into Product (id, name, width, location, composition) values (?, ?, ?, ?, ?);", "isiss", $id, $name, $width, $location, $composition);
+    }
+
+    /**
+     * Returns all products for a composition name
+     */
+    public function getCompositionProducts($composition_name)
+    {
+        return $this->db->query("select * from Product where composition = ?", "s", $composition_name);
     }
 
     /**
@@ -338,7 +346,7 @@ class Utils
         // Create location for next product
         // If there is no composition, save in tempfiles
         if ($composition === null) {
-            $file_location = "tempfiles/" . $this->utils->getUser($_SESSION["email"])["id"] . ".webm";
+            $file_location = "tempfiles/" . $this->getUser($_SESSION["email"])["id"] . ".webm";
         } else {
             // A composition is specified, save in products
 
