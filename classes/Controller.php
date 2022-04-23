@@ -354,7 +354,7 @@ class Controller
         // Make sure current user is the admin of the requested composition
         if ($_SESSION["email"] === $this->utils->getComposition($_GET["composition"])["composer_email"]) {
             // Merge audio, save results
-            $this->utils->mergeAudio(explode(",", $_GET["ids"]), explode(",", $_GET["margins"]), composition: $_GET["composition"], name: $_GET["name"]);
+            $this->utils->mergeAudio(explode(",", $_GET["ids"]), explode(",", $_GET["margins"]), $_GET["composition"], $_GET["name"]);
         }
 
         // Redirect to previous page
