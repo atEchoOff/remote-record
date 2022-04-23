@@ -64,6 +64,7 @@ $db->query("drop table if exists Product;");
 $db->query("create table Product (
     id int not null auto_increment,
     name text not null,
+    width int not null,
     location text not null,
     composition text not null,
     primary key (id)

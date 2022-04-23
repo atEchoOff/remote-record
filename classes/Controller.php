@@ -310,21 +310,12 @@ class Controller
      */
     private function stitch_audio()
     {
-        // Convert ids string to list
-        $ids = explode(",", $_GET["ids"]);
+        // Get the file location and new width from merging together all tracks under each id
+        // And given each margin
+        $results = $this->utils->mergeAudio(explode(",", $_GET["ids"]), explode(",", $_GET["margins"]));
 
-        // Split the audio bytes and the new box width
-        $response = explode("!", Utils::mergeAudio($ids, explode(",", $_GET["margins"])));
-        $bytes = explode(",", $response[0]);
-        $new_width = $response[1];
-
-        // Create location for next product
-        // Will be unique for user, deleted immediately after
-        $file_location = "tempfiles/" . $this->utils->getUser($_SESSION["email"])["id"] . ".webm";
-
-        // Save the product in the products folder
-        $bin_data = pack('C*', ...$bytes);
-        file_put_contents($file_location, $bin_data);
+        $file_location = $results[0];
+        $new_width = $results[1];
 
         // Show the playable waveform (will appear on composition page)
         echo Builder::playableWaveform($file_location, "", null, false, false, width: $new_width);
