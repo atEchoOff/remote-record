@@ -38,7 +38,7 @@ class Builder
         echo "
 <!-- Audio tag to store the associated audio location -->
 <audio id='$location'>
-    <source src='$location' type='audio/webm'>
+    <source src='$location' type='audio/*'>
 </audio>
 
 <!-- Draggable element with adjustable left margin and width for zooming -->
