@@ -61,6 +61,9 @@ class Controller
             case "stitch_audio":
                 $this->stitch_audio();
                 break;
+            case "save_merge":
+                $this->save_merge();
+                break;
             case "get_new_composition_json":
                 $this->get_new_composition_json();
                 break;
@@ -179,6 +182,9 @@ class Controller
         // Get composition and all of its recordings
         $composition = $this->utils->getComposition($_GET["composition"]);
 
+        // Get all composition products
+        $products = $this->utils->getCompositionProducts($_GET["composition"]);
+
         // if the current user is not the owner of the composition page
         // then redirect to the record page
         if ($_SESSION["email"] !== $composition["composer_email"]) {
@@ -285,7 +291,9 @@ class Controller
     }
 
     /**
-     * Delete a composition recording
+     * Delete a composition recording or product
+     * If it is a product, only allow delete if
+     *      User is the composer of the composition owning this file
      * Allow delete only if:
      *      User is the owner of the file
      *      User is the composer of the composition owning this file
@@ -293,12 +301,25 @@ class Controller
      */
     private function delete()
     {
-        $recording = $this->utils->getRecording($_GET["id"]);
+        // If this is a product, then the behaviour changes
+        if ($_GET["product"] === "1") {
+            // Get the product
+            $product = $this->utils->getProduct($_GET["id"]);
 
-        // If there is a recording and the recording belongs to the current user, then we can delete
-        // We also allow a delete if the current user is the composer owning this audio
-        if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
-            $this->utils->deleteRecording($_GET["id"]);
+            // Only delete if user is owner of this composition
+            if ($product !== false and ($this->utils->getComposition($product['composition'])["composer_email"] === $_SESSION["email"])) {
+                // Valid user, delete the product
+                $this->utils->deleteProduct($_GET["id"]);
+            }
+        } else {
+            // Not a product, this is a composition recording
+            $recording = $this->utils->getRecording($_GET["id"]);
+
+            // If there is a recording and the recording belongs to the current user, then we can delete
+            // We also allow a delete if the current user is the composer owning this audio
+            if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
+                $this->utils->deleteRecording($_GET["id"]);
+            }
         }
 
         // redirect to previous location
@@ -310,24 +331,34 @@ class Controller
      */
     private function stitch_audio()
     {
-        // Convert ids string to list
-        $ids = explode(",", $_GET["ids"]);
+        // Get the file location and new width from merging together all tracks under each id
+        // And given each margin
+        $results = $this->utils->mergeAudio(explode(",", $_GET["ids"]), explode(",", $_GET["margins"]));
 
-        // Split the audio bytes and the new box width
-        $response = explode("!", Utils::mergeAudio($ids, explode(",", $_GET["margins"])));
-        $bytes = explode(",", $response[0]);
-        $new_width = $response[1];
-
-        // Create location for next product
-        // Will be unique for user, deleted immediately after
-        $file_location = "tempfiles/" . $this->utils->getUser($_SESSION["email"])["id"] . ".webm";
-
-        // Save the product in the products folder
-        $bin_data = pack('C*', ...$bytes);
-        file_put_contents($file_location, $bin_data);
+        $file_location = $results[0];
+        $new_width = $results[1];
 
         // Show the playable waveform (will appear on composition page)
         echo Builder::playableWaveform($file_location, "", null, false, false, width: $new_width);
+    }
+
+    /**
+     * Temporary page that permanently saves a merged composition if the current user is a composer for the specified composition
+     * Given: ids
+     * Given: margins
+     * Given: composition name ("composition")
+     * Given: name of merge ("name")
+     */
+    private function save_merge()
+    {
+        // Make sure current user is the admin of the requested composition
+        if ($_SESSION["email"] === $this->utils->getComposition($_GET["composition"])["composer_email"]) {
+            // Merge audio, save results
+            $this->utils->mergeAudio(explode(",", $_GET["ids"]), explode(",", $_GET["margins"]), composition: $_GET["composition"], name: $_GET["name"]);
+        }
+
+        // Redirect to previous page
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     /*

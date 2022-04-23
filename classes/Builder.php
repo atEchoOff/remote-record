@@ -31,7 +31,7 @@ class Builder
      * Creates a playable waveform display, if delete is true, add delete icon
      * If drag is true, make the element draggable
      */
-    public static function playableWaveform($location, $audioName, $id, $delete = true, $drag = false, $width = 1024)
+    public static function playableWaveform($location, $audioName, $id, $delete = true, $drag = false, $width = 1024, $product = false)
     {
         $clean_location = Utils::cleanLocation($location);
 
@@ -77,7 +77,7 @@ class Builder
         // Add delete icon if delete is set to true
         if ($delete === true) {
             echo "
-        <a href='?command=delete&id=$id'>
+        <a href='?command=delete&id=$id&product=$product'>
             <img src='images/delete.png' class='delete-button' alt='Delete'>
         </a>
         ";
