@@ -235,13 +235,38 @@ class Utils
     }
 
     /**
-     * Delete the recording with the specified ID and composition name
+     * Gets the product with the specified ID
+     * @return false if no product is found
+     */
+    public function getProduct($id)
+    {
+        $response = $this->db->query("select * from Product where id=?", "s", $id);
+
+        if (sizeof($response) === 0) {
+            return false;
+        }
+
+        return $response[0];
+    }
+
+    /**
+     * Delete the recording with the specified ID
      * Note: dont use this without validation
      */
     public function deleteRecording($id)
     {
         unlink("audio/$id.webm");
         return $this->db->query("delete from Recording where id=?", "s", $id);
+    }
+
+    /**
+     * Delete the product with the specified ID
+     * Note: dont use this without validation
+     */
+    public function deleteProduct($id)
+    {
+        unlink("products/$id.webm");
+        return $this->db->query("delete from Product where id=?", "s", $id);
     }
 
     /**

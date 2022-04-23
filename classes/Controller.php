@@ -291,7 +291,9 @@ class Controller
     }
 
     /**
-     * Delete a composition recording
+     * Delete a composition recording or product
+     * If it is a product, only allow delete if
+     *      User is the composer of the composition owning this file
      * Allow delete only if:
      *      User is the owner of the file
      *      User is the composer of the composition owning this file
@@ -299,12 +301,25 @@ class Controller
      */
     private function delete()
     {
-        $recording = $this->utils->getRecording($_GET["id"]);
+        // If this is a product, then the behaviour changes
+        if ($_GET["product"] === "1") {
+            // Get the product
+            $product = $this->utils->getProduct($_GET["id"]);
 
-        // If there is a recording and the recording belongs to the current user, then we can delete
-        // We also allow a delete if the current user is the composer owning this audio
-        if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
-            $this->utils->deleteRecording($_GET["id"]);
+            // Only delete if user is owner of this composition
+            if ($product !== false and ($this->utils->getComposition($product['composition'])["composer_email"] === $_SESSION["email"])) {
+                // Valid user, delete the product
+                $this->utils->deleteProduct($_GET["id"]);
+            }
+        } else {
+            // Not a product, this is a composition recording
+            $recording = $this->utils->getRecording($_GET["id"]);
+
+            // If there is a recording and the recording belongs to the current user, then we can delete
+            // We also allow a delete if the current user is the composer owning this audio
+            if ($recording !== false and (($recording['author'] === $_SESSION["email"]) or ($this->utils->getComposition($recording['composition'])["composer_email"] === $_SESSION["email"]))) {
+                $this->utils->deleteRecording($_GET["id"]);
+            }
         }
 
         // redirect to previous location

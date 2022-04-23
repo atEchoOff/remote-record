@@ -130,7 +130,7 @@
     <?php
 
     foreach ($products as $product) {
-      echo Builder::playableWaveform($product["location"], $product["name"], $product["id"], delete: true, drag: false, width: $product["width"]);
+      echo Builder::playableWaveform($product["location"], $product["name"], $product["id"], delete: true, drag: false, width: $product["width"], product: true);
     }
     ?>
   </div>
