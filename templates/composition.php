@@ -126,7 +126,7 @@
     <!-- Note, this is currently still just a (broken) template -->
     <h2 class="box-title">Saved Recordings</h2>
 
-    <!-- For each product, show an existing waveform -->\
+    <!-- For each product, show an existing waveform -->
     <?php
 
     foreach ($products as $product) {
