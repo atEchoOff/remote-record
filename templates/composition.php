@@ -239,7 +239,8 @@
       $('#exampletrack').html("<p>Loading... Please Wait");
 
       // reload example track area to show merged track after loading
-      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1 + "&composition=<?php echo $composition["name"]; ?>");
+      // Get rid of spaces in composition name
+      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1 + "&composition=<?php echo str_replace(" ", "%20", $composition["name"]); ?>");
 
       // set area to visible
       document.getElementById("exampletrack").style.display = "block";
