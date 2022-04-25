@@ -117,7 +117,7 @@
         backtrack.play();
 
         // Replace record icon with 3 dots
-        document.getElementById("recordicon").src = "images/dotdotdot.png";
+        document.getElementById("recordicon").src = "images/dotdotdot.svg";
 
         // When audio is complete...
         setTimeout(function() {

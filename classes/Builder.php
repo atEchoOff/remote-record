@@ -49,7 +49,7 @@ class Builder
             <button class='hidden-button' onclick='togglePlay($clean_location,\"img$clean_location\")'>
 
                 <!-- Image swapped to pause on togglePlay -->
-                <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
+                <img src='images/PlaySymbol.svg' class='circular-button' alt='Play' id='img$clean_location'>
             </button>
         </div>
         <div class='recording-waveform-end'>
@@ -78,7 +78,7 @@ class Builder
         if ($delete === true) {
             echo "
         <a href='?command=delete&id=$id&product=$product'>
-            <img src='images/delete.png' class='delete-button' alt='Delete'>
+            <img src='images/delete.svg' class='delete-button' alt='Delete'>
         </a>
         ";
         }
@@ -108,7 +108,7 @@ class Builder
     <div class="recording-box-panel">
         <!-- Button to start recording user -->
         <button onclick="record()" class="hidden-button">
-            <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon">
+            <img src="images/recording.svg" class="circular-button" alt="Record" id="recordicon">
         </button>
     </div>
 
@@ -122,7 +122,7 @@ class Builder
 
             <!-- Submits form, button appears after recording finished -->
             <button class="hidden-button" type="submit">
-                <img src="images/upload.png" class="circular-button" alt="Record">
+                <img src="images/upload.svg" class="circular-button" alt="Record">
             </button>
         </div>
 

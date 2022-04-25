@@ -79,19 +79,19 @@
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <!-- Query server to stitch together audio given parameters in edit panel -->
             <a onclick="stitchAudio()">
-              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/PlaySymbol.svg" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
             <!-- Zoom in edit panel -->
             <a onclick="zoomIn()">
-              <img src="images/zoomin.png" class="circular-button" alt="Drag">
+              <img src="images/zoomin.svg" class="circular-button" alt="Drag">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
             <!-- Zoom out edit panel -->
             <a onclick="zoomOut()">
-              <img src="images/zoomout.png" class="circular-button" alt="Cut">
+              <img src="images/zoomout.svg" class="circular-button" alt="Cut">
             </a>
           </div>
         </div>
