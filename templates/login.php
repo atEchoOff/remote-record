@@ -30,7 +30,7 @@
                     <input onblur="validatePassword()" onkeyup="validatePassword()" type="password" class="form-control" id="password" name="password" required />
                 </div>
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-primary" id="button" disabled>Sign In</button>
+                    <button type="submit" class="btn btn-primary" id="button">Sign In</button>
                     <a class="btn btn-info" href="?command=signup">Sign Up</a>
                 </div>
             </form>
