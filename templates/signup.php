@@ -20,7 +20,7 @@
             <form action="?command=signup" method="post">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <span class="error"> <?php echo $nameError; ?></span>
+                    <span class="error" id="nameerror"> <?php echo $nameError; ?></span>
                     <input onblur="validateName()" onkeyup="validateName()" type="text" class="form-control" id="name" name="name" required />
                 </div>
 
