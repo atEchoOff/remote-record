@@ -21,13 +21,13 @@
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <span class="error"> <?php echo $nameError; ?></span>
-                    <input oninput="validateName()" onkeyup="validateName()" type="text" class="form-control" id="name" name="name" required />
+                    <input onblur="validateName()" onkeyup="validateName()" type="text" class="form-control" id="name" name="name" required />
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <span class="error" id="emailerror"> <?php echo $emailError; ?></span>
-                    <input oninput="validateEmail()" onkeyup="validateEmail()" type="email" class="form-control" id="email" name="email" required />
+                    <input onblur="validateEmail()" onkeyup="validateEmail()" type="email" class="form-control" id="email" name="email" required />
                 </div>
 
                 <div class="mb-3">
