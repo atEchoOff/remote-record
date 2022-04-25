@@ -14,6 +14,7 @@
  *      - https://stackoverflow.com/questions/895171/prevent-users-from-submitting-a-form-by-hitting-enter
  *      - https://mariadb.com/kb/en/max/
  *      - https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
+ *      - https://icons.getbootstrap.com/
  * 
  */
 // Import all classes
