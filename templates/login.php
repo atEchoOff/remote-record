@@ -50,12 +50,12 @@
 
             // Check if email is empty
             if (emailInput.val().length === 0) {
-                emailError.text("Please enter an email");
+                emailError.text("* Please enter an email");
                 emailInput.addClass("is-invalid");
 
             } else if (/^(([a-zA-Z0-9\+\-_])+(\.(([a-zA-Z0-9\+\-_])+))*)@(([A-Za-z0-9\-])+(\.(([A-Za-z0-9\-])+))+)$/.test(emailInput.val()) === false) {
                 // Email is invalid
-                emailError.text("Please enter a valid email");
+                emailError.text("* Please enter a valid email");
                 emailInput.addClass("is-invalid");
 
             } else {
@@ -75,7 +75,7 @@
 
             // Check if password is empty
             if (passwordInput.val().length === 0) {
-                passwordError.text("Please enter a password");
+                passwordError.text("* Please enter a password");
                 passwordInput.addClass("is-invalid");
 
             } else {
