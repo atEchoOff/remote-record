@@ -9,6 +9,7 @@
     <title>Create Composition</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -24,8 +25,8 @@
             <form action="?command=new_composition" method="post" enctype='multipart/form-data'>
                 <div class="mb-3">
                     <label for="composition-name" class="form-label">Composition Name</label>
-                    <span class="error"> <?php echo $compositionError; ?></span>
-                    <input class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
+                    <span class="error" id="composition-nameerror"> <?php echo $compositionError; ?></span>
+                    <input onblur="validate()" onkeyup="validate()" class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
                 </div>
                 <div class="mb-3">
                     <!-- Required backtrack for composition -->
@@ -40,6 +41,31 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Validation of composition-name -->
+    <script>
+        function validate() {
+            // Get composition name box
+            let compName = $("#composition-name");
+
+            // Get composition name error
+            let compError = $("#composition-nameerror");
+
+            // Check if empty
+            if (compName.val().length === 0) {
+                compError.text("* Enter a composition name");
+                compName.addClass("is-invalid");
+            } else if (compName.val().includes("/")) {
+                // Cannot contain /
+                compError.text("* Illegal character \"/\"");
+                compName.addClass("is-invalid");
+            } else {
+                // Composition name is valid
+                compError.text("");
+                compName.removeClass("is-invalid");
+            }
+        }
+    </script>
 </body>
 
 </html>
