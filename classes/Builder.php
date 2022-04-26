@@ -64,8 +64,8 @@ class Builder
                 <script>
                     var $clean_location = WaveSurfer.create({
                         container: '#$clean_location',
-                        waveColor: 'black',
-                        progressColor: 'purple'
+                        waveColor: '#000566',
+                        progressColor: '#000342'
                     });
 
                     // Load the correct audio
@@ -78,7 +78,7 @@ class Builder
         if ($delete === true) {
             echo "
         <a href='?command=delete&id=$id&product=$product'>
-            <img src='images/delete.png' class='delete-button' alt='Delete'>
+            <img src='images/delete.svg' class='delete-button' alt='Delete'>
         </a>
         ";
         }
@@ -122,7 +122,7 @@ class Builder
 
             <!-- Submits form, button appears after recording finished -->
             <button class="hidden-button" type="submit">
-                <img src="images/upload.png" class="circular-button" alt="Record">
+                <img src="images/upload.svg" class="circular-button" alt="Record">
             </button>
         </div>
 
