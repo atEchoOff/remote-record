@@ -37,33 +37,52 @@ body {
     float: left;
 }
 
+/* Stylize table to float */
 table {
     margin: auto;
     margin-top: 20px;
-    border-spacing: 0 15px;
-    border-collapse: separate;
-}
-
-td:first-child,
-th:first-child {
-    border-radius: 10px 0 0 10px;
-}
-
-td:last-child,
-th:last-child {
-    border-radius: 0 10px 10px 0;
+    border-radius: 10px !important;
+    box-shadow: 5px 5px 10px rgb(62, 62, 62);
 }
 
 /* Only horizontal bars on tables */
 tr {
     height: 60px;
     background-color: rgb(247, 247, 247);
-    border-radius: 20px;
-    box-shadow: 5px 5px 10px rgb(62, 62, 62);
+    border-top: 1px solid rgb(149, 149, 149);
 }
 
+/* Make table alternate colors */
+tr:nth-child(even) {
+    background-color: rgb(236, 236, 236);
+}
+
+/* https://stackoverflow.com/questions/4932181/rounded-table-corners-css-only */
+/* Rounded corners for table */
+th:first-of-type {
+    border-top-left-radius: 10px;
+}
+
+th:last-of-type {
+    border-top-right-radius: 10px;
+}
+
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 10px;
+}
+
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 10px;
+}
+
+/* No border for top row */
+tr:first-child {
+    border-top: none;
+}
+
+/* Show darker colors when hovering */
 tr:hover {
-    background-color: #ebebeb;
+    background-color: #e3e3e3;
 }
 
 /* Add left padding to tables */
@@ -204,14 +223,17 @@ th:first-child {
 
 .composition-edit-box {
     border: 1px solid black;
+    border-radius: 5px;
     margin-top: 10px;
     overflow: auto;
+    box-shadow: 5px 5px 10px rgb(62, 62, 62);
 }
 
 .box-header {
     border: 1px solid black;
     width: auto;
     padding: 5px;
+    margin-bottom: 5px;
     margin-left: -1px;
 }
 

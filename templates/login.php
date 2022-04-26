@@ -16,24 +16,26 @@
     <!-- Login form -->
     <div class="row justify-content-center" id="loginform">
         <div class="col-4">
-            <h1 class="text-center">Sign In:</h1>
-            <form action="?command=login" method="post">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <span class="error" id="emailerror"> <?php echo $emailError; ?></span>
-                    <input onblur="validateEmail()" onkeyup="validateEmail()" type="email" class="form-control" id="email" name="email" required />
-                </div>
+            <div class="box-section">
+                <h1 class="text-center">Sign In:</h1>
+                <form action="?command=login" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <span class="error" id="emailerror"> <?php echo $emailError; ?></span>
+                        <input onblur="validateEmail()" onkeyup="validateEmail()" type="email" class="form-control" id="email" name="email" required />
+                    </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <span class="error" id="passworderror"> <?php echo $passwordError; ?></span>
-                    <input onblur="validatePassword()" onkeyup="validatePassword()" type="password" class="form-control" id="password" name="password" required />
-                </div>
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary" id="button">Sign In</button>
-                    <a class="btn btn-info" href="?command=signup">Sign Up</a>
-                </div>
-            </form>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <span class="error" id="passworderror"> <?php echo $passwordError; ?></span>
+                        <input onblur="validatePassword()" onkeyup="validatePassword()" type="password" class="form-control" id="password" name="password" required />
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" id="button">Sign In</button>
+                        <a class="btn btn-info" href="?command=signup">Sign Up</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">

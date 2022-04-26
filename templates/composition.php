@@ -84,7 +84,7 @@
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <!-- Query server to stitch together audio given parameters in edit panel -->
             <a onclick="stitchAudio()">
-              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/merge.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
@@ -132,11 +132,18 @@
 
     <!-- Area for saved audio -->
     <!-- Note, this is currently still just a (broken) template -->
-    <h2 class="box-title">Saved Recordings</h2>
+    <div class="row">
+      <h2 class="box-title">Saved Recordings</h2>
+    </div>
 
     <!-- For each product, show an existing waveform -->
     <?php
+    // If there are no products, print a message for it
+    if (sizeof($products) === 0) {
+      echo "<h5>There are no saved products</h5>";
+    }
 
+    // Print all product waveforms
     foreach ($products as $product) {
       echo Builder::playableWaveform($product["location"], $product["name"], $product["id"], true, false, $product["width"], true);
     }
