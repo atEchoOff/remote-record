@@ -92,10 +92,16 @@ th:first-child {
     padding-right: 0;
 }
 
+/* Section that shows recordings in composition edit panel */
 .recording-section {
     overflow: auto;
-    background: linear-gradient(90deg, rgb(237, 237, 237) calc(100% - 1px), rgb(187, 187, 187) 0);
+    background-color: rgb(237, 237, 237) !important;
+    /* Show vertical gridlines */
+    /* https://stackoverflow.com/questions/59737438/how-to-create-vertical-lines-spaced-out-evenly-as-background-using-css */
+    background: linear-gradient(90deg, #0000 calc(100% - 1px), rgb(187, 187, 187) 0);
     background-size: calc((1024px - 5*5px)/16 + 1px) 100%;
+
+    /* Align with box */
     background-position: 0px;
 }
 

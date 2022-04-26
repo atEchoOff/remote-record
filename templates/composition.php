@@ -119,7 +119,7 @@
 
       <div class="recording-section">
         <!-- Will contain audio after queried to stitch together edit panel -->
-        <div class="box-header" style="display:none; padding-left:0px;" id="exampletrack">
+        <div class="box-header" style="display:none; padding-left:0px; background-color:white;" id="exampletrack">
         </div>
         <?php
         if (sizeof($recordings) === 0) {
@@ -256,7 +256,7 @@
       let margins = result[1];
 
       // Put loading there until waveform loads
-      $('#exampletrack').html("<p>Loading... Please Wait");
+      $('#exampletrack').html("<p>&emsp;Loading... Please Wait");
 
       // reload example track area to show merged track after loading
       // Get rid of spaces in composition name

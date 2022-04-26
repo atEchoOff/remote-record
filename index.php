@@ -15,6 +15,7 @@
  *      - https://mariadb.com/kb/en/max/
  *      - https://stackoverflow.com/questions/45339010/send-post-form-data-to-url-with-php
  *      - https://icons.getbootstrap.com/
+ *      - https://stackoverflow.com/questions/59737438/how-to-create-vertical-lines-spaced-out-evenly-as-background-using-css
  * 
  */
 // Import all classes
