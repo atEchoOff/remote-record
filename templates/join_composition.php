@@ -25,7 +25,7 @@
                 <a id="reload" onclick="reloadTable()" class="btn btn-dark ml-auto mr-1" style="width: 100px; height: 40px; float:right;">Reload</a>
             </div>
         </div>
-        
+
         <table id="tableOfComps">
             <tr>
                 <!-- Table heading -->
@@ -59,11 +59,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script type="text/javascript">
-
-        function TableObject(jsonObj){
+        function TableObject(jsonObj) {
             this.compositionName = jsonObj["name"];
             this.composerName = jsonObj["composer_name"];
-            this.generateRow = function (){
+            this.generateRow = function() {
                 var row = $('<tr>');
                 var link = $("<td><a href='?command=join_composition&composition=" + this.compositionName + "'>" + this.compositionName + "</a></td>");
                 row.append(link);
@@ -74,22 +73,28 @@
                 console.log("hithere")
                 return row;
             }
-        }        
+        }
 
         var reloadTable = () => {
             $.ajax({
                 type: "GET",
                 url: 'index.php',
-                data: {"command":"get_new_composition_json"},
-                success: function(response){
+                data: {
+                    "command": "get_new_composition_json"
+                },
+                success: function(response) {
                     var tableElements = Array();
-                    for(let i=0; i< response.length; i++){
+                    for (let i = 0; i < response.length; i++) {
                         tableElements.push(new TableObject(response[i]));
                     }
                     var tab = $("#tableOfComps");
                     tab.empty();
                     tab.append('<tr><th style="width:5%;">Composition Name</th><th style="width:2.5%;">Your Roles</th><th style="width:2.5%;">Composer</th></tr>');
                     tableElements.forEach(element => tab.append(element.generateRow()));
+                    // If there are no new table elements, show dialogue
+                    if (tableElements.length === 0) {
+                        tab.append("<tr><td>No other compositions exist</td><td></td><td></td></tr>")
+                    }
                 }
             })
         }

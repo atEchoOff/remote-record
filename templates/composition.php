@@ -66,6 +66,11 @@
     }
   </script>
 
+  <!-- Page title -->
+  <h1>
+    <?php echo $composition["name"] ?> Composer Page
+  </h1>
+
   <!-- Composition Box -->
   <div class="box-section">
     <h2 class="box-title">Composition</h2>
@@ -85,7 +90,7 @@
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <!-- Query server to stitch together audio given parameters in edit panel -->
             <a onclick="stitchAudio()">
-              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
+              <img src="images/merge.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
@@ -112,11 +117,10 @@
         <div style="clear:both"></div>
       </div>
 
-
-      <!-- Will contain audio after queried to stitch together edit panel -->
-      <div class="box-header" style="display:none;" id="exampletrack">
-      </div>
       <div class="recording-section">
+        <!-- Will contain audio after queried to stitch together edit panel -->
+        <div class="box-header" style="display:none;" id="exampletrack">
+        </div>
         <?php
         if (sizeof($recordings) === 0) {
           echo "<h5>No recordings</h5>";
@@ -128,13 +132,23 @@
       </div>
     </div>
 
+  </div>
+  <div class="box-section">
+
     <!-- Area for saved audio -->
     <!-- Note, this is currently still just a (broken) template -->
-    <h2 class="box-title">Saved Recordings</h2>
+    <div class="row">
+      <h2 class="box-title">Saved Recordings</h2>
+    </div>
 
     <!-- For each product, show an existing waveform -->
     <?php
+    // If there are no products, print a message for it
+    if (sizeof($products) === 0) {
+      echo "<h5>There are no saved products</h5>";
+    }
 
+    // Print all product waveforms
     foreach ($products as $product) {
       echo Builder::playableWaveform($product["location"], $product["name"], $product["id"], true, false, $product["width"], true);
     }
@@ -251,6 +265,7 @@
       // set area to visible
       document.getElementById("exampletrack").style.display = "block";
 
+
     }
   </script>
 
@@ -277,6 +292,16 @@
     for (var i = 0; i < canvasElements.length; i++) {
       canvasElements[i].ariaLabel = "Waveform graphic";
     }
+  </script>
+
+  <!-- Function to scroll gridlines on recording editor -->
+  <script>
+    $(".recording-section").on("scroll", function() {
+      // Get recording section
+      let rec = $('.recording-section');
+
+      rec.css("background-position", -rec.get(0).scrollLeft);
+    });
   </script>
 </body>
 

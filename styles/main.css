@@ -1,8 +1,16 @@
 .box-section {
     margin: 30px;
     padding: 20px;
-    background-color: rgb(236, 236, 236);
+    background-color: white;
     overflow: auto;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgb(62, 62, 62);
+}
+
+body {
+    background-image: linear-gradient(to bottom right, #9FC2CC, #1B5299);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Error message */
@@ -29,23 +37,52 @@
     float: left;
 }
 
+/* Stylize table to float */
 table {
-    border: 1px solid !important;
-    background-color: white;
     margin: auto;
     margin-top: 20px;
+    border-radius: 10px !important;
+    box-shadow: 5px 5px 10px rgb(62, 62, 62);
 }
 
 /* Only horizontal bars on tables */
 tr {
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    border-collapse: collapse;
     height: 60px;
+    background-color: rgb(247, 247, 247);
+    border-top: 1px solid rgb(149, 149, 149);
 }
 
+/* Make table alternate colors */
+tr:nth-child(even) {
+    background-color: rgb(236, 236, 236);
+}
+
+/* https://stackoverflow.com/questions/4932181/rounded-table-corners-css-only */
+/* Rounded corners for table */
+th:first-of-type {
+    border-top-left-radius: 10px;
+}
+
+th:last-of-type {
+    border-top-right-radius: 10px;
+}
+
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 10px;
+}
+
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 10px;
+}
+
+/* No border for top row */
+tr:first-child {
+    border-top: none;
+}
+
+/* Show darker colors when hovering */
 tr:hover {
-    background-color: rgb(241, 241, 241);
+    background-color: #e3e3e3;
 }
 
 /* Add left padding to tables */
@@ -57,6 +94,9 @@ th:first-child {
 
 .recording-section {
     overflow: auto;
+    background: linear-gradient(90deg, rgb(237, 237, 237) calc(100% - 1px), rgb(187, 187, 187) 0);
+    background-size: calc((1024px - 5*5px)/16 + 1px) 100%;
+    background-position: 0px;
 }
 
 /* CSS for circular buttons, as used in recording boxes for play/record */
@@ -65,7 +105,7 @@ th:first-child {
     width: 50px;
     height: 50px;
     border: 1px solid #000000;
-    background-color: white;
+    background-color: #efefef;
 }
 
 .circular-button:hover {
@@ -75,14 +115,15 @@ th:first-child {
 /* Used for the div which makes a recording box */
 .recording-box {
     border: 1px solid black;
-    /* border-radius:10px; */
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgb(62, 62, 62);
     margin: 2px;
     display: inline-block;
     height: 60px;
     white-space: nowrap;
     overflow: auto;
     position: relative;
-    background-color: white;
+    background-color: #f8f8f8;
     overflow-y: hidden;
     overflow-x: hidden;
 }
@@ -185,15 +226,19 @@ th:first-child {
 
 .composition-edit-box {
     border: 1px solid black;
+    border-radius: 5px;
     margin-top: 10px;
     overflow: auto;
+    box-shadow: 5px 5px 10px rgb(62, 62, 62);
 }
 
 .box-header {
-    background-color: white;
     border: 1px solid black;
-    width: 100%;
+    box-sizing: border-box;
+    width: fit-content;
+    min-width: 100%;
     padding: 5px;
+
 }
 
 td a:hover {
