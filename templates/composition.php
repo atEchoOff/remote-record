@@ -49,7 +49,13 @@
         pos1 = pos3 - e.clientX;
         pos3 = e.clientX;
         // set the element's new position:
-        elmnt.style.marginLeft = (parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1 + "px");
+        let temp = parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1;
+        console.log(temp);
+        if(temp < 0){
+          
+          temp=0;
+        }
+        elmnt.style.marginLeft = temp + "px";
       }
 
       function closeDragElement() {
