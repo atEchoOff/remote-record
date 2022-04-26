@@ -39,29 +39,24 @@
         ?>
       </div>
     </div>
-    <div class="recording-section">
-      <!-- Display all recordings -->
-      <?php
-      if (sizeof($recordings) === 0) {
-        echo "<h5>No recordings</h5>";
-      }
-      // For each recording, show a waveform
-      foreach ($recordings as $recording) {
-        Builder::playableWaveform($recording["location"], $recording["name"], $recording["id"], $delete = true);
-      }
-      ?>
-    </div>
+    <!-- Display all recordings -->
+    <?php
+    if (sizeof($recordings) === 0) {
+      echo "<h5>No recordings</h5>";
+    }
+    // For each recording, show a waveform
+    foreach ($recordings as $recording) {
+      Builder::playableWaveform($recording["location"], $recording["name"], $recording["id"], $delete = true);
+    }
+    ?>
 
     <div style="clear:both"></div>
     <!-- Create New Recordings Section -->
     <h2 class="box-title">Create New Recording</h2>
-    <div style="clear:both"></div>
-    <div class="recording-section">
-      <!-- Backing Track -->
-      <?php Builder::playableWaveform($composition["location"], "Backing Track", null, $delete = false) ?>
-      <!-- New Recording Box -->
-      <?php Builder::recordableWaveform(); ?>
-    </div>
+    <!-- Backing Track -->
+    <?php Builder::playableWaveform($composition["location"], "Backing Track", null, $delete = false) ?>
+    <!-- New Recording Box -->
+    <?php Builder::recordableWaveform(); ?>
     <div style="clear:both"></div>
   </div>
 
