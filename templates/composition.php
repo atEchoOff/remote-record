@@ -51,9 +51,9 @@
         // set the element's new position:
         let temp = parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1;
         console.log(temp);
-        if(temp < 0){
-          
-          temp=0;
+        if (temp < 0) {
+
+          temp = 0;
         }
         elmnt.style.marginLeft = temp + "px";
       }
@@ -119,7 +119,7 @@
 
       <div class="recording-section">
         <!-- Will contain audio after queried to stitch together edit panel -->
-        <div class="box-header" style="display:none;" id="exampletrack">
+        <div class="box-header" style="display:none; padding-left:0px;" id="exampletrack">
         </div>
         <?php
         if (sizeof($recordings) === 0) {
@@ -300,6 +300,7 @@
       // Get recording section
       let rec = $('.recording-section');
 
+      // Scroll background position against scroll distance
       rec.css("background-position", -rec.get(0).scrollLeft);
     });
   </script>
