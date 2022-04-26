@@ -16,28 +16,30 @@
     <!-- Navbar -->
     <?php Builder::navbar(); ?>
 
-    <!-- Box to hold composition form -->
-    <div class="box-section">
-        <div class="row">
-            <h2 class="box-title">Create Composition</h2>
-        </div>
-        <div class="row col-6">
-            <form action="?command=new_composition" method="post" enctype='multipart/form-data'>
-                <div class="mb-3">
-                    <label for="composition-name" class="form-label">Composition Name</label>
-                    <span class="error" id="composition-nameerror"> <?php echo $compositionError; ?></span>
-                    <input onblur="validate()" onkeyup="validate()" class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <!-- Box to hold composition form -->
+            <div class="box-section">
+                <div class="row">
+                    <h2 class="box-title text-center">Create Composition</h2>
                 </div>
-                <div class="mb-3">
-                    <!-- Required backtrack for composition -->
-                    <!-- May soon become optional along with a required duration for no backtrack -->
-                    <label for="backtrack" class="form-label">Backtrack</label>
-                    <input class="form-control" name="backtrack" id="backtrack" type="file" required accept="audio/*">
-                </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-            </form>
-        </div>
+                <form action="?command=new_composition" method="post" enctype='multipart/form-data'>
+                    <div class="mb-3">
+                        <label for="composition-name" class="form-label">Composition Name</label>
+                        <span class="error" id="composition-nameerror"> <?php echo $compositionError; ?></span>
+                        <input onblur="validate()" onkeyup="validate()" class="form-control" id="composition-name" name="composition-name" placeholder="Composition Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <!-- Required backtrack for composition -->
+                        <!-- May soon become optional along with a required duration for no backtrack -->
+                        <label for="backtrack" class="form-label">Backtrack</label>
+                        <input class="form-control" name="backtrack" id="backtrack" type="file" required accept="audio/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
 
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
