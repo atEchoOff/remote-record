@@ -127,7 +127,10 @@
           // this will store the audio data into a hidden input in a form
           mediaRecorder.stop();
           // show upload button for this form
+          // Hide the record icon
           document.getElementById("uploadhider").style = "display:inline;";
+          document.getElementById("recordicon").style = "display:none";
+
         }, document.getElementById("<?php echo $composition["location"]; ?>").duration * 1000);
       }
     }
