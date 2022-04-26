@@ -13,11 +13,11 @@ class Builder
     {
         echo '
         <nav class="navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Remote Record</a>
+            <a class="navbar-brand" style="margin-left: 10px;" href="#"><strong>Composer</strong></a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="?command=home">Home</a>
+                        <a class="nav-link" href="?command=home">Your Projects</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="?command=logout">Log Out</a>
