@@ -18,6 +18,10 @@
   <!-- Navbar -->
   <?php Builder::navbar(); ?>
 
+  <!-- Page title -->
+  <h1>
+    <?php echo $composition["name"] ?> Recording Page
+  </h1>
   <!-- Your recordings -->
   <div class="box-section">
     <div style="overflow:auto;">

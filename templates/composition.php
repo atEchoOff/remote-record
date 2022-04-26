@@ -60,6 +60,11 @@
     }
   </script>
 
+  <!-- Page title -->
+  <h1>
+    <?php echo $composition["name"] ?> Composer Page
+  </h1>
+
   <!-- Composition Box -->
   <div class="box-section">
     <h2 class="box-title">Composition</h2>
@@ -121,6 +126,9 @@
         ?>
       </div>
     </div>
+
+  </div>
+  <div class="box-section">
 
     <!-- Area for saved audio -->
     <!-- Note, this is currently still just a (broken) template -->
