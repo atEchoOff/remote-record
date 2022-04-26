@@ -15,7 +15,7 @@
 <body>
     <!-- Signup form -->
     <div class="row justify-content-center" id="loginform">
-        <div class="col-4">
+        <div class="col-5">
             <div class="box-section">
                 <h1 class="text-center">Sign Up:</h1>
                 <form action="?command=signup" method="post">

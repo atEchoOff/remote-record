@@ -111,11 +111,10 @@
         <div style="clear:both"></div>
       </div>
 
-
-      <!-- Will contain audio after queried to stitch together edit panel -->
-      <div class="box-header" style="display:none;" id="exampletrack">
-      </div>
       <div class="recording-section">
+        <!-- Will contain audio after queried to stitch together edit panel -->
+        <div class="box-header" style="display:none;" id="exampletrack">
+        </div>
         <?php
         if (sizeof($recordings) === 0) {
           echo "<h5>No recordings</h5>";
@@ -259,6 +258,7 @@
 
       // set area to visible
       document.getElementById("exampletrack").style.display = "block";
+
 
     }
   </script>
