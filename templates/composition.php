@@ -287,6 +287,16 @@
       canvasElements[i].ariaLabel = "Waveform graphic";
     }
   </script>
+
+  <!-- Function to scroll gridlines on recording editor -->
+  <script>
+    $(".recording-section").on("scroll", function() {
+      // Get recording section
+      let rec = $('.recording-section');
+
+      rec.css("background-position", -rec.get(0).scrollLeft);
+    });
+  </script>
 </body>
 
 </html>

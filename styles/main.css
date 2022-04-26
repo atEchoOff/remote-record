@@ -94,6 +94,9 @@ th:first-child {
 
 .recording-section {
     overflow: auto;
+    background: linear-gradient(90deg, rgb(237, 237, 237) calc(100% - 1px), rgb(187, 187, 187) 0);
+    background-size: calc((1024px - 5*5px)/16 + 1px) 100%;
+    background-position: 0px;
 }
 
 /* CSS for circular buttons, as used in recording boxes for play/record */
