@@ -49,7 +49,7 @@ class Builder
             <button class='hidden-button' onclick='togglePlay($clean_location,\"img$clean_location\")'>
 
                 <!-- Image swapped to pause on togglePlay -->
-                <img src='images/PlaySymbol.svg' class='circular-button' alt='Play' id='img$clean_location'>
+                <img src='images/PlaySymbol.png' class='circular-button' alt='Play' id='img$clean_location'>
             </button>
         </div>
         <div class='recording-waveform-end'>
@@ -64,8 +64,8 @@ class Builder
                 <script>
                     var $clean_location = WaveSurfer.create({
                         container: '#$clean_location',
-                        waveColor: 'black',
-                        progressColor: 'purple'
+                        waveColor: '#000566',
+                        progressColor: '#000342'
                     });
 
                     // Load the correct audio
@@ -108,7 +108,7 @@ class Builder
     <div class="recording-box-panel">
         <!-- Button to start recording user -->
         <button onclick="record()" class="hidden-button">
-            <img src="images/recording.svg" class="circular-button" alt="Record" id="recordicon">
+            <img src="images/recording.png" class="circular-button" alt="Record" id="recordicon">
         </button>
     </div>
 

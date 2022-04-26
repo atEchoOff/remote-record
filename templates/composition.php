@@ -79,7 +79,7 @@
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <!-- Query server to stitch together audio given parameters in edit panel -->
             <a onclick="stitchAudio()">
-              <img src="images/PlaySymbol.svg" class="circular-button" alt="Play">
+              <img src="images/PlaySymbol.png" class="circular-button" alt="Play">
             </a>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
