@@ -8,6 +8,7 @@
     <meta name="author" content="Jimmy Connors and Brian Christner">
     <title>Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
@@ -16,17 +17,21 @@
     <?php Builder::navbar(); ?>
 
     <!-- Your projects -->
-    <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
+    <h1 style="margin-left: 10px; margin: bottom 0px; margin-top:5px;">Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
     <div class="box-section">
-        <div class="row">
-            <h2 class="box-title">Join A Project</h2>
+        <div class="row justify-content-end">
+            <div>
+                <h2 class="box-title mr-auto ml-auto">Join A Project</h2>
+                <a id="reload" onclick="reloadTable()" class="btn btn-dark ml-auto mr-1" style="width: 100px; height: 40px; float:right;">Reload</a>
+            </div>
         </div>
-        <table>
+        
+        <table id="tableOfComps">
             <tr>
                 <!-- Table heading -->
-                <th style="width:20%;">Composition Name</th>
-                <th style="width:10%;">Your Roles</th>
-                <th style="width:10%;">Composer</th>
+                <th style="width:5%;">Composition Name</th>
+                <th style="width:2.5%;">Your Roles</th>
+                <th style="width:2.5%;">Composer</th>
             </tr>
             <?php
             // For each composition, print whether or not user is the composer, the name, and the composer
@@ -40,29 +45,55 @@
             }
 
             foreach ($compositions as $composition) {
-                if ($_SESSION["email"] === $composition["composer_email"]) {
-                    echo "
+                echo "
               <tr>
                 <td><a href='?command=join_composition&composition={$composition['name']}'>{$composition['name']}</a></td>
-                <td>Composer, Musician</td>
+                <td><strong>-</strong></td>
                 <td>{$composition['composer_name']}</td>
               </tr>
               ";
-                } else {
-                    echo "
-              <tr>
-                <td><a href='?command=join_composition&composition={$composition['name']}'>{$composition['name']}</a></td>
-                <td>Musician</td>
-                <td>{$composition['composer_name']}</td>
-              </tr>
-              ";
-                }
             }
             ?>
         </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        function TableObject(jsonObj){
+            this.compositionName = jsonObj["name"];
+            this.composerName = jsonObj["composer_name"];
+            this.generateRow = function (){
+                var row = $('<tr>');
+                var link = $("<td><a href='?command=join_composition&composition=" + this.compositionName + "'>" + this.compositionName + "</a></td>");
+                row.append(link);
+                var thing2 = $("<td><strong>-</strong></td>");
+                row.append(thing2);
+                var thing3 = $("<td>" + this.composerName + "</td>");
+                row.append(thing3);
+                console.log("hithere")
+                return row;
+            }
+        }        
+
+        var reloadTable = () => {
+            $.ajax({
+                type: "GET",
+                url: 'index.php',
+                data: {"command":"get_new_composition_json"},
+                success: function(response){
+                    var tableElements = Array();
+                    for(let i=0; i< response.length; i++){
+                        tableElements.push(new TableObject(response[i]));
+                    }
+                    var tab = $("#tableOfComps");
+                    tab.empty();
+                    tab.append('<tr><th style="width:5%;">Composition Name</th><th style="width:2.5%;">Your Roles</th><th style="width:2.5%;">Composer</th></tr>');
+                    tableElements.forEach(element => tab.append(element.generateRow()));
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

@@ -368,8 +368,9 @@ class Controller
     */
     public function get_new_composition_json()
     {
+        header('Content-Type: application/json; charset=utf-8');
         $temp = $this->utils->allForeignCompositions();
         $compositions = json_encode($temp);
-        return;
+        echo $compositions;
     }
 }

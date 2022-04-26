@@ -16,26 +16,28 @@
   <?php Builder::navbar(); ?>
 
   <!-- Your projects -->
-  <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
+  <h1 style="margin-left: 10px; margin: bottom 0px; margin-top:5px;">Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
   <div class="box-section">
-    <div class="row">
-      <h2 class="box-title">Your Projects</h2>
-      <!-- Buttons to add an existing composition or make a new one -->
-      <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-          <a class="btn btn-dark" href="?command=join_composition">Join</a>
-        </div>
-        <div class="btn-group mr-2" role="group" aria-label="Second group">
-          <a class="btn btn-primary" href="?command=new_composition">New</a>
+    <div class="row justify-content-end">
+      <div>
+        <h2 class="box-title">Your Projects</h2>
+        <!-- Buttons to add an existing composition or make a new one -->
+        <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
+            <a class="btn btn-dark" href="?command=join_composition">Join</a>
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="Second group">
+            <a class="btn btn-primary" href="?command=new_composition">New</a>
+          </div>
         </div>
       </div>
     </div>
     <table>
       <tr>
         <!-- Table heading -->
-        <th style="width:20%;">Composition Name</th>
-        <th style="width:10%;">Your Roles</th>
-        <th style="width:10%;">Composer</th>
+        <th style="width:5%;">Composition Name</th>
+        <th style="width:2.5%;">Your Roles</th>
+        <th style="width:2.5%;">Composer</th>
       </tr>
       <?php
       // For each composition, print whether or not user is the composer, the name, and the composer
