@@ -70,7 +70,6 @@
                 row.append(thing2);
                 var thing3 = $("<td>" + this.composerName + "</td>");
                 row.append(thing3);
-                console.log("hithere")
                 return row;
             }
         }

@@ -64,6 +64,56 @@
       }
     }
   </script>
+  <!-- Script to make elements draggable by keypress for accessibility -->
+  <script>
+    function addKeyboardDrag(elmnt) {
+      if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onkeydown = dragWithKey;
+      } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onkeydown = dragWithKey;
+      }
+
+      function dragKeyDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        currentKey = e.code;
+        elmnt.onkeyup = closeDragKeyElement;
+        // call a function whenever the cursor moves:
+        elmnt.onkeydown = dragWithKey;
+      }
+
+      function dragWithKey(e) {
+        e = e || window.event;
+        //if()
+        if(e.code == "ArrowLeft" || e.code =="ArrowRight"){
+          e.preventDefault();
+        }
+        let temp = 0;
+        if(e.code == "ArrowLeft"){
+          temp = parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) - 1;
+        }else if(e.code == "ArrowRight"){
+          temp = parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) + 1;
+        }
+        // set the element's new position:
+        if (e.code == "ArrowLeft" || e.code=="ArrowRight"){
+          if (temp < 0) {
+            temp = 0;
+          }
+          elmnt.style.marginLeft = temp + "px";
+        }
+      }
+
+      function closeDragKeyElement() {
+        // stop moving when mouse button is released:
+        elmnt.onkeyup = null;
+        elmnt.onkeydown = null;
+      }
+    }
+       
+  </script>
 
   <!-- Page title -->
   <h1>
@@ -92,24 +142,24 @@
             if (sizeof($recordings) !== 0) {
             ?>
               <!-- Query server to stitch together audio given parameters in edit panel -->
-              <a onclick="stitchAudio()">
+              <button class="hidden-button" onclick="stitchAudio()">
                 <img src="images/merge.png" class="circular-button" alt="Play">
-              </a>
+              </button>
             <?php
             }
             ?>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
             <!-- Zoom in edit panel -->
-            <a onclick="zoomIn()">
+            <button class="hidden-button" onclick="zoomIn()">
               <img src="images/zoomin.svg" class="circular-button" alt="Drag">
-            </a>
+          </button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
             <!-- Zoom out edit panel -->
-            <a onclick="zoomOut()">
+            <button class="hidden-button" onclick="zoomOut()">
               <img src="images/zoomout.svg" class="circular-button" alt="Cut">
-            </a>
+          </button>
           </div>
         </div>
 
