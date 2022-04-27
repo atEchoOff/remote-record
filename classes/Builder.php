@@ -93,6 +93,7 @@ class Builder
             echo "
 <script>
     dragElement(document.getElementById('recbox$clean_location'));
+    addKeyboardDrag(document.getElementById('recbox$clean_location'));
 </script>
                 ";
         }
