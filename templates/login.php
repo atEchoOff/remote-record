@@ -31,7 +31,7 @@
                         <input onblur="validatePassword()" onkeyup="validatePassword()" type="password" class="form-control" id="password" name="password" required />
                     </div>
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-primary" id="button">Sign In</button>
+                        <button type="submit" class="btn btn-primary" id="submit" disabled>Sign In</button>
                         <a class="btn btn-info" href="?command=signup">Sign Up</a>
                     </div>
                 </form>
@@ -43,6 +43,24 @@
 
     <!-- Form validation functions -->
     <script>
+        // Save the last result of the validations
+        let email_is_valid = false;
+        let password_is_valid = false;
+
+        function validateForm() {
+            // Get the submit button
+            let button = $("#submit");
+            if (email_is_valid && password_is_valid) {
+                // Form is valid
+                // Enable the button
+                button.prop("disabled", false);
+            } else {
+                // Form is not valid
+                // Disable the button
+                button.prop("disabled", true);
+            }
+        }
+
         function validateEmail() {
             // Get email input
             let emailInput = $("#email");
@@ -54,18 +72,23 @@
             if (emailInput.val().length === 0) {
                 emailError.text("* Please enter an email");
                 emailInput.addClass("is-invalid");
+                email_is_valid = false;
 
             } else if (/^(([a-zA-Z0-9\+\-_])+(\.(([a-zA-Z0-9\+\-_])+))*)@(([A-Za-z0-9\-])+(\.(([A-Za-z0-9\-])+))+)$/.test(emailInput.val()) === false) {
                 // Email is invalid
                 emailError.text("* Please enter a valid email");
                 emailInput.addClass("is-invalid");
+                email_is_valid = false;
 
             } else {
                 // Email is valid
                 emailError.text("");
                 emailInput.removeClass("is-invalid");
-
+                email_is_valid = true;
             }
+
+            // Validate the form
+            validateForm();
         }
 
         function validatePassword() {
@@ -79,13 +102,17 @@
             if (passwordInput.val().length === 0) {
                 passwordError.text("* Please enter a password");
                 passwordInput.addClass("is-invalid");
+                password_is_valid = false;
 
             } else {
                 // Password is valid
                 passwordError.text("");
                 passwordInput.removeClass("is-invalid");
-
+                password_is_valid = true;
             }
+
+            // Validate the form
+            validateForm();
         }
     </script>
 </body>
