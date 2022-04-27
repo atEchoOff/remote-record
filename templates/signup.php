@@ -34,10 +34,17 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <span class="error" id="passworderror"> <?php echo $passwordError; ?></span>
-                        <input onblur="validatePassword()" onkeyup="validatePassword()" type="password" class="form-control" id="password" name="password" required />
+                        <input onblur="validatePassword(); validatePasswordValid()" onkeyup="validatePassword(); validatePasswordValid()" type="password" class="form-control" id="password" name="password" required />
                     </div>
+
+                    <div class="mb-3">
+                        <label for="passwordvalid" class="form-label">Enter Password Again </label>
+                        <span class="error" id="passwordvaliderror"></span>
+                        <input onblur="validatePasswordValid()" onkeyup="validatePasswordValid()" type="password" class="form-control" id="passwordvalid" name="passwordvalid" required />
+                    </div>
+
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <button id="submit" type="submit" class="btn btn-primary" disabled>Sign Up</button>
                     </div>
                     <a class="btn btn-sm" href="?command=login">return to Sign In page</a>
                 </form>
@@ -50,6 +57,26 @@
 
     <!-- Form validation functions -->
     <script>
+        // Save the last result of the validations
+        let name_is_valid = false;
+        let email_is_valid = false;
+        let password_is_valid = false;
+        let password_valid_is_valid = false;
+
+        function validateForm() {
+            // Get the submit button
+            let button = $("#submit");
+            if (name_is_valid && email_is_valid && password_is_valid && password_valid_is_valid) {
+                // Form is valid
+                // Enable the button
+                button.prop("disabled", false);
+            } else {
+                // Form is not valid
+                // Disable the button
+                button.prop("disabled", true);
+            }
+        }
+
         function validateName() {
             // Get name input
             let nameInput = $("#name");
@@ -61,13 +88,18 @@
             if (nameInput.val().length === 0) {
                 nameError.text("* Please enter a name");
                 nameInput.addClass("is-invalid");
+                name_is_valid = false;
 
             } else {
                 // name is valid
                 nameError.text("");
                 nameInput.removeClass("is-invalid");
+                name_is_valid = true;
 
             }
+
+            // Validate the form
+            validateForm();
         }
 
         function validateEmail() {
@@ -81,18 +113,23 @@
             if (emailInput.val().length === 0) {
                 emailError.text("* Please enter an email");
                 emailInput.addClass("is-invalid");
+                email_is_valid = false;
 
             } else if (/^(([a-zA-Z0-9\+\-_])+(\.(([a-zA-Z0-9\+\-_])+))*)@(([A-Za-z0-9\-])+(\.(([A-Za-z0-9\-])+))+)$/.test(emailInput.val()) === false) {
                 // Email is invalid
                 emailError.text("* Please enter a valid email");
                 emailInput.addClass("is-invalid");
+                email_is_valid = false;
 
             } else {
                 // Email is valid
                 emailError.text("");
                 emailInput.removeClass("is-invalid");
-
+                email_is_valid = true;
             }
+
+            // Validate the form
+            validateForm();
         }
 
         function validatePassword() {
@@ -106,13 +143,44 @@
             if (passwordInput.val().length === 0) {
                 passwordError.text("* Please enter a password");
                 passwordInput.addClass("is-invalid");
+                password_is_valid = false;
 
             } else {
                 // Password is valid
                 passwordError.text("");
                 passwordInput.removeClass("is-invalid");
-
+                password_is_valid = true;
             }
+
+            // Validate the form
+            validateForm();
+        }
+
+        function validatePasswordValid() {
+            // Get password input
+            let passwordInput = $("#passwordvalid");
+
+            // Get real password
+            let passwordReal = $("#password");
+
+            // Get password error box
+            let passwordError = $("#passwordvaliderror");
+
+            // Check if password valid matches the password
+            if (passwordInput.val() !== passwordReal.val()) {
+                passwordError.text("* Your passwords do not match");
+                passwordInput.addClass("is-invalid");
+                password_valid_is_valid = false;
+
+            } else {
+                // Password is valid
+                passwordError.text("");
+                passwordInput.removeClass("is-invalid");
+                password_valid_is_valid = true;
+            }
+
+            // Validate the form
+            validateForm();
         }
     </script>
 </body>
