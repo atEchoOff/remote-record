@@ -14,10 +14,10 @@
 
 <body>
     <!-- Signup form -->
-    <div class="row justify-content-center" id="loginform">
-        <div class="col-5">
+    <div class="row justify-content-center col-12" id="loginform">
+        <div class="col-5" style="min-width: 500px;">
             <div class="box-section">
-                <h1 class="text-center">Sign Up:</h1>
+                <h1 style="margin-left:0px;" class="text-center">Sign Up:</h1>
                 <form action="?command=signup" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>

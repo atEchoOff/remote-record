@@ -17,7 +17,7 @@
     <?php Builder::navbar(); ?>
 
     <!-- Your projects -->
-    <h1 style="margin-left: 10px; margin: bottom 0px; margin-top:5px;">Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
+    <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
     <div class="box-section">
         <div class="row justify-content-end">
             <div>
