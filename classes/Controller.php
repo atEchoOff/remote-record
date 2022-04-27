@@ -238,7 +238,7 @@ class Controller
 
                         // create composition and redirect home
                         $this->utils->createComposition($_POST["composition-name"], $target);
-                        // header("Location: ?command=home");
+                        header("Location: ?command=home");
                     } else {
                         $compositionError = " * The file must be 1.9MB or smaller";
                     }
