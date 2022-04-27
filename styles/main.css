@@ -260,6 +260,8 @@ td a:hover {
 
 /* Adding responsive design for smaller screens */
 @media only screen and (max-width: 768px) {
+
+    /* Force all cols to fill whole page */
     [class*="col-"] {
         width: 100%;
         min-width: 100% !important;
@@ -267,7 +269,9 @@ td a:hover {
         margin: none;
     }
 
+    /* Fix boxes to fill whole page */
     .box-section {
+
         width: 100vw !important;
         margin-left: 0px;
     }
