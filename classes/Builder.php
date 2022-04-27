@@ -54,7 +54,7 @@ class Builder
         </div>
         <div class='recording-waveform-end'>
             <div class='recording-box-label'>
-                <p>$audioName</p>
+                <p>&ensp;$audioName</p>
             </div>
             <div class='recording-waveform'>
                 <!-- Location for waveform -->
