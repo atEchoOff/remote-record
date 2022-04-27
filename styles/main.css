@@ -46,9 +46,9 @@ table {
 }
 
 h1 {
-    margin-left:30px;
-    margin-top:5px;
-    margin-bottom:0px;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 0px;
 }
 
 /* Only horizontal bars on tables */
@@ -256,4 +256,19 @@ th:first-child {
 
 td a:hover {
     color: rgb(70, 70, 70);
+}
+
+/* Adding responsive design for smaller screens */
+@media only screen and (max-width: 768px) {
+    [class*="col-"] {
+        width: 100%;
+        min-width: 100% !important;
+        padding: none;
+        margin: none;
+    }
+
+    .box-section {
+        width: 100vw !important;
+        margin-left: 0px;
+    }
 }
