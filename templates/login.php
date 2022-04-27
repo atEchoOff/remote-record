@@ -14,10 +14,10 @@
 
 <body>
     <!-- Login form -->
-    <div class="row justify-content-center" id="loginform">
-        <div class="col-5">
+    <div class="row justify-content-center col-12" id="loginform">
+        <div class="col-5" style="min-width:500px;">
             <div class="box-section">
-                <h1 class="text-center">Sign In:</h1>
+                <h1 style="margin-left:0px;" class="text-center">Sign In:</h1>
                 <form action="?command=login" method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -32,8 +32,8 @@
                     </div>
                     <div class="btn-group">
                         <button type="submit" class="btn btn-primary" id="submit" disabled>Sign In</button>
-                        <a class="btn btn-info" href="?command=signup">Sign Up</a>
                     </div>
+                    <a class="btn btn-sm" href="?command=signup">Create a new account</a>
                 </form>
             </div>
         </div>

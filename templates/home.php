@@ -16,7 +16,7 @@
   <?php Builder::navbar(); ?>
 
   <!-- Your projects -->
-  <h1 style="margin-left: 10px; margin: bottom 0px; margin-top:5px;">Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
+  <h1>Welcome, <?php echo $_SESSION["name"]; ?>!</h1>
   <div class="box-section">
     <div class="row justify-content-end">
       <div>
@@ -40,6 +40,16 @@
         <th style="width:2.5%;">Composer</th>
       </tr>
       <?php
+      // if no compositions, say so
+      if (sizeof($compositions) === 0) {
+        echo "
+        <tr>
+            <td>You haven't joined or made a composition yet.</td>
+            <td></td>
+            <td></td>
+        </tr>";
+    }
+
       // For each composition, print whether or not user is the composer, the name, and the composer
       foreach ($compositions as $composition) {
         if ($_SESSION["email"] === $composition["composer_email"]) {

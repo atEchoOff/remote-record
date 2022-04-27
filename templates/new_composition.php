@@ -16,8 +16,8 @@
     <!-- Navbar -->
     <?php Builder::navbar(); ?>
 
-    <div class="row justify-content-center">
-        <div class="col-5">
+    <div class="row justify-content-center col-12">
+        <div class="col-6" style="min-width: 500px">
             <!-- Box to hold composition form -->
             <div class="box-section">
                 <div class="row">

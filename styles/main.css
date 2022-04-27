@@ -45,6 +45,12 @@ table {
     box-shadow: 5px 5px 10px rgb(62, 62, 62);
 }
 
+h1 {
+    margin-left:30px;
+    margin-top:5px;
+    margin-bottom:0px;
+}
+
 /* Only horizontal bars on tables */
 tr {
     height: 60px;
