@@ -225,8 +225,8 @@ class Controller
         $compositionError = "";
         if (isset($_POST) and isset($_POST["composition-name"]) and !empty($_POST["composition-name"])) {
             if (strpos($_POST["composition-name"], "/") === false) {
-                if (strpos($_POST["composition-name"], "'") === false) {
-                    if (strpos($_POST["composition-name"], "\"") === false) {
+                if (strpos($_POST["composition-name"], "&#039;") === false) {
+                    if (strpos($_POST["composition-name"], "&quot;") === false) {
                         if ($this->utils->getComposition($_POST["composition-name"]) === false) {
                             if ($_FILES['backtrack']['size'] < 1900000) {
                                 // Save the given backtrack
