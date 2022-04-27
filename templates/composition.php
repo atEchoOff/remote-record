@@ -50,7 +50,6 @@
         pos3 = e.clientX;
         // set the element's new position:
         let temp = parseFloat(elmnt.style.marginLeft.replaceAll("px", "")) + -pos1;
-        console.log(temp);
         if (temp < 0) {
 
           temp = 0;
@@ -127,11 +126,11 @@
         </div>
         <div style="clear:both"></div>
       </div>
-
+      <!-- Will contain audio after queried to stitch together edit panel -->
+      <!-- Scrolls using javascript -->
+      <div class="box-header" style="display:none; padding-left:0px; background-color:white; width:100%; overflow: hidden;" id="exampletrack">
+      </div>
       <div class="recording-section">
-        <!-- Will contain audio after queried to stitch together edit panel -->
-        <div class="box-header" style="display:none; padding-left:0px; background-color:white;" id="exampletrack">
-        </div>
         <?php
         if (sizeof($recordings) === 0) {
           echo "<h5>&emsp;No recordings</h5>";
@@ -279,10 +278,11 @@
         // Get new element
         let new_wave = $("#recboxtempfilesslash<?php echo $user['id']; ?>");
 
-        console.log(new_wave.width());
         // Multiply width of result by the zoom ratio
         new_wave.width(new_wave.width() * zoom_ratio);
-        console.log(new_wave.width());
+
+        // Reset the margins
+        new_wave.css("margin-left", -$('.recording-section').get(0).scrollLeft);
       });
 
       // set area to visible
@@ -320,6 +320,7 @@
   </script>
 
   <!-- Function to scroll gridlines on recording editor -->
+  <!-- Also scrolls the exampletrack -->
   <script>
     $(".recording-section").on("scroll", function() {
       // Get recording section
@@ -327,6 +328,10 @@
 
       // Scroll background position against scroll distance
       rec.css("background-position", -rec.get(0).scrollLeft);
+
+      // Also, scroll along the new wav
+      let new_wave = $("#recboxtempfilesslash<?php echo $user['id']; ?>");
+      new_wave.css("margin-left", -rec.get(0).scrollLeft);
     });
   </script>
 </body>
