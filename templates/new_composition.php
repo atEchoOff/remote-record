@@ -61,6 +61,14 @@
                 // Cannot contain /
                 compError.text("* Illegal character \"/\"");
                 compName.addClass("is-invalid");
+            } else if (compName.val().includes("'")) {
+                // Cannot contain '
+                compError.text("* Illegal character \"'\"");
+                compName.addClass("is-invalid");
+            } else if (compName.val().includes("\"")) {
+                // Cannot contain "
+                compError.text("* Illegal character \"");
+                compName.addClass("is-invalid");
             } else {
                 // Composition name is valid
                 compError.text("");
