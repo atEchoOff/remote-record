@@ -88,10 +88,17 @@
       <div class="box-header">
         <div class="btn-toolbar box-title" role="toolbar">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-            <!-- Query server to stitch together audio given parameters in edit panel -->
-            <a onclick="stitchAudio()">
-              <img src="images/merge.png" class="circular-button" alt="Play">
-            </a>
+            <?php
+            // Only show merge button if there are recordings
+            if (sizeof($recordings) !== 0) {
+            ?>
+              <!-- Query server to stitch together audio given parameters in edit panel -->
+              <a onclick="stitchAudio()">
+                <img src="images/merge.png" class="circular-button" alt="Play">
+              </a>
+            <?php
+            }
+            ?>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
             <!-- Zoom in edit panel -->
@@ -111,7 +118,11 @@
         <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <input type="text" class="form-control" placeholder="Product Name" style="margin-top:5px;width:300px;" id="name" name="name" required />
-            <button onclick="saveMergedAudio()" class="btn btn-success" style="margin-top:5px;">Save</button>
+            <button <?php
+                    if (sizeof($recordings) === 0) {
+                      echo "disabled";
+                    }
+                    ?> onclick="saveMergedAudio()" class="btn btn-success" style="margin-top:5px;">Save</button>
           </div>
         </div>
         <div style="clear:both"></div>
@@ -123,7 +134,7 @@
         </div>
         <?php
         if (sizeof($recordings) === 0) {
-          echo "<h5>No recordings</h5>";
+          echo "<h5>&emsp;No recordings</h5>";
         }
         foreach ($recordings as $recording) {
           Builder::playableWaveform($recording["location"], $recording["author_name"] . " - " . $recording["name"], $recording["id"], $delete = true, $drag = true);
@@ -248,7 +259,7 @@
       // Remove the last comma from margins
       margins = margins.slice(0, -1);
 
-      return [ids, margins];
+      return [ids, margins, width / 1024];
     }
 
     function stitchAudio() {
@@ -256,16 +267,28 @@
       let result = getIDsAndMargins();
       let ids = result[0];
       let margins = result[1];
+      let zoom_ratio = result[2];
 
       // Put loading there until waveform loads
       $('#exampletrack').html("<p>&emsp;Loading... Please Wait");
 
       // reload example track area to show merged track after loading
       // Get rid of spaces in composition name
-      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1 + "&composition=<?php echo str_replace(" ", "%20", $composition["name"]); ?>");
+      // When complete, adjust the zoom
+      $('#exampletrack').load('?command=stitch_audio&ids=' + ids + '&margins=' + margins + "&zoom=" + 1 + "&composition=<?php echo str_replace(" ", "%20", $composition["name"]); ?>", function() {
+        // Get new element
+        let new_wave = $("#recboxtempfilesslash<?php echo $user['id']; ?>");
+
+        console.log(new_wave.width());
+        // Multiply width of result by the zoom ratio
+        new_wave.width(new_wave.width() * zoom_ratio);
+        console.log(new_wave.width());
+      });
 
       // set area to visible
       document.getElementById("exampletrack").style.display = "block";
+
+
 
 
     }
