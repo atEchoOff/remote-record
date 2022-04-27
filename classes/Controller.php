@@ -185,6 +185,9 @@ class Controller
         // Get all composition products
         $products = $this->utils->getCompositionProducts($_GET["composition"]);
 
+        // Get the current user
+        $user = $this->utils->getUser($_SESSION["email"]);
+
         // if the current user is not the owner of the composition page
         // then redirect to the record page
         if ($_SESSION["email"] !== $composition["composer_email"]) {
