@@ -394,4 +394,23 @@ class Utils
         // Return the file location and the width
         return [$file_location, $new_width];
     }
+
+    /**
+     * Returns whether or not the given string is alphanumeric or a space
+     */
+    public static function isAlphaNumericOrSpace($str)
+    {
+        $legal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+
+        // For each character, check if it is a legal character
+        for ($i = 0; $i < strlen($str); $i++) {
+            if (strpos($legal, $str[$i]) === false) {
+                // Illegal character found
+                return false;
+            }
+        }
+
+        // All characters are legal, this is alphanumeric (or space)
+        return true;
+    }
 }

@@ -46,6 +46,22 @@
 
     <!-- Validation of composition-name -->
     <script>
+        // Check if all characters are all alphanumeric or spaces
+        function isAlphaNumericOrSpace(str) {
+            let legal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+
+            // For each character, check if it is a legal character
+            for (var i = 0; i < str.length; i++) {
+                if (legal.includes(str[i]) === false) {
+                    // Illegal character found
+                    return false;
+                }
+            }
+
+            // All characters are legal, this is alphanumeric (or space)
+            return true;
+        }
+
         function validate() {
             // Get composition name box
             let compName = $("#composition-name");
@@ -57,17 +73,8 @@
             if (compName.val().length === 0) {
                 compError.text("* Enter a composition name");
                 compName.addClass("is-invalid");
-            } else if (compName.val().includes("/")) {
-                // Cannot contain /
-                compError.text("* Illegal character \"/\"");
-                compName.addClass("is-invalid");
-            } else if (compName.val().includes("'")) {
-                // Cannot contain '
-                compError.text("* Illegal character \"'\"");
-                compName.addClass("is-invalid");
-            } else if (compName.val().includes("\"")) {
-                // Cannot contain "
-                compError.text("* Illegal character \"");
+            } else if (isAlphaNumericOrSpace(compName.val()) === false) {
+                compError.text("* Composition name must be alphanumeric or space");
                 compName.addClass("is-invalid");
             } else {
                 // Composition name is valid

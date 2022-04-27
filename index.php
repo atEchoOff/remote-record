@@ -42,6 +42,11 @@ foreach ($_POST as $key => $val) {
     $_POST[$key] = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
 }
 
+// Get rid of illegal characters in get to avoid XSS
+foreach ($_GET as $key => $val) {
+    $_GET[$key] = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+}
+
 // Run controller to display page
 $controller = new Controller($command);
 $controller->run();
