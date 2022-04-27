@@ -88,10 +88,17 @@
       <div class="box-header">
         <div class="btn-toolbar box-title" role="toolbar">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
-            <!-- Query server to stitch together audio given parameters in edit panel -->
-            <a onclick="stitchAudio()">
-              <img src="images/merge.png" class="circular-button" alt="Play">
-            </a>
+            <?php
+            // Only show merge button if there are recordings
+            if (sizeof($recordings) !== 0) {
+            ?>
+              <!-- Query server to stitch together audio given parameters in edit panel -->
+              <a onclick="stitchAudio()">
+                <img src="images/merge.png" class="circular-button" alt="Play">
+              </a>
+            <?php
+            }
+            ?>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group" style="margin-right:4px;">
             <!-- Zoom in edit panel -->
@@ -111,7 +118,11 @@
         <div class="btn-toolbar box-buttons" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-right:4px;">
             <input type="text" class="form-control" placeholder="Product Name" style="margin-top:5px;width:300px;" id="name" name="name" required />
-            <button onclick="saveMergedAudio()" class="btn btn-success" style="margin-top:5px;">Save</button>
+            <button <?php
+                    if (sizeof($recordings) === 0) {
+                      echo "disabled";
+                    }
+                    ?> onclick="saveMergedAudio()" class="btn btn-success" style="margin-top:5px;">Save</button>
           </div>
         </div>
         <div style="clear:both"></div>
@@ -123,7 +134,7 @@
         </div>
         <?php
         if (sizeof($recordings) === 0) {
-          echo "<h5>No recordings</h5>";
+          echo "<h5>&emsp;No recordings</h5>";
         }
         foreach ($recordings as $recording) {
           Builder::playableWaveform($recording["location"], $recording["author_name"] . " - " . $recording["name"], $recording["id"], $delete = true, $drag = true);
